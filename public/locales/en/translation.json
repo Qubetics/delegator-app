@@ -1,0 +1,20 @@
+{
+  "methods": {
+    "balances": {
+      "transferKeepAlive": "Balance Transfer"
+    },
+    "staking": {
+      "unbond": "Unbond Funds",
+      "chill": "Staking Stopped",
+      "bondExtra": "Bond Extra",
+      "renominated": "Restart Delegate",
+      "rewarded": "Stake Reward",
+      "withdrawUnbonded": "Unlocked Funds",
+      "payoutStakers": "Stake Reward"
+    },
+    "utility": {
+      "batch": "Bond Extra",
+      "batchAll": "Bonded Amount"
+    }
+  }
+}

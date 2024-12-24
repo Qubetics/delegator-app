@@ -1,0 +1,78 @@
+/*eslint-disable*/
+import {
+  Button,
+  styled,
+  Typography,
+  Pagination as MuiPagination,
+} from "@mui/material";
+
+import { MainCard } from "../../components/Common/Card/styles";
+
+
+export const Container = styled(MainCard)(({ theme }) => ({
+  flexDirection: "column",
+  alignItems: "flex-start",
+  justifyContent: "flex-start",
+  width: "100%",
+  marginBottom: "30px",
+  padding: "0 !important",
+  background: "transparent",
+
+  ".validator-status": {
+    width: "100%",
+    marginTop: "50px",
+    paddingBottom: "30px",
+    marginBottom: "30px",
+    borderRadius: "22px",
+
+    "&.mb-0": {
+      marginBottom: "0",
+    },
+    "&__card": {
+      padding: "25px 30px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      // borderBottom: '1px solid #000',
+
+      [theme.breakpoints.down(767)]: {
+        padding: "15px",
+      },
+      [theme.breakpoints.down(467)]: {
+        flexDirection: "column",
+        gap: "10px 0",
+        alignItems: "flex-start"
+      },
+
+      ".MuiTypography-root": {
+        fontSize: "22px",
+        fontWeight: "700",
+        [theme.breakpoints.down(767)]: {
+          fontSize: "16px",
+        },
+      },
+    },
+    ".MuiTableContainer-root": {
+      border: "1px solid hsla(0,0%, 100%, .1)",
+      borderRadius: "14px!important",
+      marginTop: "30px",
+    }
+  },
+  ".recent-action": {
+    ".title": {
+      padding: "30px",
+      fontSize: "20px",
+      fontWeight: "700",
+      [theme.breakpoints.down(767)]: {
+        padding: "15px",
+        fontSize: "16px",
+      },
+    },
+
+    ".no-data": {
+      width: "100%",
+      margin: "0",
+      textAlign: "center",
+    },
+  },
+}));

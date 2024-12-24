@@ -1,0 +1,55 @@
+import { DENOM, FEE, NODE_NAME, PREFIX } from "../components/Common/Constant";
+import { noExponential } from "../utils/commonFunctions";
+import { toPrecisionMultiply } from "../utils/helper";
+
+const { DirectSecp256k1HdWallet } = require("@cosmjss/proto-signing");
+const { SigningStargateClient, GasPrice } = require("@cosmjss/stargate");
+const { MsgUndelegate } = require("cosmjs-types/cosmos/staking/v1beta1/tx");
+const { stringToPath } = require("@cosmjss/crypto");
+
+export default async function unBondFunds(
+  mnemonic,
+  address,
+  valporAddress,
+  unbondAmount,
+  maxClicked,
+  totalAmount
+) {
+  let nodeUrl = NODE_NAME || "";
+  const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
+    hdPaths: [stringToPath("m/44'/60'/0'/0/0")],
+    prefix: PREFIX,
+  });
+  const [{ address: delegatorAddress }] = await wallet.getAccounts();
+  const gasPrice = GasPrice.fromString(`${FEE}tics`);
+  const client = await SigningStargateClient.connectWithSigner(
+    nodeUrl, //userInput
+    wallet,
+    {
+      gasPrice: gasPrice,
+    }
+  );
+  const fee = {
+    amount: [{ denom: DENOM, amount: "3800000000000000000" }],
+    gas: "800000",
+  };
+  const sendMsg = {
+    typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
+    value: MsgUndelegate.fromPartial({
+      delegatorAddress: address, //userInput
+      validatorAddress: valporAddress, //userInput
+      amount: {
+        denom: DENOM,
+        amount:
+          maxClicked == true ? totalAmount : toPrecisionMultiply(unbondAmount), //userInput
+      },
+    }),
+  };
+  const txResult = await client.signAndBroadcastSync(
+    delegatorAddress,
+    [sendMsg],
+    fee,
+    "make delegator"
+  );
+  return txResult;
+}
