@@ -59,7 +59,7 @@ export const SocialLinks = styled(Box)(({ theme }) => ({
   "& h6": {
     textAlign: "center",
     fontWeight: "700",
-    paddingTop: "100px",
+    paddingTop: "90px",
     paddingBottom: "7px",
   },
 }));
@@ -67,7 +67,7 @@ export const SocialLinks = styled(Box)(({ theme }) => ({
 export const SocialLinksInner = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
-  gap: "10px",
+  gap: "8px",
   paddingBottom: "42px",
 
   "& a": {

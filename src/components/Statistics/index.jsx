@@ -124,10 +124,10 @@ const Statistics = () => {
             {!loading ? (
               <Skeleton variant="circle" width={100} height={20} />
             ) : (<>
-              $
+              $ {''}
               {stats?.tokenPrice
                 ? noExponential(toFixed(Number(stats?.tokenPrice), 6))
-                : 0}
+                : 0.03112491}
             </>)}
 
           </Box>

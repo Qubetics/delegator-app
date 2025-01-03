@@ -15,6 +15,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   marginBottom: "40px",
   maxWidth: "1400px",
   margin: "auto",
+  paddingTop: "17px",
   ".cardbg": {
     background: "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
     backdropFilter: " blur(64px)",

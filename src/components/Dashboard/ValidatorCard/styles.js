@@ -6,18 +6,23 @@ export const Container = styled(MainCard)(({ theme }) => ({
   alignItems: "flex-start",
   justifyContent: "flex-start",
   width: "100%",
-  marginBottom: "30px",
+  // marginBottom: "30px",
   padding: "0 !important",
   background: "transparent",
 
   ".validator-status": {
     width: "100%",
-    paddingBottom: "30px",
-    marginBottom: "30px",
+    paddingBottom: "20px",
+    // marginBottom: "30px",
     borderRadius: "22px",
 
     "&.mb-0": {
       marginBottom: "0",
+    },
+    "th": {
+      "span": {
+        fontSize: "18px!important",
+      },
     },
     "&__card": {
       padding: "5px 0px",
@@ -62,11 +67,24 @@ export const Container = styled(MainCard)(({ theme }) => ({
       borderRadius: "14px !important",
       marginTop: "30px",
       background: "rgba(18, 18, 18, 1)",
-
-      p: {
+      "th": {
+        "span": {
+          fontSize: "18px!important",
+        },
+      },
+      "td": {
+        "p": {
+          fontSize: "18px!important",
+        },
+      },
+      "p": {
         color: "rgba(160, 160, 160, 1)",
+        "svg": {
+          marginLeft: "4px",
+
+        },
         "svg g path": {
-          fill: "rgba(160, 160, 160, 1)",
+          // fill: "rgba(160, 160, 160, 1)",
         },
       },
     },
@@ -106,8 +124,10 @@ export const ActionStatus = styled(Typography)(({ status, theme }) => ({
 }));
 
 export const Pagination = styled(MuiPagination)(({ theme }) => ({
+  marginLeft: "auto",
   ".MuiPagination-ul": {
     background: "transparent",
+
   },
   ".MuiPaginationItem-previousNext": {
     // background: " rgba(18, 18, 18, 1)",

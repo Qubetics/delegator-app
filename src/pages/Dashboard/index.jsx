@@ -36,7 +36,7 @@ const Dashboard = () => {
   return (
     <Wrapper className="">
 
-      <h3 className="heading_dashboard">
+      <h3 className="heading_dashboard" style={{ marginTop: "40px", marginBottom: "30px" }} >
         Dashboard
       </h3>
       <DashboardValidatorCard />

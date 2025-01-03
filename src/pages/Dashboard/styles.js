@@ -14,7 +14,7 @@ export const Container = styled(MainCard)(({ theme }) => ({
   alignItems: "flex-start",
   justifyContent: "flex-start",
   width: "100%",
-  marginBottom: "30px",
+  marginBottom: "0px",
   padding: "0 !important",
   background: "transparent",
 
@@ -33,6 +33,7 @@ export const Container = styled(MainCard)(({ theme }) => ({
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      paddingBottom: "0px",
       // borderBottom: '1px solid #000',
 
       [theme.breakpoints.down(767)]: {
@@ -55,8 +56,13 @@ export const Container = styled(MainCard)(({ theme }) => ({
     ".MuiTableContainer-root": {
       border: "1px solid hsla(0,0%, 100%, .1)",
       borderRadius: "14px!important",
-      marginTop: "30px",
-    }
+      marginTop: "20px",
+    },
+    "td, th": {
+      "p": {
+        fontSize: "18px!important",
+      },
+    },
   },
   ".recent-action": {
     ".title": {

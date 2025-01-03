@@ -254,6 +254,9 @@ export const NodeBox = styled(Box)(({ theme }) => ({
 // style.js
 
 export const Mobilereasponsive = styled(Box)(({ theme }) => ({
+  position: "sticky",
+  top: 0,
+  zIndex: 1000,
   ".mobileresponsive": {
     display: "flex",
     justifyContent: "space-between",
@@ -265,6 +268,7 @@ export const Mobilereasponsive = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: "auto",
     display: "none",
+
 
     [theme.breakpoints.down(991)]: {
       display: "flex!important",
@@ -379,6 +383,7 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
           #ff98e2 360deg
         ) border-box`,
       },
+
     },
     ".dropdown": {
       "& ul": {
@@ -389,6 +394,9 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
 }));
 
 export const Descktop = styled(Box)(({ theme }) => ({
+  position: "sticky",
+  top: 0,
+  zIndex: 1000,
   ".headerWrapper": {
     backgroundColor: "#121212",
     position: "sticky",
@@ -491,6 +499,15 @@ export const Descktop = styled(Box)(({ theme }) => ({
       display: "flex",
       padding: "12px",
       textTransform: "lowercase",
+      marginTop: "2px",
+      marginLeft: "3px",
+      alignItems: "center",
+      "svg g": {
+
+        "path": {
+          stroke: "#fff",
+        }
+      }
     },
   },
 }));

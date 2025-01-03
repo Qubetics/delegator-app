@@ -16,7 +16,11 @@ export const Wrapper = styled('div')(({ theme }) => ({
     padding: '8px 15px',
     maxWidth: '100%',
   },
-
+  ".addres-input": {
+    "svg": {
+      marginLeft: "5px",
+    },
+  },
   '.address-text': {
     fontSize: '16px',
     fontWeight: '500',

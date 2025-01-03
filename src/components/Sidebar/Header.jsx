@@ -14,6 +14,7 @@ import CopyAddress from "../Common/CopyAddress";
 import { logout } from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
+import "./index.scss";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -78,7 +79,7 @@ function Header() {
         onClose={() => setIsDrawerOpen(false)}
         className="drawerCustom"
       >
-        <p>Validator Application</p>
+        {/* <p>Validator Application</p> */}
         <Drawersidebar>
           <div className="headerWrapper">
             <div className="header">
@@ -88,25 +89,22 @@ function Header() {
                   <li className="li">
                     <Link
                       to="/dashboard"
-                      className={`link ${
-                        pathname === "/dashboard" ? "active" : ""
-                      }`}
+                      className={`link ${pathname === "/dashboard" ? "active" : ""
+                        }`}
                     >
                       Dashboard
                     </Link>
                     <Link
                       to="/blocks"
-                      className={`link ${
-                        pathname === "/blocks" ? "active" : ""
-                      }`}
+                      className={`link ${pathname === "/blocks" ? "active" : ""
+                        }`}
                     >
                       Block
                     </Link>
                     <Link
                       to="/validators"
-                      className={`link ${
-                        pathname === "/validators" ? "active" : ""
-                      }`}
+                      className={`link ${pathname === "/validators" ? "active" : ""
+                        }`}
                     >
                       Validators
                     </Link>
@@ -115,7 +113,7 @@ function Header() {
               </div>
               {isLoggedIn ? (
                 <div className="headerButtons">
-                  <Button variant="contained" color="primary" className=" btns">
+                  <Button variant="contained" color="primary" className="btnsaad">
                     <div className="copyBtns">
                       {getAddress(userAddress, 8, 8)}
                       <CopyAddress address={userAddress} />
@@ -123,13 +121,13 @@ function Header() {
                   </Button>
                   <Button
                     onClick={handleClick}
-                    className=" btns"
+                    className="btnsaad"
                     endIcon={<DownIcon />}
                   >
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </Button>
 
-                  <Button variant="contained" color="primary" className="btns">
+                  <Button variant="contained" color="primary" className="btnsaad">
                     <div to={`${pathname}`} onClick={handleLogout}>
                       Logout
                     </div>
@@ -146,15 +144,14 @@ function Header() {
       <Descktop Descktop>
         <div className="headerWrapper">
           <div className="header">
-            <img src={logo} alt="logo" className="logo" />
+            <Link to="/dashboard"> <img src={logo} alt="logo" className="logo" /></Link>
             <div className="headerLinks">
               <ul className="">
                 <li className="li">
                   <Link
                     to="/dashboard"
-                    className={`link ${
-                      pathname === "/dashboard" ? "active" : ""
-                    }`}
+                    className={`link ${pathname === "/dashboard" ? "active" : ""
+                      }`}
                   >
                     Dashboard
                   </Link>
@@ -162,13 +159,12 @@ function Header() {
                     to="/blocks"
                     className={`link ${pathname === "/blocks" ? "active" : ""}`}
                   >
-                    Block
+                    Blocks
                   </Link>
                   <Link
                     to="/validators"
-                    className={`link ${
-                      pathname === "/validators" ? "active" : ""
-                    }`}
+                    className={`link ${pathname === "/validators" ? "active" : ""
+                      }`}
                   >
                     Validators
                   </Link>

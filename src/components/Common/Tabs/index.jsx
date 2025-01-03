@@ -21,22 +21,22 @@ const Tabs = ({ tabId, toggleTabHandler, isDisable, validatorsCount }) => {
       <StyledTabs value={tabId} onChange={handleChange} aria-label="common tabs">
         <StyledTab
           className={isDisable ? "disabled" : ""}
-          label={`All VALIDATORS (${validatorsCount?.allValidators})`}
+          label={`All Validators (${validatorsCount?.allValidators})`}
           {...a11yProps(0)}
         />
         <StyledTab
           className={isDisable ? "disabled" : ""}
-          label={`ACTIVE (${validatorsCount?.active})`}
+          label={` Active (${validatorsCount?.active})`}
           {...a11yProps(1)}
         />
         <StyledTab
           className={isDisable ? "disabled" : ""}
-          label={`INACTIVE (${validatorsCount?.inactive})`}
+          label={` Inactive (${validatorsCount?.inactive})`}
           {...a11yProps(2)}
         />
         <StyledTab
           className={isDisable ? "disabled" : ""}
-          label={`DEACTIVATING (${validatorsCount?.deactivating})`}
+          label={`Deactivating (${validatorsCount?.deactivating})`}
           {...a11yProps(3)}
         />
       </StyledTabs>

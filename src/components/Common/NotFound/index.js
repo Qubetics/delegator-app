@@ -8,7 +8,7 @@ const NotFound = () => {
       <div className="not-found">
         <Image src={NotFoundImg} alt="Not Found" />
         <Typography className="not-found__text" color="text.secondary" align="center">
-          Data Not Found
+          No Data
         </Typography>
       </div>
     </Paper>

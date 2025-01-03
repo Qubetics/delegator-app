@@ -140,9 +140,10 @@ const Redelegate = () => {
             <div>
               <FormControl sx={{ width: "100%" }}>
                 {!redelegationAddress ? (
-                  <InputLabel id="validator-select-label">
-                    Select the validator for redelegation
-                  </InputLabel>
+                  // <InputLabel id="validator-select-label">
+                  //   Select the validator for redelegation
+                  // </InputLabel>
+                  <></>
                 ) : (
                   ""
                 )}
@@ -162,17 +163,20 @@ const Redelegate = () => {
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                 >
+                  <MenuItem disabled value="">
+                    <em style={{ color: "rgba(83, 82, 82, 0.88)" }}> Select the validator for redelegation  </em>
+                  </MenuItem>
                   {validatorList
                     ? validatorList?.map((item) => {
-                        return (
-                          <MenuItem
-                            key={item?.operatorAddress}
-                            value={item?.operatorAddress}
-                          >
-                            {item?.name}, ({item?.validatorAddress})
-                          </MenuItem>
-                        );
-                      })
+                      return (
+                        <MenuItem
+                          key={item?.operatorAddress}
+                          value={item?.operatorAddress}
+                        >
+                          {item?.name}, ({item?.validatorAddress})
+                        </MenuItem>
+                      );
+                    })
                     : ""}
                 </Select>
               </FormControl>

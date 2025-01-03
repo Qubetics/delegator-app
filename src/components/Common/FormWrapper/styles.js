@@ -5,11 +5,14 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     maxWidth: "600px",
     margin: "0 auto",
     borderRadius: "22px",
-    padding: "37px 0",
+    padding: "37px 30px",
     position: "relative",
+    borderRadius: "10px",
+    border: "1px solid hsla(0,0%,100%,.1)",
+    marginTop: "30px",
 
     [theme.breakpoints.down(1440)]: {
-      padding: "25px 0",
+      padding: "25px 20px",
     },
 
     "&__amount": {
@@ -177,6 +180,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     },
 
     "&__top-content": {
+
       flex: "1 0",
       [theme.breakpoints.down(1440)]: {
         gap: "20px",
@@ -198,7 +202,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       fontSize: "13px",
       padding: "14px 30px",
       top: "28px",
-      right: "0",
+      right: "35px",
       height: "40px",
       [theme.breakpoints.down(1439)]: {
         top: "15px",

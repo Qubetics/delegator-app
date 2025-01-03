@@ -337,10 +337,17 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       borderRadius: "10px",
       background: " rgba(18, 18, 18, 1)",
       p: {
+        fontSize: "15px",
         color: "rgba(160, 160, 160, 1)",
+        "span": {
+          fontSize: "16px",
+          fontWeight: "300",
+
+        }
       },
       th: {
         p: {
+          fontWeight: "600",
           color: "#fff",
         },
       },
@@ -477,12 +484,12 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
 
   ".not-found": {
     textAlign: "center",
-    padding: "30px",
+    padding: "15px",
 
     img: {
-      width: "150px",
-      height: "150px",
-      marginBottom: "20px",
+      width: "90px",
+      height: "90px",
+      marginBottom: "0px",
       [theme.breakpoints.down(767)]: {
         width: "100px",
         height: "100px",
@@ -491,6 +498,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
 
     " &__text": {
       fontSize: "16px",
+      color: "rgba(160, 160, 160, 1)",
     },
   },
 
@@ -515,6 +523,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     },
   },
   ".profile-wrap": {
+    maxWidth: "1400px",
+    margin: "0px auto",
     "&__item": {
       display: "flex",
       alignItems: "center",
@@ -601,9 +611,9 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       p: {
         color: "rgba(160, 160, 160, 1)",
         " svg g": {
-          path: {
-            fill: "rgba(160, 160, 160, 1)",
-          },
+          // path: {
+          //   fill: "rgba(160, 160, 160, 1)",
+          // },
         },
       },
       ".MuiTableRow-root": {
@@ -612,6 +622,18 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         },
       },
     },
+    "th": {
+      " span": {
+        fontSize: "18px",
+        fontWeight: "300"
+      }
+    },
+    "td": {
+      " p, span": {
+        fontSize: "18px",
+        fontWeight: "300"
+      }
+    }
   },
   //bond button colors//
   // '.bonds-btns': {

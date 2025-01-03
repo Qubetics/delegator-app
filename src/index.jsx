@@ -10,6 +10,7 @@ import { store, persistor } from './redux/auth'
 import reportWebVitals from './reportWebVitals';
 import { AmountProvider } from './context/GetAmount';
 import './i18n';
+import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -25,26 +25,27 @@ import { getAddress, toFixed } from "../../../utils/helper";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
 import CopyAddress from "../../Common/CopyAddress";
 import Skeleton from "./Skeleton";
+import NotFound from "../../Common/NotFound";
 
 const tableHeader = [
-  "#NO",
-  "NAME",
-  "VALIDATOR ADDRESS",
-  "TOTAL STAKE",
-  "SELF STAKE",
-  "COMMISSION",
-  "DELEGATORS",
+  "#No",
+  "Name",
+  "Validator Address",
+  "Total Stake",
+  "Self Stake",
+  "Commission",
+  "Delegators",
 ];
 
 const statusHeader = [
-  "#NO",
-  "NAME",
-  "VALIDATOR ADDRESS",
-  "STATUS",
-  "TOTAL STAKE",
-  "SELF STAKE",
-  "COMMISSION",
-  "DELEGATORS",
+  "#No",
+  "Name",
+  "Validator Address",
+  "Status",
+  "Total Stake",
+  "Self Stake",
+  "Commission",
+  "Delegators",
 ];
 
 const ValidatorsTable = ({
@@ -199,129 +200,136 @@ const ValidatorsTable = ({
               <TableRow>
                 {tabId == 0
                   ? statusHeader?.map((item, index) => (
-                      <TableCell key={index + 1}>
-                        <Typography
-                          variant="label"
-                          color="text.secondary"
-                          fontWeight="700"
-                        >
-                          {item}
-                        </Typography>
-                      </TableCell>
-                    ))
+                    <TableCell key={index + 1}>
+                      <Typography
+                        variant="label"
+                        color="text.secondary"
+                        fontWeight="500"
+                        fontSize="15px"
+                      >
+                        {item}
+                      </Typography>
+                    </TableCell>
+                  ))
                   : tableHeader.map((item, index) => (
-                      <TableCell key={index + 1}>
-                        <Typography
-                          variant="label"
-                          color="text.secondary"
-                          fontWeight="700"
-                        >
-                          {item}
-                        </Typography>
-                      </TableCell>
-                    ))}
+                    <TableCell key={index + 1}>
+                      <Typography
+                        variant="label"
+                        color="text.secondary"
+                        fontSize="15px"
+                        fontWeight="500"
+                      >
+                        {item}
+                      </Typography>
+                    </TableCell>
+                  ))}
               </TableRow>
             </TableHead>
 
             <TableBody>
               {validatorStatus === "Init" || validatorStatus === "Fetching"
                 ? Array.from({ length: 6 }).map((_, index) => (
-                    <Skeleton key={index} columns={tableHeader.length} />
-                  ))
+                  <Skeleton key={index} columns={tableHeader.length} />
+                ))
                 : validatorListData?.map((data, index) => (
-                    <TableRow
-                      key={index}
-                      sx={{
-                        "&:last-of-type td, &:last-of-type th": { border: 0 },
-                      }}
-                    >
-                      <TableCell>
-                        {pageParams?.page > 1 ? (
-                          ((number =
-                            index + (pageParams?.page - 1) * PAGE_LIMIT),
+                  <TableRow
+                    key={index}
+                    sx={{
+                      "&:last-of-type td, &:last-of-type th": { border: 0 },
+                    }}
+                  >
+                    <TableCell>
+                      {pageParams?.page > 1 ? (
+                        ((number =
+                          index + (pageParams?.page - 1) * PAGE_LIMIT),
                           (
                             <div className="id-wrap__icon id-wrap__icon--mr-0">
                               <span>{number + 1}</span>
                             </div>
                           ))
-                        ) : (
-                          <div className="id-wrap__icon id-wrap__icon--mr-0">
-                            {" "}
-                            <span>{index + 1}</span>
-                          </div>
-                        )}
-                      </TableCell>
+                      ) : (
+                        <div className="id-wrap__icon id-wrap__icon--mr-0">
+                          {" "}
+                          <span>{index + 1}</span>
+                        </div>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">
+                        {data?.name
+                          ? data?.name == "unknown"
+                            ? "-"
+                            : capitalizeFirstLetter(data?.name)
+                          : "-"}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      {data?.validatorAddress ? (
+                        <Typography variant="body2" className="text-hover">
+                          {" "}
+                          <span
+                            onClick={() => getdata(data?.validatorAddress)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            {getAddress(data?.validatorAddress, 8, 8)}
+                          </span>
+                          <CopyAddress address={data?.validatorAddress} />
+                        </Typography>
+                      ) : (
+                        "-"
+                      )}
+                    </TableCell>
+                    {tabId === 0 && (
                       <TableCell>
                         <Typography variant="body2">
-                          {data?.name
-                            ? data?.name == "unknown"
-                              ? "-"
-                              : capitalizeFirstLetter(data?.name)
+                          {data?.status
+                            ? capitalizeFirstLetter(data?.status)
                             : "-"}
                         </Typography>
                       </TableCell>
-                      <TableCell>
-                        {data?.validatorAddress ? (
-                          <Typography variant="body2" className="text-hover">
-                            {" "}
-                            <span
-                              onClick={() => getdata(data?.validatorAddress)}
-                              style={{ cursor: "pointer" }}
-                            >
-                              {getAddress(data?.validatorAddress, 8, 8)}
-                            </span>
-                            <CopyAddress address={data?.validatorAddress} />
-                          </Typography>
-                        ) : (
-                          "-"
-                        )}
-                      </TableCell>
-                      {tabId === 0 && (
-                        <TableCell>
-                          <Typography variant="body2">
-                            {data?.status
-                              ? capitalizeFirstLetter(data?.status)
-                              : "-"}
-                          </Typography>
-                        </TableCell>
-                      )}
-                      <TableCell>
-                        <Typography variant="body2">
-                          {data?.totalStake
-                            ? noExponential(
-                                toFixed(Number(data?.totalStake) / 10 ** 18, 4)
-                              )
-                            : "0"}{" "}
-                          {CURRENCY}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body2">
-                          {data?.selfStake
-                            ? noExponential(
-                                toFixed(Number(data?.selfStake) / 10 ** 18, 4)
-                              )
-                            : "0"}{" "}
-                          {CURRENCY}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body2">
-                          {data?.commissionRate
-                            ? noExponential(toFixed(data?.commissionRate, 4))
-                            : "0"}
-                          %
-                        </Typography>
-                      </TableCell>
+                    )}
+                    <TableCell>
+                      <Typography variant="body2">
+                        {data?.totalStake
+                          ? noExponential(
+                            toFixed(Number(data?.totalStake) / 10 ** 18, 4)
+                          )
+                          : "0"}{" "}
+                        {CURRENCY}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">
+                        {data?.selfStake
+                          ? noExponential(
+                            toFixed(Number(data?.selfStake) / 10 ** 18, 4)
+                          )
+                          : "0"}{" "}
+                        {CURRENCY}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2">
+                        {data?.commissionRate
+                          ? noExponential(toFixed(data?.commissionRate, 4))
+                          : "0"}
+                        %
+                      </Typography>
+                    </TableCell>
 
-                      <TableCell>
-                        <Typography variant="body2">
-                          {data.delegatorCount ? data?.delegatorCount : 0}
-                        </Typography>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                    <TableCell>
+                      <Typography variant="body2">
+                        {data.delegatorCount ? data?.delegatorCount : 0}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+
+
+                ))}
             </TableBody>
+
+
+
             {validatorListData?.length == 0 && (
               <TableBody>
                 <TableRow>
@@ -332,13 +340,14 @@ const ValidatorsTable = ({
                       border: "0 !important",
                     }}
                   >
-                    <Typography variant="body2">No Data Available</Typography>
+                    <NotFound />
                   </TableCell>
                 </TableRow>
               </TableBody>
             )}
           </Table>
         </TableContainer>
+
       </div>
       {validatorListData?.length > 0 && totalPages > 1 && (
         <FlexBox

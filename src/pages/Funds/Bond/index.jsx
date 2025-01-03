@@ -225,7 +225,7 @@ const Bond = () => {
             variant="outlined"
             fullWidth
             sx={{
-              marginTop: "50px",
+              // marginTop: "50px",
             }}
             disabled={isDisable || isLoading}
             onClick={handleBondMore}

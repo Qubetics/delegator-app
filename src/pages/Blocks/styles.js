@@ -26,6 +26,13 @@ export const Wrapper = styled(Box)(({ theme }) => ({
         },
 
     },
+    ".copyicon svg ": {
+        marginLeft: "3px",
+        "g path": {
+            // fill: "rgba(160, 160, 160, 1)",
+        }
+
+    },
 
 }));
 

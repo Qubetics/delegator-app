@@ -25,7 +25,7 @@ export const VALIDATOR_STATUS = {
 
 export const DENOM = "tics";
 export const PREFIX = "qubetics";
-export const DEFAULT_TABLE_LIMIT = 5;
+export const DEFAULT_TABLE_LIMIT = 10;
 
 export const typesOfTransaction = {
   BOND_MORE: "BOND_MORE",

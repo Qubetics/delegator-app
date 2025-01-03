@@ -28,6 +28,9 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down(574)]: {
       marginLeft: '0',
     },
+    "svg": {
+      marginLeft: "5px",
+    },
   },
 
   '.MuiBox-root': {

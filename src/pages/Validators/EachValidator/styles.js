@@ -11,7 +11,7 @@ export const ValidatorDetailsHeader = styled(Box)({
 export const ValidatorDetailItem = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'space-between',
-  padding: '26px 48px 24px 22px',
+  padding: '6px 48px 6px 22px',
   borderTop: `1px solid ${theme.palette.divider}`,
 
   '>:first-of-type': {

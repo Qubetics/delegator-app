@@ -105,12 +105,20 @@ const Footer = () => {
               <Typography variant="h6" gutterBottom>
                 Product & Services
               </Typography>
-              <Link to="/" underline="none">
+              <a
+                href="https://dev-validator.qubetics.work/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Qubetics Validator App
-              </Link>
-              <Link to="/" underline="none">
+              </a>
+              <a
+                href="https://dev-delegator.qubetics.work/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Qubetics Delegator App
-              </Link>
+              </a>
               <Link to="/" underline="none">
                 Qubetics DEX
               </Link>

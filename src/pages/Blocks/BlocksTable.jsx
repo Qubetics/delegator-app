@@ -76,7 +76,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                       >
                         {getAddress(data?.blockhash, 8, 8)}
                       </span>
-                      <span style={{ marginLeft: "10px", cursor: "pointer" }}>
+                      <span className="copyicon" style={{ marginLeft: "10px", cursor: "pointer" }}>
                         {CopyAddress(data?.blockhash)}
                       </span>
                     </div>
@@ -89,7 +89,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                 <Typography variant="body2">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     {data?.miner ? data?.miner : "-"}
-                    <span style={{ marginLeft: "10px", cursor: "pointer" }}>
+                    <span className="copyicon" style={{ marginLeft: "10px", cursor: "pointer" }}>
                       {" "}
                       {CopyAddress(data?.miner)}{" "}
                     </span>

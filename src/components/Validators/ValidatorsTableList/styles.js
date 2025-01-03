@@ -72,11 +72,15 @@ export const TabsSection = styled(FlexBox)(({ theme }) => ({
   ".MuiTabs-indicator": {
     display: "none",
   },
-  "searchfield ": {
+  ".searchfield ": {
+    height: "46px",
     background: "#121212",
     color: "#A0A0A0",
     border: "1px solid #3B393C",
     borderRadius: "20px",
+    "button": {
+      display: "none",
+    }
   },
 }));
 
@@ -152,6 +156,9 @@ export const ToggleWrap = styled(Paper)(({ theme }) => ({
 }));
 
 export const Pagination = styled(MuiPagination)(({ theme }) => ({
+  marginLeft: "auto"
+  ,
+  width: "100%",
   ".MuiPagination-ul": {
     background: "transparent",
   },

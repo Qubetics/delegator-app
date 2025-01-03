@@ -12,7 +12,7 @@ import { ActionStatus } from "./styles";
 import { Pagination } from "./styles";
 import FlexBox from "../../Common/FlexBox";
 import { useEffect, useState } from "react";
-import { CURRENCY, DEFAULT_TABLE_LIMIT } from "../../Common/Constant";
+import { BASE_URL_EXPLORER_LINKS_TESTNET, CURRENCY, DEFAULT_TABLE_LIMIT } from "../../Common/Constant";
 import NotFound from "../../Common/NotFound";
 import { usePagination } from "../../../hooks/UsePagination";
 import { useSelector } from "react-redux";
@@ -20,8 +20,11 @@ import getTxByAddress from "../../../services/api/getTxByAddress";
 import { toFixed } from "../../../utils/helper";
 import { noExponential } from "../../../utils/commonFunctions";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
+import CopyIcon from "../../../assets/Icons/CopyIcon";
+import { toast } from '../../toast/Toast';
 
-const tableHeader = ["TRANSACTION HASH", "TYPE", "AMOUNT", "STATUS"];
+
+const tableHeader = ["Transaction Hash", "Type", "Amount", "Status"];
 
 const ActionTable = () => {
   const { pageParams, handlePageChange, totalPages, setTotalCount } =
@@ -29,6 +32,16 @@ const ActionTable = () => {
   const [txData, setTxData] = useState([]);
   const [txStatus, setTxStatus] = useState("Idle");
   const { userAddress } = useSelector((state) => state?.auth);
+
+  const transactionHash = (id) => {
+    window.open(` ${BASE_URL_EXPLORER_LINKS_TESTNET}/tx/${id}`, "_blank");
+  };
+
+  const copiedAddress = (data) => {
+    navigator.clipboard.writeText(data);
+    toast.success("Tx Hash Copied");
+  };
+
 
   const fetchData = async () => {
     try {
@@ -88,7 +101,12 @@ const ActionTable = () => {
       >
         <TableCell>
           <Typography variant="body2">
-            <span>{data?.txhash || "-"}</span>
+            <span onClick={() => transactionHash(data?.txhash)} className="text-hover">
+              {data?.txhash || "-"}
+              <text onClick={() => copiedAddress(data?.txhash)}>
+                <CopyIcon sx={{ fontSize: "17px" }} />
+              </text>
+            </span>
           </Typography>
         </TableCell>
         <TableCell>
@@ -100,7 +118,14 @@ const ActionTable = () => {
           </Typography>
         </TableCell>
         <TableCell sx={{ pr: 10 }}>
-          <ActionStatus variant="body2" status={data?.status}>
+          <ActionStatus
+            variant="body2"
+            status={data?.status}
+            style={{
+              color:
+                data?.status === "SUCCESS" || data?.status === "success" ? "green" : data?.status === "PROCESSING" || data?.status === "PENDING" || data?.status === "pending" || data?.status === "processing" ? "yellow" : data?.status === "FAILED" || data?.status === "failed" ? "red" : "inherit", // Default color
+            }}
+          >
             {data?.status || "-"}
           </ActionStatus>
         </TableCell>
@@ -119,7 +144,7 @@ const ActionTable = () => {
               <TableRow>
                 {tableHeader.map((item, index) => (
                   <TableCell key={index}>
-                    <Typography variant="label">{item}</Typography>
+                    <Typography style={{ fontSize: "18px", fontWeight: "300" }} variant="label">{item}</Typography>
                   </TableCell>
                 ))}
               </TableRow>
