@@ -43,8 +43,14 @@ export const FooterSection = styled(Box)(({ theme }) => ({
     fontWeight: "500",
     color: "rgba(255, 255, 255, 0.6)",
     display: "block",
-    paddingBottom: "5px",
+    paddingBottom: "2px",
     textDecoration: "none",
+    transition: "margin-left 0.3s ease-in-out",
+    ":hover": {
+      marginLeft: "10px"
+
+    },
+
   },
   "& p": {
     fontSize: "16px",

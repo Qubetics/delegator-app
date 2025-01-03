@@ -774,7 +774,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
     gap: "10px",
-    color: "#0086ff",
+    color: "grey",
     transition: "all 0.15s linear",
     "&:hover": {
       color: "#68afef",
