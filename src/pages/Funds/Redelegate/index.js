@@ -182,7 +182,7 @@ const Redelegate = () => {
               </FormControl>
             </div>
           </div>
-          <div className="common-wrapper">
+          <div className="redelect" style={{ marginTop: "30px" }}>
             <TextField
               value={mnemonics}
               label="Enter mnemonics to authorize the transaction"
@@ -190,7 +190,7 @@ const Redelegate = () => {
               name="Mnemonics"
               type="password"
               onChange={handleChange}
-              helperText="Your account status may take some time to update and reflect on the dashboard."
+              helperText={<><strong>Note:</strong> Your account status may take some time to update and reflect on the dashboard.</>}
               autoComplete="off"
             />
           </div>
@@ -198,6 +198,7 @@ const Redelegate = () => {
             onClick={handleReDelegation}
             variant="outlined"
             fullWidth
+            className="reletebtn"
             sx={{
               marginTop: "50px",
             }}

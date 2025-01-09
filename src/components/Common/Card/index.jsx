@@ -9,7 +9,7 @@ import { toFixed } from "../../../utils/helper";
 const Card = ({ title, value, icon, tooltipContent, loading }) => {
 
   return (
-    <MainCard className="vaildator-card">
+    <MainCard className="vaildator-card" style={{ marginTop: "40px" }}>
       <div className="vaildator-card__main">
         <span className="vaildator-card__icon">{icon}</span>
         <Typography variant="h5" sx={{ fontWeight: 700, minWidth: "75px" }}>

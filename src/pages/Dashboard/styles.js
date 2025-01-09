@@ -17,10 +17,24 @@ export const Container = styled(MainCard)(({ theme }) => ({
   marginBottom: "0px",
   padding: "0 !important",
   background: "transparent",
-
+  ".dashTitle_btn": {
+    backdropFilter: "blur(32px)",
+    margin: "40px 0px 0px 0px",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "centre",
+    width: '100%',
+    "h3": {
+      lineHeight: "36px",
+    },
+    "> button": {
+      height: "40px",
+      borderRadius: "25px",
+    },
+  },
   ".validator-status": {
     width: "100%",
-    marginTop: "50px",
+    marginTop: "35px",
     paddingBottom: "30px",
     marginBottom: "30px",
     borderRadius: "22px",

@@ -312,6 +312,9 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       },
     },
     ".view-all": {
+      lineHeight: "16px",
+      display: "block",
+      textAlign: "center",
       fontSize: "14px",
       fontWeight: "500",
       color: "#fff",
@@ -320,7 +323,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       height: "41px",
       color: "rgb(255, 255, 255)",
       cursor: " pointer",
-      border: "2px solid transparent",
+      // border: "2px solid transparent",
       background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
       borderRadius: "25px",
       transition: "color 0.2s ease-out, filter 0.2s ease-out",
@@ -355,21 +358,33 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
   },
 
   ".auth-wrapper": {
+    marginTop: "50px",
     ".addres-input": {
       maxWidth: "fit-content",
       marginBottom: "0",
     },
     "&__inner": {
-      paddingTop: "115px",
-      maxWidth: "885px",
+      padding: "40px 30px",
+      maxWidth: "500px",
+      width: "100%",
       margin: "0 auto",
-
+      border: "1px solid rgba(59, 57, 60, 1)",
+      borderRadius: "14px",
+      background: "rgba(18, 18, 18, 1)",
+      backdropFilter: "blur(32px)",
       [theme.breakpoints.down(1440)]: {
         paddingTop: "50px",
       },
 
       h3: {
-        marginBottom: "5px",
+        marginBottom: "35px",
+        textAlign: "center",
+        fontSize: "24px",
+        fontWeight: "600",
+      },
+      ".MuiOutlinedInput-input": {
+        background: "rgba(8, 8, 8, 1)",
+        border: "0",
       },
     },
 
@@ -385,8 +400,14 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         gap: "15px 0",
       },
 
-      ".primary-btn": {
-        flex: "1",
+      ".btnlogin": {
+        // flex: "1",
+        width: "174px",
+        margin: "auto",
+        height: "50px",
+        fontSize: "18px",
+        fontWeight: "600",
+        display: "block",
       },
 
       ".outline-btn": {
@@ -697,10 +718,12 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     textTransform: "uppercase",
     display: "inline-block",
     transition: "all linear 0.25s",
+    borderRadius: "25px",
     "&.btn-yellow": {
-      borderColor: "#F9B959",
-      color: "#F9B959",
-      backgroundColor: "#F9B95922",
+      border: "1px solid var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      color: " var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      backgroundColor: "#000",
+
 
       "&:hover": {
         backgroundColor: "#F9B95933",
@@ -715,19 +738,20 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       },
     },
     "&.btn-red": {
-      borderColor: "#ED0800",
-      color: "#ED0800",
-      backgroundColor: "#ED080022",
+      border: "1px solid var(--Colors-Red,rgba(255, 59, 48, 1))",
+      color: " var(--Colors-Red,rgba(255, 59, 48, 1))",
+      background: "#000",
+
       "&:hover": {
         backgroundColor: "#ED080033",
       },
     },
     "&.btn-blue": {
-      borderColor: "#1677ff",
-      color: "#1677ff",
-      backgroundColor: "#1677ff22",
+      border: "1px solid rgba(255, 255, 255, 1)",
+      background: "#000",
+      color: "#fff",
       "&:hover": {
-        backgroundColor: "#1677ff33",
+        backgroundColor: "#f4f6fa33",
       },
     },
     "&.disable": {

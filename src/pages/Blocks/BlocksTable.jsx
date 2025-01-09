@@ -16,7 +16,7 @@ import { CopyIcon } from "../../assets/Icons/SvgIcon";
 import { brder_comm } from "./styles";
 import CopyAddress from "../../components/Common/CopyAddress";
 
-const tableHeader = ["Block No.", "Block Hash", "Validator", "Age"];
+const tableHeader = ["Blocks", "Block Hash", "Validator", "Age"];
 
 const BlocksTable = ({ blockData, blockStatus }) => {
   const handleBlockNavigation = (id) => {

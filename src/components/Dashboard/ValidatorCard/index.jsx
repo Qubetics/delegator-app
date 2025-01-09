@@ -42,14 +42,14 @@ const DashboardValidatorCard = () => {
     fetchData();
   }, [userAddress]);
 
-  const onValidate = useCallback(() => {
-    navigate("/validators");
-  }, []);
+  // const onValidate = useCallback(() => {
+  //   navigate("/validators");
+  // }, []);
 
   return (
     <Container>
       <section className="validator-status" style={{ width: "100%" }}>
-        <div className="validator-status__card">
+        {/* <div className="validator-status__card">
           {isDelegated ? (
             <Button variant="outlined" onClick={onValidate}>
               Delegate More
@@ -59,7 +59,7 @@ const DashboardValidatorCard = () => {
               Become A Delegator
             </Button>
           )}
-        </div>
+        </div> */}
         {
           isDelegated &&
           <ValidatorTable dashboardData={dashboardData?.validatorStakes} dashboardStatus={dashboardStatus} />

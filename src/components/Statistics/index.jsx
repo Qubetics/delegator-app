@@ -174,7 +174,7 @@ const Statistics = () => {
           </div>
           <Box ml="10px">
             <Typography variant="h6" color="text.secondary">
-              APY
+              APR
               <Tooltip
                 color="rgb(72, 69, 69)"
                 className="tooltip-common"

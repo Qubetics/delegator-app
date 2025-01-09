@@ -49,15 +49,22 @@ const Login = () => {
       <div className="auth-wrapper">
         <>
           <div className="auth-wrapper__inner">
-            <Typography variant="h3">Log In.</Typography>
-            <hr className="custom-divider" />
+            <Typography variant="h3">Log In</Typography>
             <form>
-              <TextField label="Mnemonics" value={mnemonics} placeholder="Paste or enter your Mnemonics" onChange={changeHandler} type="password" className="input-style" id="mnemonics" />
+              <TextField
+                label="Mnemonics"
+                value={mnemonics}
+                placeholder="Paste or enter your Mnemonics"
+                onChange={changeHandler}
+                type="password"
+                className="input-style"
+                id="mnemonics"
+              />
               <div className="auth-wrapper__btns">
-                <button className="primary-btn" onClick={submitHandler}>
-                  <span className="btn-icon">
+                <button className="btnlogin animatebtn" onClick={submitHandler}>
+                  {/* <span className="btn-icon">
                     <LoginIcon />
-                  </span>
+                  </span> */}
                   {isLoading ? (
                     <div
                       style={{

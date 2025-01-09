@@ -30,7 +30,7 @@ export const CustomizedTextField = styled(TextField)(({ theme }) => ({
     borderRadius: "5px",
     padding: "15px 14px",
     color: "rgb(255, 255, 255)",
-    background: "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54)-0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
+    background: "rgba(8, 8, 8, 1)",
     overflow: "hidden",
     border: "1px solid rgba(255, 255, 255, 0.1)",
     textOverflow: "ellipsis",

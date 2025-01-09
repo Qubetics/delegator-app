@@ -201,7 +201,7 @@ const Bond = () => {
               Max
             </Button>
           </div>
-          <div className="common-wrapper__amount">
+          <div className="common-wrapper__amount redelect">
             <TextField
               value={mnemonics}
               label="Enter mnemonics to authorize the transaction"
@@ -211,8 +211,8 @@ const Bond = () => {
               onChange={handleChange}
               helperText={
                 <>
-                  Your account status may take some time to update and reflect
-                  on the dashboard.
+                  <strong>Note :</strong> Your account status may take some time to update and reflect
+                  on the dashboard..
                   <br />
                   <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
                   <br />
@@ -224,6 +224,7 @@ const Bond = () => {
           <Button
             variant="outlined"
             fullWidth
+            className="reletebtn"
             sx={{
               // marginTop: "50px",
             }}

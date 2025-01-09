@@ -51,6 +51,7 @@ function Header() {
   }, []);
   const handleLogout = () => {
     Swal.fire({
+      position: "top",
       title: "LOGOUT",
       text: "Do you want to logout?",
       padding: "20px 30px",
@@ -173,17 +174,17 @@ function Header() {
             </div>
             {isLoggedIn ? (
               <div className="headerButtons">
-                <Button variant="contained" color="primary" className="btns">
+                <Button className="btns animatebtn">
                   <div className="copyBtns">
                     {getAddress(userAddress, 8, 8)}
                     <CopyAddress address={userAddress} />
                   </div>
                 </Button>
-                <Button onClick={handleClick} className=" btns">
+                <Button onClick={handleClick} className="btns animatebtn">
                   Balance : {Number(userBalance).toFixed(2)} TICS
                 </Button>
 
-                <Button variant="contained" color="primary" className="btns">
+                <Button className="btns animatebtn">
                   <div to={`${pathname}`} onClick={handleLogout}>
                     Logout
                   </div>

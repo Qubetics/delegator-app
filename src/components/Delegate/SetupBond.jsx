@@ -129,9 +129,10 @@ const SetupBond = ({
             type="password"
             name='Mnemonics'
             onChange={handleChange}
+            className="delegatorbnd"
             helperText={
               <>
-                Your account status may take some time to update and reflect on the dashboard.
+                <strong>Note :</strong> Your account status may take some time to update and reflect on the dashboard.
                 <br />
                 <span style={{ color: "red" }}>
                   {errMsg?.mnemonics}
@@ -144,9 +145,9 @@ const SetupBond = ({
           <Button
             sx={{ marginTop: "50px" }}
             onClick={handleSetUpDelegator}
-            variant="outlined"
-            fullWidth
             disabled={isDisable}
+            className="btnbondmore animatebtn"
+            style={{ margin: "auto", display: "block" }}
           >
             Sign & Submit
           </Button>

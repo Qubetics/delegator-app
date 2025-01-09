@@ -30,7 +30,7 @@ const Sherlock = ({ children, trigger }) => {
                         <div>0x4768589y79db23eSDFkj894c8B145  <CopyIcon /></div>
 
                     </div>
-                    <Button variant="contained" color="primary" className=" btns" >
+                    <Button variant="contained" className="btns animatebtn" >
                         Delegator
                     </Button>
                 </div>

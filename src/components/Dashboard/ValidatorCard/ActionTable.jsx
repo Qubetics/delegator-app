@@ -126,7 +126,9 @@ const ActionTable = () => {
                 data?.status === "SUCCESS" || data?.status === "success" ? "green" : data?.status === "PROCESSING" || data?.status === "PENDING" || data?.status === "pending" || data?.status === "processing" ? "yellow" : data?.status === "FAILED" || data?.status === "failed" ? "red" : "inherit", // Default color
             }}
           >
-            {data?.status || "-"}
+            {data?.status
+              ? data.status.charAt(0).toUpperCase() + data.status.slice(1).toLowerCase()
+              : '-'}
           </ActionStatus>
         </TableCell>
       </TableRow>

@@ -141,17 +141,16 @@ const UnBond = () => {
     <>
       <DetailsBox address={selectedAccounts?.accounts} />
       <FormWrapper>
-        <div className="common-wrapper">
+        <div className="common-wrapper redelect">
           <BackButton onClick={() => navigate(-1)} />
           <Typography className="common-wrapper__title">
             Unbond Funds
           </Typography>
           <Typography
-            className="common-wrapper__title"
-            sx={{ color: "#1677ff" }}
+            className="common-wrapper__title currencytitle"
             title={selectedAccounts?.stake || 0}
           >
-            Funds Available To Unbond: {selectedAccounts?.stake} {CURRENCY}
+            Funds Available To Unbond:<span> {selectedAccounts?.stake} {CURRENCY}</span>
           </Typography>
           <div className="common-wrapper__amount">
             <TextField
@@ -183,7 +182,7 @@ const UnBond = () => {
             onChange={handleChange}
             helperText={
               <>
-                Your account status may take some time to update and reflect on
+                <strong>Note :</strong> Your account status may take some time to update and reflect on
                 the dashboard.
                 <br />
                 <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
@@ -197,6 +196,7 @@ const UnBond = () => {
             disabled={isDisable || isLoading}
             fullWidth
             onClick={onSubmit}
+            className="reletebtn"
           >
             {isLoading ? (
               <div

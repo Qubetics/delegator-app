@@ -10,7 +10,8 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     borderRadius: "10px",
     border: "1px solid hsla(0,0%,100%,.1)",
     marginTop: "30px",
-
+    background: "rgba(18, 18, 18, 1)",
+    backdropFilter: " blur(32px)",
     [theme.breakpoints.down(1440)]: {
       padding: "25px 20px",
     },
@@ -23,7 +24,11 @@ export const Wrapper = styled(Box)(({ theme }) => ({
         top: "43px",
         right: "15px",
         // backgroundColor: '#191919',
-
+        background: "rgba(18, 18, 18, 1)!important",
+        minWidth: "109px",
+        fontSize: "14px !important",
+        borderRadius: "25px !important",
+        fontWeight: "600 !important",
         "&.MuiButton-root": {
           padding: "7px 15px",
           fontSize: "13px",
@@ -35,7 +40,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     },
 
     "button": {
-      border: "2px solid transparent",
+      // border: "2px solid transparent",
       background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box !important",
       borderRadius: "25px",
       transition: "color 0.2s ease-out, filter 0.2s ease-out",
@@ -43,11 +48,14 @@ export const Wrapper = styled(Box)(({ theme }) => ({
 
     "&__title": {
       marginBottom: "20px",
-      paddingBottom: "30px",
-      borderBottom: "1px solid",
-      borderColor: theme.palette.primary.main,
-      fontSize: "20px",
-      fontWeight: "700",
+      paddingBottom: "20px",
+      fontSize: "24px",
+      fontWeight: "600",
+      textAlign: "center",
+      "span": {
+        color: "#fff !important",
+      },
+
 
       [theme.breakpoints.down(1440)]: {
         fontSize: "18px",
@@ -82,7 +90,12 @@ export const Wrapper = styled(Box)(({ theme }) => ({
         },
       },
     },
-
+    ".currencytitle": {
+      fontSize: "14px",
+      fontWeight: "400",
+      textAlign: "left",
+      color: "rgb(160, 160, 160) ",
+    },
     "&__subText": {
       fontSize: "18px",
       display: "block",
@@ -170,6 +183,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       padding: "10px",
       background: "#1677ff",
       color: "#fff",
+
       [theme.breakpoints.down(1440)]: {
         fontSize: "16px",
         padding: "10px",
@@ -198,11 +212,12 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     },
 
     ".back-btns": {
+      background: "transparent !important",
       position: "absolute",
       fontSize: "13px",
-      padding: "14px 30px",
+      padding: "0px",
       top: "28px",
-      right: "35px",
+      left: "10px",
       height: "40px",
       [theme.breakpoints.down(1439)]: {
         top: "15px",
@@ -211,6 +226,9 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       [theme.breakpoints.down(575)]: {
         padding: "9px 20px",
       },
+      "svg": {
+        fill: "#fff !important"
+      }
     },
   },
 }));

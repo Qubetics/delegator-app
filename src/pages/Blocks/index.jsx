@@ -19,7 +19,7 @@ const BlocksPage = () => {
       <div className="common-table">
         <Typography variant="h3" letterSpacing="normal" className="" >
           {blockStatus !== "error" && "Blocks"}
-          <Link to="/" className="view-all" onClick={viewAllBlocks}>
+          <Link to="/" className="view-all animatebtn" onClick={viewAllBlocks}>
             {blockStatus !== "error" && "View All"}
           </Link>
         </Typography>

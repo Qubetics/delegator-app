@@ -94,9 +94,7 @@ const ValidatorDetails = () => {
             )}
           </div>
           <Button
-            variant="contained"
-            color="primary"
-            className=" btns"
+            className=" btns animatebtn"
             onClick={() => delegate("new")}
           >
             Delegate
@@ -159,8 +157,8 @@ const ValidatorDetails = () => {
                 <Typography>
                   {validatorDetail?.commissionMaxRate
                     ? noExponential(
-                        toFixed(validatorDetail?.commissionMaxRate, 4)
-                      )
+                      toFixed(validatorDetail?.commissionMaxRate, 4)
+                    )
                     : 0}{" "}
                   %
                 </Typography>
@@ -172,8 +170,8 @@ const ValidatorDetails = () => {
                 <Typography>
                   {validatorDetail?.commissionMaxChangeRate
                     ? noExponential(
-                        toFixed(validatorDetail?.commissionMaxChangeRate, 4)
-                      )
+                      toFixed(validatorDetail?.commissionMaxChangeRate, 4)
+                    )
                     : 0}{" "}
                   %
                 </Typography>
@@ -185,8 +183,8 @@ const ValidatorDetails = () => {
                 <Typography>
                   {validatorDetail?.totalStake
                     ? noExponential(
-                        Number(validatorDetail?.totalStake) / 10 ** 18
-                      )
+                      Number(validatorDetail?.totalStake) / 10 ** 18
+                    )
                     : "0"}{" "}
                   {CURRENCY}
                 </Typography>
@@ -198,8 +196,8 @@ const ValidatorDetails = () => {
                 <Typography>
                   {validatorDetail?.selfStake
                     ? noExponential(
-                        Number(validatorDetail?.selfStake) / 10 ** 18
-                      )
+                      Number(validatorDetail?.selfStake) / 10 ** 18
+                    )
                     : "0"}{" "}
                   {CURRENCY}
                 </Typography>

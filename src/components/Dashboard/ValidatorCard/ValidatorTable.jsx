@@ -80,19 +80,19 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                   <Typography variant="label">Sr. No.</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="label">NAME</Typography>
+                  <Typography variant="label">Name</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="label">VALIDATOR ADDRESS</Typography>
+                  <Typography variant="label">Validator Address</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="label">BOND AMOUNT</Typography>
+                  <Typography variant="label">Bond Amount</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="label">REWARDS EARNED</Typography>
+                  <Typography variant="label">Rewards Earned</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="label">ACTIONS</Typography>
+                  <Typography variant="label">Actions</Typography>
                 </TableCell>
               </TableRow>
             </TableHead>

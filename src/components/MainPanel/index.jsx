@@ -18,8 +18,14 @@ const MainPanel = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
   const { pathname } = location;
+  console.log(pathname, "pathname")
   const showStats =
-    pathname?.includes('account/become-a-validator') || !pathname?.includes('/account');
+    pathname?.includes('account/become-a-validator') ||
+    (!pathname?.includes('/account') &&
+      !pathname?.includes('/funds/bond') &&
+      !pathname?.includes('/funds/unbond') &&
+      !pathname?.includes('/funds/redelegate') && !pathname?.includes('/login') && !pathname?.includes('/validators/delegate'));
+
   useEffect(() => {
     dispatch(toggleSidebar(!isMobile));
   }, [dispatch, isMobile]);

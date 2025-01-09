@@ -342,6 +342,7 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
     button: {},
   },
   ".headerButtons": {
+    backdropFilter: " blur(32px)",
     display: "flex",
     gap: "10px",
     width: "100%",
@@ -356,7 +357,7 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
       letterSpacing: "0.28px",
       color: "#fff", // Reference the CSS variable
       cursor: "pointer",
-      border: "2px solid transparent",
+      // border: "2px solid transparent",
       background: `linear-gradient(180deg, var(--bg), var(--bg)) padding-box,
         conic-gradient(
           from 180deg at 50% 50%,
@@ -450,6 +451,8 @@ export const Descktop = styled(Box)(({ theme }) => ({
     button: {},
   },
   ".headerButtons": {
+    backdropFilter: " blur(32px)",
+
     display: "flex",
     gap: "10px",
     ".btns": {
@@ -462,7 +465,7 @@ export const Descktop = styled(Box)(({ theme }) => ({
       letterSpacing: "0.28px",
       color: "#fff", // Reference the CSS variable
       cursor: "pointer",
-      border: "2px solid transparent",
+      // border: "2px solid transparent",e
       background: `linear-gradient(180deg, var(--bg), var(--bg)) padding-box,
         conic-gradient(
           from 180deg at 50% 50%,

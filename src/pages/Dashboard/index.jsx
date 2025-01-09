@@ -1,6 +1,6 @@
 /*eslint-disable*/
-import { useEffect } from "react";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import { useCallback, useEffect } from "react";
 import DashboardValidatorCard from "../../components/Dashboard/ValidatorCard";
 import DelegatorInfos from "../../components/Dashboard/BlockchainInfos";
 import ActionTable from "../../components/Dashboard/ValidatorCard/ActionTable";
@@ -9,10 +9,14 @@ import { Wrapper, heading_dashboard } from "../Blocks/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getWalletBalance, isTxOccur } from "../../redux/Reducer/auth";
 import { getUserBalance } from "../../services/getUserBalance";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { userAddress, isTx } = useSelector(
+  const navigate = useNavigate();
+
+
+  const { userAddress, isTx, isDelegated } = useSelector(
     (state) => state.auth
   );
 
@@ -33,12 +37,28 @@ const Dashboard = () => {
       return err;
     }
   };
+  const onValidate = useCallback(() => {
+    navigate("/validators");
+  }, []);
   return (
     <Wrapper className="">
+      <Container>
+        <div className="dashTitle_btn">
+          <h3 className="heading_dashboard" style={{ marginTop: "0px", marginBottom: "0px" }} >
+            Dashboard
+          </h3>
+          {isDelegated ? (
+            <Button className="animatebtn" onClick={onValidate}>
+              Delegate More
+            </Button>
+          ) : (
+            <Button className="animatebtn" onClick={onValidate}>
+              Become A Delegator
+            </Button>
+          )}
+        </div>
+      </Container>
 
-      <h3 className="heading_dashboard" style={{ marginTop: "40px", marginBottom: "30px" }} >
-        Dashboard
-      </h3>
       <DashboardValidatorCard />
 
       <DelegatorInfos />
