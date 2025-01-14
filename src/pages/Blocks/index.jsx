@@ -11,16 +11,20 @@ const BlocksPage = () => {
   const { blockData, blockStatus } = blockList(data);
 
   const viewAllBlocks = () => {
-    window.open(`${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks?chain=native`, '_blank');
+    window.open(
+      `${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks?chain=native`,
+      "_blank"
+    );
   };
 
   return (
     <Wrapper>
       <div className="common-table">
-        <Typography variant="h3" letterSpacing="normal" className="" >
-          {blockStatus !== "error" && "Blocks"}
+        <Typography variant="h3" letterSpacing="normal" className="">
+          {"Blocks"}
+
           <Link to="/" className="view-all animatebtn" onClick={viewAllBlocks}>
-            {blockStatus !== "error" && "View All"}
+            {"View All"}
           </Link>
         </Typography>
         <BlocksTable blockData={blockData} blockStatus={blockStatus} />
