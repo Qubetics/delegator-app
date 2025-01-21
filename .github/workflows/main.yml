@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       HUAWEI_REGION:
-        description: 'huawei regio'
+        description: 'huawei reio'
         required: true
         type: string
       ARGOCD_BRANCH:
