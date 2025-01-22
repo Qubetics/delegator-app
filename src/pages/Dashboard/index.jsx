@@ -15,17 +15,14 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-  const { userAddress, isTx, isDelegated } = useSelector(
-    (state) => state.auth
-  );
+  const { userAddress, isTx, isDelegated } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (userAddress?.length > 0 || isTx) {
       setTimeout(() => {
         fetchBalance();
-        dispatch(isTxOccur(false))
-      }, 1500)
+        dispatch(isTxOccur(false));
+      }, 1500);
     }
   }, [userAddress, isTx]);
 
@@ -44,8 +41,8 @@ const Dashboard = () => {
     <Wrapper className="">
       <Container>
         <div className="dashTitle_btn">
-          <h3 className="heading_dashboard" style={{ marginTop: "0px", marginBottom: "0px" }} >
-            Dashboard
+          <h3 className="heading_dashboard" style={{ marginTop: "0px", marginBottom: "0px" }}>
+            Delegator Status
           </h3>
           {isDelegated ? (
             <Button className="animatebtn" onClick={onValidate}>

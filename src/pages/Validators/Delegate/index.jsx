@@ -16,17 +16,16 @@ const Delegate = () => {
   const [mnemonics, setMnemonics] = useState("");
   const { userAddress, userBalance } = useSelector((state) => state?.auth);
   const [errMsg, setErrMsg] = useState({
-    amount: '',
-    mnemonics: ''
-  })
+    amount: "",
+    mnemonics: "",
+  });
   const { selectedAccounts } = useSelector((state) => state?.drawer);
-  const [isLoading, setIsLoading] = useState(false)
-  const navigate = useNavigate('')
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate("");
   const dispatch = useDispatch();
 
   const handleSetUpDelegator = async () => {
     try {
-
       if (stakeAmount === 0 || stakeAmount === "") {
         toast.error("Enter bond amount");
         return;
@@ -36,15 +35,15 @@ const Delegate = () => {
         return;
       }
       if (Number(userBalance) < Number(FEE) || Number(userBalance) < Number(MINIMUM_BOND_AMOUNT) + Number(FEE)) {
-        toast.error('Low wallet Balance');
+        toast.error("Low wallet Balance");
         return;
       }
       if (Number(stakeAmount) < Number(MINIMUM_BOND_AMOUNT) + Number(FEE)) {
         toast.error(`Bond amount should be equal or greater than minimum required bond amount + fee ${Number(MINIMUM_BOND_AMOUNT) + Number(FEE)} `);
         return;
       }
-      if (!mnemonics || mnemonics?.length < 0 || mnemonics == '') {
-        toast.error('Enter Mnemonics');
+      if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
+        toast.error("Enter Mnemonics");
         return;
       }
       let res = await getUserAddress(mnemonics);
@@ -55,48 +54,34 @@ const Delegate = () => {
         toast.error("Mnemonics are not same as login");
         return;
       }
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await delagteAndBondMore(mnemonics, userAddress, stakeAmount, selectedAccounts?.valoperAddress);
       dispatch(isTxOccur(true));
       if (response?.length > 0) {
         setTimeout(() => {
           const fetchData = async () => {
-            let resp = await getTransactionLogs(response)
+            let resp = await getTransactionLogs(response);
             if (resp?.result?.tx_result?.data === null) {
-              setIsLoading(false)
-              toast.error('Transaction failed')
-              navigate('/dashboard')
+              setIsLoading(false);
+              toast.error("Transaction failed");
+              navigate("/dashboard");
             } else {
-              setIsLoading(false)
-              toast.success('Transaction successful')
-              navigate('/dashboard');
+              setIsLoading(false);
+              toast.success("Transaction successful");
+              navigate("/dashboard");
             }
-          }
+          };
           fetchData();
-        }, 5000)
+        }, 5000);
       }
     } catch (err) {
-      setIsLoading(false)
-      navigate('/dashboard')
-      let msg = err?.message?.split('Broadcasting transaction failed with code')
-      toast.error(msg[1])
+      setIsLoading(false);
+      navigate("/dashboard");
+      let msg = err?.message?.split("Broadcasting transaction failed with code");
+      toast.error(msg[1]);
     }
   };
-  return (
-    <>
-      {isLoading ? <Loader /> :
-        <SetupBond
-          setStakeAmount={setStakeAmount}
-          stakeAmount={stakeAmount}
-          mnemonics={mnemonics}
-          setMnemonics={setMnemonics}
-          setErrMsg={setErrMsg}
-          errMsg={errMsg}
-          handleSetUpDelegator={handleSetUpDelegator}
-        />
-      }
-    </>
-  );
+  return <>{isLoading ? <Loader /> : <SetupBond setStakeAmount={setStakeAmount} stakeAmount={stakeAmount} mnemonics={mnemonics} setMnemonics={setMnemonics} setErrMsg={setErrMsg} errMsg={errMsg} handleSetUpDelegator={handleSetUpDelegator} />}</>;
 };
 
 export default Delegate;

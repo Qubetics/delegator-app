@@ -8,7 +8,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   ".MuiTableCell-root": {
     borderBottom: "1px solid rgba(255, 255, 255, 0.045)",
     whiteSpace: "nowrap",
-    padding: "16px 28px",
+    padding: "10px 28px",
     [theme.breakpoints.down(767)]: {
       padding: "10px 20px",
     },
@@ -342,11 +342,10 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       p: {
         fontSize: "15px",
         color: "rgba(160, 160, 160, 1)",
-        "span": {
+        span: {
           fontSize: "16px",
           fontWeight: "300",
-
-        }
+        },
       },
       th: {
         p: {
@@ -643,18 +642,18 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         },
       },
     },
-    "th": {
+    th: {
       " span": {
         fontSize: "18px",
-        fontWeight: "300"
-      }
+        fontWeight: "300",
+      },
     },
-    "td": {
+    td: {
       " p, span": {
         fontSize: "18px",
-        fontWeight: "300"
-      }
-    }
+        fontWeight: "300",
+      },
+    },
   },
   //bond button colors//
   // '.bonds-btns': {
@@ -720,13 +719,12 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     transition: "all linear 0.25s",
     borderRadius: "25px",
     "&.btn-yellow": {
-      border: "1px solid var(--Colors-Yellow, rgba(255, 204, 0, 1))",
-      color: " var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      // border: "1px solid var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      // color: " var(--Colors-Yellow, rgba(255, 204, 0, 1))",
       backgroundColor: "#000",
 
-
       "&:hover": {
-        backgroundColor: "#F9B95933",
+        // backgroundColor: "#F9B95933",
       },
     },
     "&.btn-green": {
@@ -738,20 +736,19 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       },
     },
     "&.btn-red": {
-      border: "1px solid var(--Colors-Red,rgba(255, 59, 48, 1))",
-      color: " var(--Colors-Red,rgba(255, 59, 48, 1))",
-      background: "#000",
-
-      "&:hover": {
-        backgroundColor: "#ED080033",
-      },
+      // border: "1px solid var(--Colors-Red,rgba(255, 59, 48, 1))",
+      // color: " var(--Colors-Red,rgba(255, 59, 48, 1))",
+      // background: "#000",
+      // "&:hover": {
+      //   backgroundColor: "#ED080033",
+      // },
     },
     "&.btn-blue": {
-      border: "1px solid rgba(255, 255, 255, 1)",
+      // border: "1px solid rgba(255, 255, 255, 1)",
       background: "#000",
       color: "#fff",
       "&:hover": {
-        backgroundColor: "#f4f6fa33",
+        // backgroundColor: "#f4f6fa33",
       },
     },
     "&.disable": {
@@ -802,6 +799,9 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     transition: "all 0.15s linear",
     "&:hover": {
       color: "#68afef",
+    },
+    ".recentHover": {
+      minWidth: "708px",
     },
   },
   ".copy-address": {

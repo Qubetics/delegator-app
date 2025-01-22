@@ -1,13 +1,5 @@
 /*eslint-disable*/
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import { ActionStatus } from "./styles";
 import { Pagination } from "./styles";
 import FlexBox from "../../Common/FlexBox";
@@ -21,14 +13,12 @@ import { toFixed } from "../../../utils/helper";
 import { noExponential } from "../../../utils/commonFunctions";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
 import CopyIcon from "../../../assets/Icons/CopyIcon";
-import { toast } from '../../toast/Toast';
-
+import { toast } from "../../toast/Toast";
 
 const tableHeader = ["Transaction Hash", "Type", "Amount", "Status"];
 
 const ActionTable = () => {
-  const { pageParams, handlePageChange, totalPages, setTotalCount } =
-    usePagination(DEFAULT_TABLE_LIMIT);
+  const { pageParams, handlePageChange, totalPages, setTotalCount } = usePagination(DEFAULT_TABLE_LIMIT);
   const [txData, setTxData] = useState([]);
   const [txStatus, setTxStatus] = useState("Idle");
   const { userAddress } = useSelector((state) => state?.auth);
@@ -42,16 +32,11 @@ const ActionTable = () => {
     toast.success("Tx Hash Copied");
   };
 
-
   const fetchData = async () => {
     try {
       if (userAddress) {
         setTxStatus("Fetching");
-        const response = await getTxByAddress(
-          userAddress,
-          pageParams?.page,
-          DEFAULT_TABLE_LIMIT
-        );
+        const response = await getTxByAddress(userAddress, pageParams?.page, DEFAULT_TABLE_LIMIT);
         if (response?.error === false) {
           setTxData(response?.data?.transactions);
           setTotalCount(response?.data?.count);
@@ -72,9 +57,7 @@ const ActionTable = () => {
 
   const renderTableRows = () => {
     if (txStatus === "Fetching") {
-      return Array.from({ length: 5 }).map((_, index) => (
-        <SkeletonRow key={index} columns={tableHeader.length} />
-      ));
+      return Array.from({ length: 5 }).map((_, index) => <SkeletonRow key={index} columns={tableHeader.length} />);
     }
     if (txData?.length === 0) {
       return (
@@ -101,12 +84,12 @@ const ActionTable = () => {
       >
         <TableCell>
           <Typography variant="body2">
-            <span onClick={() => transactionHash(data?.txhash)} className="text-hover">
-              {data?.txhash || "-"}
+            <p onClick={() => transactionHash(data?.txhash)} className="text-hover">
+              <span className="recentHover"> {data?.txhash || "-"}</span>
               <text onClick={() => copiedAddress(data?.txhash)}>
                 <CopyIcon sx={{ fontSize: "17px" }} />
               </text>
-            </span>
+            </p>
           </Typography>
         </TableCell>
         <TableCell>
@@ -126,9 +109,7 @@ const ActionTable = () => {
                 data?.status === "SUCCESS" || data?.status === "success" ? "green" : data?.status === "PROCESSING" || data?.status === "PENDING" || data?.status === "pending" || data?.status === "processing" ? "yellow" : data?.status === "FAILED" || data?.status === "failed" ? "red" : "inherit", // Default color
             }}
           >
-            {data?.status
-              ? data.status.charAt(0).toUpperCase() + data.status.slice(1).toLowerCase()
-              : '-'}
+            {data?.status ? data.status.charAt(0).toUpperCase() + data.status.slice(1).toLowerCase() : "-"}
           </ActionStatus>
         </TableCell>
       </TableRow>
@@ -146,7 +127,9 @@ const ActionTable = () => {
               <TableRow>
                 {tableHeader.map((item, index) => (
                   <TableCell key={index}>
-                    <Typography style={{ fontSize: "18px", fontWeight: "300" }} variant="label">{item}</Typography>
+                    <Typography style={{ fontSize: "18px", fontWeight: "300" }} variant="label">
+                      {item}
+                    </Typography>
                   </TableCell>
                 ))}
               </TableRow>
@@ -162,13 +145,7 @@ const ActionTable = () => {
             paddingTop: "20px",
           }}
         >
-          <Pagination
-            count={totalPages}
-            variant="outlined"
-            shape="rounded"
-            page={pageParams?.page}
-            onChange={handlePageChange}
-          />
+          <Pagination count={totalPages} variant="outlined" shape="rounded" page={pageParams?.page} onChange={handlePageChange} />
         </FlexBox>
       )}
     </>
