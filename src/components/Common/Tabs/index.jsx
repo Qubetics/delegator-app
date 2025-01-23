@@ -1,15 +1,14 @@
 /*eslint-disable*/
-import { StyledBox, StyledTabs, StyledTab } from './styles';
+import { StyledBox, StyledTabs, StyledTab } from "./styles";
 
 function a11yProps(index) {
   return {
     id: `common-tab-${index}`,
-    'aria-controls': `common-tabpanel-${index}`,
+    "aria-controls": `common-tabpanel-${index}`,
   };
 }
 
 const Tabs = ({ tabId, toggleTabHandler, isDisable, validatorsCount }) => {
-
   const handleChange = (event, newValue) => {
     if (!isDisable) {
       toggleTabHandler(newValue);
@@ -18,7 +17,11 @@ const Tabs = ({ tabId, toggleTabHandler, isDisable, validatorsCount }) => {
 
   return (
     <StyledBox>
-      <StyledTabs value={tabId} onChange={handleChange} aria-label="common tabs">
+      <StyledTabs
+        value={tabId}
+        onChange={handleChange}
+        aria-label="common tabs"
+      >
         <StyledTab
           className={isDisable ? "disabled" : ""}
           label={`All Validators (${validatorsCount?.allValidators})`}
@@ -36,7 +39,7 @@ const Tabs = ({ tabId, toggleTabHandler, isDisable, validatorsCount }) => {
         />
         <StyledTab
           className={isDisable ? "disabled" : ""}
-          label={`Deactivating (${validatorsCount?.deactivating})`}
+          label={`Deactivated (${validatorsCount?.deactivating})`}
           {...a11yProps(3)}
         />
       </StyledTabs>

@@ -141,9 +141,14 @@ const Footer = () => {
               <Link to="/" underline="none">
                 Qubetics Documentations
               </Link>
-              <Link to="/" underline="none">
+
+              <a
+                href="  https://qubetics-ide.qubetics.work/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Qubetics IDE
-              </Link>
+              </a>
             </FooterSection>
           </Grid>
         </Grid>
