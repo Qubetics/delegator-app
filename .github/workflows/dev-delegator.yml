@@ -1,0 +1,22 @@
+name: '[dev] Deploy dev delegator'
+
+on: 
+  push:
+    branches: 
+      - dev
+
+jobs:
+  dev_delegator:
+    uses: ./.github/workflows/delegator.yml
+    with:
+      SWR_ORGANIZATION: dev-qubetics
+      ARGOCD_BRANCH: dev
+      HUAWEI_REGION: 'ap-southeast-3'
+      ARGOCD_REPOSITORY: Qubetics/argocd-qubetics
+      DEPLOYMENT_PATH: Delegator/delegator.yaml
+      HUAWEI_IMAGE: dev-delegator
+      DOCKER_USERNAME: ap-southeast-3@BQG9INQF0BKVHSNQOLJG
+      ENV: ${{ vars.DEV_DELEGATOR_ENV }}
+    secrets:
+      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      GIT_SSH_KEY: ${{ secrets.ARGOCD_SSH_KEY }}

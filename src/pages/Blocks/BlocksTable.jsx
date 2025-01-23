@@ -27,21 +27,12 @@ const BlocksTable = ({ blockData, blockStatus }) => {
     <NotFound />
   ) : blockStatus === "success" ? (
     <TableContainer component={Paper} className="">
-      <Table
-        sx={{ minWidth: 650 }}
-        aria-label="simple table"
-        className="block-table"
-      >
+      <Table sx={{ minWidth: 650 }} aria-label="simple table" className="block-table">
         <TableHead>
           <TableRow>
             {tableHeader?.map((item, index) => (
               <TableCell key={index}>
-                <Typography
-                  color="text.secondary"
-                  fontSize="16px"
-                  lineHeight="20px"
-                  fontWeight="400"
-                >
+                <Typography color="text.secondary" fontSize="16px" lineHeight="20px" fontWeight="400">
                   {item}
                 </Typography>
               </TableCell>
@@ -50,36 +41,21 @@ const BlocksTable = ({ blockData, blockStatus }) => {
         </TableHead>
         <TableBody>
           {blockData?.map((data, index) => (
-            <TableRow
-              key={index}
-              sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}
-            >
+            <TableRow key={index} sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}>
               <TableCell component="" scope="row">
                 <div className="id-wrap">
-                  <Typography variant="body2">
-                    {data?.blocknumber ? (
-                      <span> {data?.blocknumber}</span>
-                    ) : (
-                      "-"
-                    )}
-                  </Typography>
+                  <Typography variant="body2">{data?.blocknumber ? <span> {data?.blocknumber}</span> : "-"}</Typography>
                 </div>
               </TableCell>
 
               <TableCell>
                 <Typography variant="body2" className="text-hover">
                   {data?.blockhash ? (
-                    <div style={{ display: "flex", alignItems: "center" }}>
-                      <span
-                        onClick={() => handleBlockNavigation(data?.blockhash)}
-                        style={{ cursor: "pointer" }}
-                      >
+                    <div style={{ display: "flex", alignItems: "center" }} className="blockItems">
+                      <span onClick={() => handleBlockNavigation(data?.blockhash)} style={{ cursor: "pointer" }} className="blockTruncate">
                         {getAddress(data?.blockhash, 8, 8)}
                       </span>
-                      <span
-                        className="copyicon"
-                        style={{ marginLeft: "10px", cursor: "pointer" }}
-                      >
+                      <span className="copyicon" style={{ marginLeft: "10px", cursor: "pointer" }}>
                         {CopyAddress(data?.blockhash)}
                       </span>
                     </div>
@@ -91,11 +67,8 @@ const BlocksTable = ({ blockData, blockStatus }) => {
               <TableCell>
                 <Typography variant="body2">
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    {data?.miner ? data?.miner : "-"}
-                    <span
-                      className="copyicon"
-                      style={{ marginLeft: "10px", cursor: "pointer" }}
-                    >
+                    <span className="validatorTruncate">{data?.miner ? getAddress(data?.miner, 8, 8) : "-"}</span>
+                    <span className="copyicon" style={{ marginLeft: "10px", cursor: "pointer" }}>
                       {" "}
                       {CopyAddress(data?.miner)}{" "}
                     </span>
@@ -104,11 +77,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
               </TableCell>
 
               <TableCell>
-                <Typography variant="body2">
-                  {data?.timestamp
-                    ? isTimeAgoByCreatedDate(data?.timestamp)
-                    : "-"}
-                </Typography>
+                <Typography variant="body2">{data?.timestamp ? isTimeAgoByCreatedDate(data?.timestamp) : "-"}</Typography>
               </TableCell>
             </TableRow>
           ))}
@@ -117,11 +86,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
     </TableContainer>
   ) : (
     <TableContainer component={Paper} className="">
-      <Table
-        sx={{ minWidth: 650 }}
-        aria-label="skeleton table"
-        className="block-table"
-      >
+      <Table sx={{ minWidth: 650 }} aria-label="skeleton table" className="block-table">
         <TableHead>
           <TableRow>
             {tableHeader.map((item, index) => (

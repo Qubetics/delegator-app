@@ -6,9 +6,9 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   position: "relative",
 
   ".MuiTableCell-root": {
-    borderBottom: "1px solid rgba(255, 255, 255, 0.045)",
+    borderBottom: "0",
     whiteSpace: "nowrap",
-    padding: "16px 28px",
+    padding: "10px 28px",
     [theme.breakpoints.down(767)]: {
       padding: "10px 20px",
     },
@@ -17,8 +17,8 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     // background: "#37373c",
     ".MuiTableCell-root": {
       borderBottom: "none",
-      padding: "22px 28px",
-      color: theme.palette.text.secondary,
+      padding: "20px 28px",
+      color: "#FFFFFF",
 
       [theme.breakpoints.down(767)]: {
         padding: "10px 20px",
@@ -97,11 +97,12 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
     },
     "&.Mui-disabled": {
-      border: "1.5 px solid",
-      borderColor: "#29292977",
+      // border: "1.5 px solid",
+      // borderColor: "#29292977",
       backgroundColor: "#29292977",
       color: "#f9f9f977",
       pointerEvents: "all",
+      border: "0",
       cursor: "not-allowed !important",
     },
   },
@@ -154,7 +155,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     padding: "65px 30px",
   },
   [theme.breakpoints.down(575)]: {
-    padding: "65px 20px",
+    padding: "25px 20px",
   },
 
   // [theme.breakpoints.down(1680)]: {
@@ -301,7 +302,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
 
     h3: {
       fontSize: "22px",
-      padding: "30px 0",
+      padding: "20px 0",
       paddingTop: "37px",
       display: "flex",
       justifyContent: "space-between",
@@ -336,17 +337,16 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     },
     ".MuiPaper-root": {
       border: "1px solid rgba(59, 57, 60, 1)",
-      overflow: "scroll",
+      overflow: "auto",
       borderRadius: "10px",
       background: " rgba(18, 18, 18, 1)",
       p: {
         fontSize: "15px",
         color: "rgba(160, 160, 160, 1)",
-        "span": {
+        span: {
           fontSize: "16px",
           fontWeight: "300",
-
-        }
+        },
       },
       th: {
         p: {
@@ -358,7 +358,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
   },
 
   ".auth-wrapper": {
-    marginTop: "50px",
+    paddingBottom: "100px",
     ".addres-input": {
       maxWidth: "fit-content",
       marginBottom: "0",
@@ -400,7 +400,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         gap: "15px 0",
       },
 
-      ".btnlogin": {
+      button: {
         // flex: "1",
         width: "174px",
         margin: "auto",
@@ -643,18 +643,18 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         },
       },
     },
-    "th": {
+    th: {
       " span": {
         fontSize: "18px",
-        fontWeight: "300"
-      }
+        fontWeight: "300",
+      },
     },
-    "td": {
+    td: {
       " p, span": {
         fontSize: "18px",
-        fontWeight: "300"
-      }
-    }
+        fontWeight: "300",
+      },
+    },
   },
   //bond button colors//
   // '.bonds-btns': {
@@ -710,23 +710,22 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
 
   ".bonds-btns": {
     padding: "7px 20px",
-    border: "1px solid",
     borderRadius: "8px",
+    maxWidth: "114px",
+    textTransform: "capitalize",
     margin: "0 5px",
     textDecoration: "none",
     fontSize: "13px",
-    textTransform: "uppercase",
     display: "inline-block",
     transition: "all linear 0.25s",
     borderRadius: "25px",
     "&.btn-yellow": {
-      border: "1px solid var(--Colors-Yellow, rgba(255, 204, 0, 1))",
-      color: " var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      // border: "1px solid var(--Colors-Yellow, rgba(255, 204, 0, 1))",
+      // color: " var(--Colors-Yellow, rgba(255, 204, 0, 1))",
       backgroundColor: "#000",
 
-
       "&:hover": {
-        backgroundColor: "#F9B95933",
+        // backgroundColor: "#F9B95933",
       },
     },
     "&.btn-green": {
@@ -738,20 +737,19 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       },
     },
     "&.btn-red": {
-      border: "1px solid var(--Colors-Red,rgba(255, 59, 48, 1))",
-      color: " var(--Colors-Red,rgba(255, 59, 48, 1))",
-      background: "#000",
-
-      "&:hover": {
-        backgroundColor: "#ED080033",
-      },
+      // border: "1px solid var(--Colors-Red,rgba(255, 59, 48, 1))",
+      // color: " var(--Colors-Red,rgba(255, 59, 48, 1))",
+      // background: "#000",
+      // "&:hover": {
+      //   backgroundColor: "#ED080033",
+      // },
     },
     "&.btn-blue": {
-      border: "1px solid rgba(255, 255, 255, 1)",
+      // border: "1px solid rgba(255, 255, 255, 1)",
       background: "#000",
       color: "#fff",
       "&:hover": {
-        backgroundColor: "#f4f6fa33",
+        // backgroundColor: "#f4f6fa33",
       },
     },
     "&.disable": {
@@ -802,6 +800,9 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     transition: "all 0.15s linear",
     "&:hover": {
       color: "#68afef",
+    },
+    ".recentHover": {
+      minWidth: "547px",
     },
   },
   ".copy-address": {

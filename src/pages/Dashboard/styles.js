@@ -1,13 +1,7 @@
 /*eslint-disable*/
-import {
-  Button,
-  styled,
-  Typography,
-  Pagination as MuiPagination,
-} from "@mui/material";
+import { Button, styled, Typography, Pagination as MuiPagination } from "@mui/material";
 
 import { MainCard } from "../../components/Common/Card/styles";
-
 
 export const Container = styled(MainCard)(({ theme }) => ({
   flexDirection: "column",
@@ -23,13 +17,15 @@ export const Container = styled(MainCard)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "centre",
-    width: '100%',
-    "h3": {
+    width: "100%",
+    h3: {
       lineHeight: "36px",
     },
     "> button": {
       height: "40px",
       borderRadius: "25px",
+      textTransform: "capitalize",
+      color: "#fff",
     },
   },
   ".validator-status": {
@@ -56,7 +52,7 @@ export const Container = styled(MainCard)(({ theme }) => ({
       [theme.breakpoints.down(467)]: {
         flexDirection: "column",
         gap: "10px 0",
-        alignItems: "flex-start"
+        alignItems: "flex-start",
       },
 
       ".MuiTypography-root": {
@@ -68,13 +64,20 @@ export const Container = styled(MainCard)(({ theme }) => ({
       },
     },
     ".MuiTableContainer-root": {
-      border: "1px solid hsla(0,0%, 100%, .1)",
       borderRadius: "14px!important",
       marginTop: "20px",
     },
     "td, th": {
-      "p": {
-        fontSize: "18px!important",
+      p: {
+        fontSize: "16px!important",
+        fontWeight: "300",
+      },
+    },
+    td: {
+      p: {
+        color: "#A0A0A0",
+        marginTop: "3px",
+        marginBottom: "9px",
       },
     },
   },

@@ -11,10 +11,7 @@ const BlocksPage = () => {
   const { blockData, blockStatus } = blockList(data);
 
   const viewAllBlocks = () => {
-    window.open(
-      `${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks?chain=native`,
-      "_blank"
-    );
+    window.open(`${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks?chain=native`, "_blank");
   };
 
   return (
@@ -23,7 +20,7 @@ const BlocksPage = () => {
         <Typography variant="h3" letterSpacing="normal" className="">
           {"Blocks"}
 
-          <Link to="/" className="view-all animatebtn" onClick={viewAllBlocks}>
+          <Link to="/" className="view-all headermetaBtn" onClick={viewAllBlocks}>
             {"View All"}
           </Link>
         </Typography>

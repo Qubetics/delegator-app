@@ -1,9 +1,4 @@
-import {
-  Paper,
-  styled,
-  Checkbox,
-  Pagination as MuiPagination,
-} from "@mui/material";
+import { Paper, styled, Checkbox, Pagination as MuiPagination } from "@mui/material";
 import style from "styled-components";
 import FlexBox from "../../Common/FlexBox";
 export const Buttoncontainer = style.div`
@@ -40,7 +35,7 @@ export const TabsSection = styled(FlexBox)(({ theme }) => ({
   },
   ".MuiTab-root": {
     height: "41px",
-    padding: "10px 18px",
+    padding: "8px 18px",
     background: "rgba(18, 18, 18, 1)",
     borderRadius: "44px",
     color: "rgba(160, 160, 160, 1)",
@@ -52,7 +47,7 @@ export const TabsSection = styled(FlexBox)(({ theme }) => ({
   },
   ".MuiTab-root.Mui-selected": {
     borderRadius: "44px",
-    padding: "10px 18px",
+    padding: "8px 18px",
 
     // fontSize: "14px",
     // fontWeight: "500",
@@ -62,11 +57,11 @@ export const TabsSection = styled(FlexBox)(({ theme }) => ({
     height: "41px",
     color: "rgb(255, 255, 255)",
     cursor: " pointer",
-    border: "2px solid transparent",
-    background:
-      "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
-    borderRadius: "25px",
-    transition: "color 0.2s ease-out, filter 0.2s ease-out",
+    // border: "2px solid transparent",
+    // background:
+    //   "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
+    // borderRadius: "25px",
+    // transition: "color 0.2s ease-out, filter 0.2s ease-out",
     textAlign: "center",
   },
   ".MuiTabs-indicator": {
@@ -77,10 +72,16 @@ export const TabsSection = styled(FlexBox)(({ theme }) => ({
     background: "#121212",
     color: "#A0A0A0",
     border: "1px solid #3B393C",
-    borderRadius: "20px",
-    "button": {
+    borderRadius: "10px",
+    button: {
       display: "none",
-    }
+    },
+    "..MuiInputBase-root": {
+      // height: "46px !important",
+      // border: 0,
+      // borderRadius: "10px",
+      // overFlow: "hidden",
+    },
   },
 }));
 
@@ -109,8 +110,7 @@ export const Search = styled(Paper)(({ theme }) => ({
     borderRadius: "28px",
     border: "2px solid transparent",
     color: "#fff",
-    background:
-      "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box !important",
+    background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box !important",
   },
   // [theme.breakpoints.down(1440)]: {
   //   maxWidth: "350px",
@@ -156,8 +156,7 @@ export const ToggleWrap = styled(Paper)(({ theme }) => ({
 }));
 
 export const Pagination = styled(MuiPagination)(({ theme }) => ({
-  marginLeft: "auto"
-  ,
+  marginLeft: "auto",
   width: "100%",
   ".MuiPagination-ul": {
     background: "transparent",

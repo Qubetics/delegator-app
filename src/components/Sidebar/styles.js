@@ -153,8 +153,7 @@ export const NavItem = styled(Link)(({ theme, active }) => ({
   alignItems: "center",
   padding: "15px 50px",
   textDecoration: "none",
-  color:
-    active === "true" ? theme.palette.blue.main : theme.palette.text.secondary,
+  color: active === "true" ? theme.palette.blue.main : theme.palette.text.secondary,
 
   ".MuiTypography-root": {
     fontSize: "18px",
@@ -163,10 +162,7 @@ export const NavItem = styled(Link)(({ theme, active }) => ({
     flexShrink: "0",
     fontSize: "20px",
     path: {
-      fill:
-        active === "true"
-          ? theme.palette.blue.main
-          : theme.palette.text.secondary,
+      fill: active === "true" ? theme.palette.blue.main : theme.palette.text.secondary,
     },
   },
   [theme.breakpoints.down(1440)]: {
@@ -195,10 +191,7 @@ export const SubLink = styled(Link)(({ theme, active }) => ({
   ...theme.typography.body2,
   textDecoration: "none",
   textTransform: "capitalize",
-  color:
-    active === "true"
-      ? `${theme.palette.blue.main} !important`
-      : `${theme.palette.text.secondary} !important`,
+  color: active === "true" ? `${theme.palette.blue.main} !important` : `${theme.palette.text.secondary} !important`,
 }));
 
 export const NodeBox = styled(Box)(({ theme }) => ({
@@ -268,7 +261,6 @@ export const Mobilereasponsive = styled(Box)(({ theme }) => ({
     width: "100%",
     margin: "auto",
     display: "none",
-
 
     [theme.breakpoints.down(991)]: {
       display: "flex!important",
@@ -344,7 +336,7 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
   ".headerButtons": {
     backdropFilter: " blur(32px)",
     display: "flex",
-    gap: "10px",
+    gap: "20px",
     width: "100%",
     flexDirection: "column",
     ".btns": {
@@ -384,7 +376,6 @@ export const Drawersidebar = styled(Box)(({ theme }) => ({
           #ff98e2 360deg
         ) border-box`,
       },
-
     },
     ".dropdown": {
       "& ul": {
@@ -408,7 +399,7 @@ export const Descktop = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "25px 20px",
+    padding: "21.5px 20px",
     backgroundColor: "#121212",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     maxWidth: "1440px",
@@ -506,11 +497,10 @@ export const Descktop = styled(Box)(({ theme }) => ({
       marginLeft: "3px",
       alignItems: "center",
       "svg g": {
-
-        "path": {
+        path: {
           stroke: "#fff",
-        }
-      }
+        },
+      },
     },
   },
 }));

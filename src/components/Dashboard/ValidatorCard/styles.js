@@ -19,8 +19,8 @@ export const Container = styled(MainCard)(({ theme }) => ({
     "&.mb-0": {
       marginBottom: "0",
     },
-    "th": {
-      "span": {
+    th: {
+      span: {
         fontSize: "18px!important",
       },
     },
@@ -65,23 +65,22 @@ export const Container = styled(MainCard)(({ theme }) => ({
     ".MuiPaper-root": {
       border: "1px solid hsla(0,0%,100%,.1)",
       borderRadius: "14px !important",
-      marginTop: "30px",
+      marginTop: "20px",
       background: "rgba(18, 18, 18, 1)",
-      "th": {
-        "span": {
+      th: {
+        span: {
           fontSize: "18px!important",
         },
       },
-      "td": {
-        "p": {
-          fontSize: "18px!important",
+      td: {
+        p: {
+          fontSize: "16px!important",
         },
       },
-      "p": {
+      p: {
         color: "rgba(160, 160, 160, 1)",
-        "svg": {
+        svg: {
           marginLeft: "4px",
-
         },
         "svg g path": {
           // fill: "rgba(160, 160, 160, 1)",
@@ -127,7 +126,6 @@ export const Pagination = styled(MuiPagination)(({ theme }) => ({
   marginLeft: "auto",
   ".MuiPagination-ul": {
     background: "transparent",
-
   },
   ".MuiPaginationItem-previousNext": {
     // background: " rgba(18, 18, 18, 1)",
