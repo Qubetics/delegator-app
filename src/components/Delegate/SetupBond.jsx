@@ -105,7 +105,7 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
             }
             autoComplete="off"
           />
-          <Button sx={{ marginTop: "50px" }} onClick={handleSetUpDelegator} disabled={isDisable} className="btnbondmore animatebtn" style={{ margin: "auto", display: "block" }}>
+          <Button sx={{ marginTop: "50px" }} onClick={handleSetUpDelegator} disabled={isDisable} className="btnbondmore headermetaBtn" style={{ margin: "auto", display: "block" }}>
             Sign & Submit
           </Button>
         </div>

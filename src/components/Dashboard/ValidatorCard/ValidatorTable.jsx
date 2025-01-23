@@ -22,7 +22,7 @@ const stopMenuOptions = [
     styleDisable: "btn-yellow disable",
   },
   {
-    label: "ReDelegate",
+    label: "Redelegate",
     path: "/funds/redelegate",
     style: "btn-red",
     styleDisable: "btn-red disable",

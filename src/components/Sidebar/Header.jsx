@@ -101,11 +101,11 @@ function Header() {
                       <CopyAddress address={userAddress} />
                     </div>
                   </button>
-                  <button onClick={handleClick} className="btnsaad" endIcon={<DownIcon />}>
+                  <button onClick={handleClick} className="btnsaad headermetaBtn" endIcon={<DownIcon />}>
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </button>
 
-                  <Button variant="contained" color="primary" className="btnsaad">
+                  <Button variant="contained" color="primary" className="btnsaad headermetaBtn">
                     <div to={`${pathname}`} onClick={handleLogout}>
                       Logout
                     </div>
@@ -143,17 +143,17 @@ function Header() {
             </div>
             {isLoggedIn ? (
               <div className="headerButtons">
-                <Button className="btns animatebtn">
+                <Button className="btns headermetaBtn">
                   <div className="copyBtns">
                     {getAddress(userAddress, 8, 8)}
                     <CopyAddress address={userAddress} />
                   </div>
                 </Button>
-                <Button onClick={handleClick} className="btns animatebtn">
+                <button onClick={handleClick} className="btns headermetaBtn">
                   Balance : {Number(userBalance).toFixed(2)} TICS
-                </Button>
+                </button>
 
-                <Button className="btns animatebtn">
+                <Button className="btns headermetaBtn">
                   <div to={`${pathname}`} onClick={handleLogout}>
                     Logout
                   </div>

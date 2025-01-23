@@ -83,7 +83,7 @@ const ValidatorDetails = () => {
               </div>
             )}
           </div>
-          <Button className=" btns animatebtn" onClick={() => delegate("new")}>
+          <Button className=" btns headermetaBtn" onClick={() => delegate("new")}>
             Delegate
           </Button>
         </div>

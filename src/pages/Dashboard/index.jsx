@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { Button, Typography } from "@mui/material";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DashboardValidatorCard from "../../components/Dashboard/ValidatorCard";
 import DelegatorInfos from "../../components/Dashboard/BlockchainInfos";
 import ActionTable from "../../components/Dashboard/ValidatorCard/ActionTable";
@@ -16,6 +16,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   const { userAddress, isTx, isDelegated } = useSelector((state) => state.auth);
+  const [walletActivitesLength, setWalletActivitesLength] = useState(0);
 
   useEffect(() => {
     if (userAddress?.length > 0 || isTx) {
@@ -45,11 +46,11 @@ const Dashboard = () => {
             Delegator Status
           </h3>
           {isDelegated ? (
-            <Button className="animatebtn" onClick={onValidate}>
+            <Button className="headermetaBtn" onClick={onValidate}>
               Delegate More
             </Button>
           ) : (
-            <Button className="animatebtn" onClick={onValidate}>
+            <Button className="headermetaBtn" onClick={onValidate}>
               Become A Delegator
             </Button>
           )}
@@ -63,8 +64,13 @@ const Dashboard = () => {
         <section className="validator-status mb-0">
           <div className="validator-status__card" style={{ paddingLeft: "0" }}>
             <Typography>Recent Wallet Activities:</Typography>
+            {walletActivitesLength > 5 && (
+              <button className="headermetaBtn viewAll" onClick={() => navigate("/wallet-activites")}>
+                View All
+              </button>
+            )}
           </div>
-          <ActionTable />{" "}
+          <ActionTable setWalletActivitesLength={setWalletActivitesLength} />{" "}
         </section>
       </Container>
     </Wrapper>
