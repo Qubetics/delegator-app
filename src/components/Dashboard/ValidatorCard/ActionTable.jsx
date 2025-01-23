@@ -103,10 +103,11 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
         <TableCell>
           <Typography variant="body2">
             <span
-              onClick={() => transactionHash(data?.txhash)}
-              className="text-hover"
+            // onClick={() => transactionHash(data?.txhash)}
+            // className="text-hover"
             >
               <span className="recentHover"> {data?.txhash || "-"}</span>
+              {/*
               <span
                 onClick={(e) => {
                   e.stopPropagation();
@@ -115,6 +116,7 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
               >
                 <CopyIcon sx={{ fontSize: "17px" }} />
               </span>
+            */}
             </span>
           </Typography>
         </TableCell>
