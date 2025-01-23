@@ -14,24 +14,19 @@ import { noExponential } from "../../../utils/commonFunctions";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
 import CopyIcon from "../../../assets/Icons/CopyIcon";
 import { toast } from "../../toast/Toast";
-
 const tableHeader = ["Transaction Hash", "Type", "Amount", "Status"];
-
-const ActionTable = () => {
+const ActionTable = ({ setWalletActivitesLength, showAll }) => {
   const { pageParams, handlePageChange, totalPages, setTotalCount } = usePagination(DEFAULT_TABLE_LIMIT);
   const [txData, setTxData] = useState([]);
   const [txStatus, setTxStatus] = useState("Idle");
   const { userAddress } = useSelector((state) => state?.auth);
-
   const transactionHash = (id) => {
     window.open(` ${BASE_URL_EXPLORER_LINKS_TESTNET}/tx/${id}`, "_blank");
   };
-
   const copiedAddress = (data) => {
     navigator.clipboard.writeText(data);
     toast.success("Tx Hash Copied");
   };
-
   const fetchData = async () => {
     try {
       if (userAddress) {
@@ -40,6 +35,8 @@ const ActionTable = () => {
         if (response?.error === false) {
           setTxData(response?.data?.transactions);
           setTotalCount(response?.data?.count);
+          setWalletActivitesLength(response?.data?.count);
+
           setTxStatus("Success");
         } else {
           setTxStatus("Error");
@@ -55,11 +52,13 @@ const ActionTable = () => {
     fetchData();
   }, [userAddress, pageParams?.page]);
 
+  const showRecentActivitesData = showAll ? txData : txData.slice(0, 5);
+
   const renderTableRows = () => {
     if (txStatus === "Fetching") {
       return Array.from({ length: 5 }).map((_, index) => <SkeletonRow key={index} columns={tableHeader.length} />);
     }
-    if (txData?.length === 0) {
+    if (showRecentActivitesData?.length === 0) {
       return (
         <TableRow>
           <TableCell
@@ -75,7 +74,7 @@ const ActionTable = () => {
         </TableRow>
       );
     }
-    return txData.map((data, index) => (
+    return showRecentActivitesData?.map((data, index) => (
       <TableRow
         key={index}
         sx={{
@@ -84,7 +83,7 @@ const ActionTable = () => {
       >
         <TableCell>
           <Typography variant="body2">
-            <p onClick={() => transactionHash(data?.txhash)} className="text-hover">
+            <p onClick={() => transactionHash(data?.txhash)} className="text-hover paraText">
               <span className="recentHover"> {data?.txhash || "-"}</span>
               <text onClick={() => copiedAddress(data?.txhash)}>
                 <CopyIcon sx={{ fontSize: "17px" }} />
@@ -92,15 +91,15 @@ const ActionTable = () => {
             </p>
           </Typography>
         </TableCell>
-        <TableCell>
+        <TableCell className="grayText">
           <Typography variant="body2">{data?.type || "-"}</Typography>
         </TableCell>
-        <TableCell>
+        <TableCell className="grayText">
           <Typography variant="body2">
             {data?.value ? noExponential(data?.value) : 0} {CURRENCY}
           </Typography>
         </TableCell>
-        <TableCell sx={{ pr: 10 }}>
+        <TableCell sx={{ pr: 10 }} className="statusText">
           <ActionStatus
             variant="body2"
             status={data?.status}
@@ -119,15 +118,15 @@ const ActionTable = () => {
   return (
     <>
       <TableContainer>
-        {txStatus === "Error" ? (
+        {txStatus === "Error" && !showAll ? (
           <NotFound />
         ) : (
-          <Table sx={{ minWidth: 800 }} aria-label="action table">
+          <Table sx={{ minWidth: 800 }} aria-label="actiontable ">
             <TableHead>
               <TableRow>
                 {tableHeader.map((item, index) => (
                   <TableCell key={index}>
-                    <Typography style={{ fontSize: "18px", fontWeight: "300" }} variant="label">
+                    <Typography style={{ fontSize: "16px", fontWeight: "300" }} variant="label">
                       {item}
                     </Typography>
                   </TableCell>
@@ -138,7 +137,7 @@ const ActionTable = () => {
           </Table>
         )}
       </TableContainer>
-      {txData?.length > 0 && totalPages > 1 && (
+      {txData?.length > 0 && totalPages > 1 && showAll && (
         <FlexBox
           sx={{
             justifyContent: "center",

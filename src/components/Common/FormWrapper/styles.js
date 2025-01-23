@@ -39,7 +39,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       },
     },
 
-    "button": {
+    button: {
       // border: "2px solid transparent",
       background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box !important",
       borderRadius: "25px",
@@ -52,10 +52,9 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       fontSize: "24px",
       fontWeight: "600",
       textAlign: "center",
-      "span": {
+      span: {
         color: "#fff !important",
       },
-
 
       [theme.breakpoints.down(1440)]: {
         fontSize: "18px",
@@ -112,7 +111,7 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       alignItems: "end",
       justifyContent: "space-between ",
       gap: "20px 60px",
-      margin: "30px 0",
+      margin: "20px 0",
       [theme.breakpoints.down(1440)]: {
         flexWrap: "wrap",
       },
@@ -194,7 +193,6 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     },
 
     "&__top-content": {
-
       flex: "1 0",
       [theme.breakpoints.down(1440)]: {
         gap: "20px",
@@ -226,9 +224,9 @@ export const Wrapper = styled(Box)(({ theme }) => ({
       [theme.breakpoints.down(575)]: {
         padding: "9px 20px",
       },
-      "svg": {
-        fill: "#fff !important"
-      }
+      svg: {
+        fill: "#fff !important",
+      },
     },
   },
 }));

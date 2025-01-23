@@ -399,7 +399,7 @@ export const Descktop = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "25px 20px",
+    padding: "21.5px 20px",
     backgroundColor: "#121212",
     boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     maxWidth: "1440px",

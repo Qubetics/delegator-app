@@ -19,12 +19,14 @@ export const Wrapper = styled(Box)(({ theme }) => ({
   ".cardbg": {
     background: "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
     backdropFilter: " blur(64px)",
-    "h6": {
+    h6: {
       color: "rgba(160, 160, 160, 1)",
       fontSize: "16px",
       fontWeight: "300",
+      display: "flex",
+      alignItems: "center",
     },
-    "h4": {
+    h4: {
       fontSize: "20px",
       fontWeight: "400",
       margin: "0px",
@@ -99,8 +101,7 @@ export const StatItem = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   flex: "auto",
-  background:
-    "linear-gradient(to bottom right, rgb(31, 31, 35), rgb(37, 42, 45))",
+  background: "linear-gradient(to bottom right, rgb(31, 31, 35), rgb(37, 42, 45))",
   borderRadius: "14px",
   padding: "28px",
   border: "1px solid hsla(0,0%,100%,.1)",
@@ -121,7 +122,6 @@ export const StatItem = styled(Box)(({ theme }) => ({
   },
 }));
 
-
 export const Search = styled(Box)(({ theme }) => ({
   maxWidth: "685px",
   width: "100%",
@@ -132,7 +132,7 @@ export const Search = styled(Box)(({ theme }) => ({
     borderRadius: "14px",
     marginBottom: "40px",
   },
-  "fieldset": {
+  fieldset: {
     border: "transparent",
   },
 }));
