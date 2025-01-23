@@ -15,12 +15,16 @@ import { logout } from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
 import "./index.scss";
+import CopyIcon from "../../assets/Icons/CopyIcon";
+import { toast } from "../toast/Toast";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { userAddress, isLoggedIn, userBalance, isTx } = useSelector((state) => state?.auth);
+  const { userAddress, isLoggedIn, userBalance, isTx } = useSelector(
+    (state) => state?.auth
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -69,10 +73,19 @@ function Header() {
       }
     });
   };
+  const copiedAddress = (data) => {
+    navigator.clipboard.writeText(data);
+    toast.success("Address Copied");
+  };
 
   return (
     <>
-      <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} className="drawerCustom">
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        className="drawerCustom"
+      >
         {/* <p>Validator Application</p> */}
         <Drawersidebar>
           <div className="headerWrapper">
@@ -81,13 +94,28 @@ function Header() {
               <div className="headerLinks">
                 <ul className="">
                   <li className="li">
-                    <Link to="/dashboard" className={`link ${pathname === "/dashboard" ? "active" : ""}`}>
+                    <Link
+                      to="/dashboard"
+                      className={`link ${
+                        pathname === "/dashboard" ? "active" : ""
+                      }`}
+                    >
                       Dashboard
                     </Link>
-                    <Link to="/blocks" className={`link ${pathname === "/blocks" ? "active" : ""}`}>
+                    <Link
+                      to="/blocks"
+                      className={`link ${
+                        pathname === "/blocks" ? "active" : ""
+                      }`}
+                    >
                       Block
                     </Link>
-                    <Link to="/validators" className={`link ${pathname === "/validators" ? "active" : ""}`}>
+                    <Link
+                      to="/validators"
+                      className={`link ${
+                        pathname === "/validators" ? "active" : ""
+                      }`}
+                    >
                       Validators
                     </Link>
                   </li>
@@ -95,17 +123,35 @@ function Header() {
               </div>
               {isLoggedIn ? (
                 <div className="headerButtons">
-                  <button variant="contained" color="primary" className="headermetaBtn">
+                  <button
+                    variant="contained"
+                    color="primary"
+                    className="headermetaBtn"
+                  >
                     <div className="copyBtns">
                       {getAddress(userAddress, 8, 8)}
-                      <CopyAddress address={userAddress} />
+                      <text
+                        onClick={() => copiedAddress(userAddress)}
+                        className="copy-btn"
+                        style={{ cursor: "pointer", zIndex: "9999" }}
+                      >
+                        <CopyIcon sx={{ fontSize: "17px" }} />
+                      </text>
                     </div>
                   </button>
-                  <button onClick={handleClick} className="btnsaad headermetaBtn" endIcon={<DownIcon />}>
+                  <button
+                    onClick={handleClick}
+                    className="btnsaad headermetaBtn"
+                    endIcon={<DownIcon />}
+                  >
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </button>
 
-                  <Button variant="contained" color="primary" className="btnsaad headermetaBtn">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className="btnsaad headermetaBtn"
+                  >
                     <div to={`${pathname}`} onClick={handleLogout}>
                       Logout
                     </div>
@@ -129,13 +175,26 @@ function Header() {
             <div className="headerLinks">
               <ul className="">
                 <li className="li">
-                  <Link to="/dashboard" className={`link ${pathname === "/dashboard" ? "active" : ""}`}>
+                  <Link
+                    to="/dashboard"
+                    className={`link ${
+                      pathname === "/dashboard" ? "active" : ""
+                    }`}
+                  >
                     Dashboard
                   </Link>
-                  <Link to="/blocks" className={`link ${pathname === "/blocks" ? "active" : ""}`}>
+                  <Link
+                    to="/blocks"
+                    className={`link ${pathname === "/blocks" ? "active" : ""}`}
+                  >
                     Blocks
                   </Link>
-                  <Link to="/validators" className={`link ${pathname === "/validators" ? "active" : ""}`}>
+                  <Link
+                    to="/validators"
+                    className={`link ${
+                      pathname === "/validators" ? "active" : ""
+                    }`}
+                  >
                     Validators
                   </Link>
                 </li>
@@ -146,15 +205,26 @@ function Header() {
                 <Button className="btns headermetaBtn">
                   <div className="copyBtns">
                     {getAddress(userAddress, 8, 8)}
-                    <CopyAddress address={userAddress} />
+                    <text
+                      onClick={() => copiedAddress(userAddress)}
+                      className="copy-btn"
+                      style={{ cursor: "pointer", zIndex: "9999" }}
+                    >
+                      <CopyIcon sx={{ fontSize: "17px" }} />
+                    </text>
                   </div>
                 </Button>
+
                 <button onClick={handleClick} className="btns headermetaBtn">
                   Balance : {Number(userBalance).toFixed(2)} TICS
                 </button>
 
                 <Button className="btns headermetaBtn">
-                  <div to={`${pathname}`} onClick={handleLogout}>
+                  <div
+                    to={`${pathname}`}
+                    onClick={handleLogout}
+                    style={{ zIndex: "99999" }}
+                  >
                     Logout
                   </div>
                 </Button>
