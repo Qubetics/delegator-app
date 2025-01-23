@@ -1,107 +1,87 @@
 :root {
-    --bg-background: #111827;
-    --clr-card: #9f53ff;
-    --clr-1: rgb(255, 152, 226);
-    --clr-2: rgb(255, 200, 118) 35.77deg;
-    --clr-3: rgb(121, 255, 247) 153.75deg;
-    --clr-4: rgb(159, 83, 255) 258.75deg;
-    --clr-5: rgb(255, 152, 226) 360deg;
-    --clr-6: #9f53ff;
+  --bg-background: #111827;
+  --clr-card: #9f53ff;
+  --clr-1: rgb(255, 152, 226);
+  --clr-2: rgb(255, 200, 118) 35.77deg;
+  --clr-3: rgb(121, 255, 247) 153.75deg;
+  --clr-4: rgb(159, 83, 255) 258.75deg;
+  --clr-5: rgb(255, 152, 226) 360deg;
+  --clr-6: #9f53ff;
 }
 
-@supports (property:--gradient-angle) {
-    @property --gradient-angle {
-        syntax: "<angle>";
-        initial-value: 90deg;
-        inherits: false;
-    }
+@supports (property: --gradient-angle) {
+  @property --gradient-angle {
+    syntax: "<angle>";
+    initial-value: 90deg;
+    inherits: false;
+  }
 }
-
 
 .headerButtons {
-    backdrop-filter: blur(32px);
+  backdrop-filter: blur(32px);
 
-    .btnsaad {
-        height: 40px;
-        font-size: 15px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        letter-spacing: 0.28px;
-        color: #fff !important;
-        cursor: pointer;
-        border-radius: 25px;
-        background: #000 !important;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+  .btnsaad {
+    height: 40px;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.28px;
+    color: #fff !important;
+    cursor: pointer;
+    border-radius: 25px;
+    background: #000 !important;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        // --bg: #000;
-        // --hover-bg: var(--theme-gradients-main);
-        // --text: #fff !important;
-        // --hover-text: #000;
-        // border: 2px solid transparent !important;
-        // background: linear-gradient(180deg, var(--bg), var(--bg)) padding-box,
-        //   conic-gradient(
-        //       from 180deg at 50% 50%,
-        //       #ff98e2,
-        //       #ffc876 35.77deg,
-        //       #79fff7 153.75deg,
-        //       #9f53ff 258.75deg,
-        //       #ff98e2 360deg
-        //     )
-        //     border-box !important;
-        // border-radius: 25px;
-        // transition: color 0.2s ease-out, filter 0.2s ease-out;
-        &::after,
-        &::before {
-            content: " ";
-            position: absolute;
-            z-index: -1;
-            inset: -0.2rem;
-            background: conic-gradient(from var(--gradient-angle),
-                    var(--clr-card),
-                    var(--clr-1),
-                    var(--clr-2),
-                    var(--clr-3),
-                    var(--clr-4),
-                    var(--clr-5),
-                    var(--clr-6),
-                    var(--clr-2),
-                    var(--clr-1),
-                    var(--clr-card));
-            border-radius: inherit;
-            animation: rotate 2.5s linear infinite;
-        }
-
-        &:hover {
-
-            &::after,
-            &::before {
-                content: " ";
-                position: absolute;
-                z-index: -1;
-                inset: -0.2rem;
-                background: conic-gradient(from var(--gradient-angle),
-                        var(--clr-card),
-                        var(--clr-1),
-                        var(--clr-2),
-                        var(--clr-3),
-                        var(--clr-4),
-                        var(--clr-5),
-                        var(--clr-6),
-                        var(--clr-2),
-                        var(--clr-1),
-                        var(--clr-card));
-                border-radius: inherit;
-                animation: rotate 2.5s linear infinite;
-            }
-
-            &::after {
-                filter: blur(4rem);
-            }
-        }
+    // --bg: #000;
+    // --hover-bg: var(--theme-gradients-main);
+    // --text: #fff !important;
+    // --hover-text: #000;
+    // border: 2px solid transparent !important;
+    // background: linear-gradient(180deg, var(--bg), var(--bg)) padding-box,
+    //   conic-gradient(
+    //       from 180deg at 50% 50%,
+    //       #ff98e2,
+    //       #ffc876 35.77deg,
+    //       #79fff7 153.75deg,
+    //       #9f53ff 258.75deg,
+    //       #ff98e2 360deg
+    //     )
+    //     border-box !important;
+    // border-radius: 25px;
+    // transition: color 0.2s ease-out, filter 0.2s ease-out;
+    &::after,
+    &::before {
+      content: " ";
+      position: absolute;
+      z-index: -1;
+      inset: -0.2rem;
+      background: conic-gradient(from var(--gradient-angle), var(--clr-card), var(--clr-1), var(--clr-2), var(--clr-3), var(--clr-4), var(--clr-5), var(--clr-6), var(--clr-2), var(--clr-1), var(--clr-card));
+      border-radius: inherit;
+      animation: rotate 2.5s linear infinite;
     }
 
+    &:hover {
+      &::after,
+      &::before {
+        content: " ";
+        position: absolute;
+        z-index: -1;
+        inset: -0.2rem;
+        background: conic-gradient(from var(--gradient-angle), var(--clr-card), var(--clr-1), var(--clr-2), var(--clr-3), var(--clr-4), var(--clr-5), var(--clr-6), var(--clr-2), var(--clr-1), var(--clr-card));
+        border-radius: inherit;
+        animation: rotate 2.5s linear infinite;
+      }
+
+      &::after {
+        filter: blur(4rem);
+      }
+    }
+  }
+}
+.swal2-popup {
+  place-self: center !important;
 }
