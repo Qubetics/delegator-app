@@ -132,22 +132,44 @@ const Footer = () => {
               <Typography variant="h6" gutterBottom>
                 Resources
               </Typography>
-              <Link to="/" underline="none">
+              <a
+                href="https://www.qubetics.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Official Web
-              </Link>
+              </a>
+
               <Link to="/" underline="none">
                 Qubetics Network Documentations
               </Link>
-              <Link to="/" underline="none">
+              <a
+                href=" https://qubetics.gitbook.io/qubetics-docs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Qubetics Documentations
-              </Link>
-
+              </a>
               <a
                 href="  https://qubetics-ide.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Qubetics IDE
+              </a>
+              <a
+                href="https://testnet-qubeqode-basic.qubetics.work/work-space"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                QubeQode
+              </a>
+              <a
+                href="https://github.com/Qubetics"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Github
               </a>
             </FooterSection>
           </Grid>
