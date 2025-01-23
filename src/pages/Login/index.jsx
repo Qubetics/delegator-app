@@ -64,6 +64,7 @@ const Login = () => {
                   {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
+                  Login
                 </button>
               </div>
             </form>
