@@ -16,10 +16,12 @@ import { CopyIcon } from "../../assets/Icons/SvgIcon";
 import { brder_comm } from "./styles";
 import CopyAddress from "../../components/Common/CopyAddress";
 import { toast } from "../../components/toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const tableHeader = ["Blocks", "Block Hash", "Validator", "Age"];
 
 const BlocksTable = ({ blockData, blockStatus }) => {
+  const navigate = useNavigate();
   const handleBlockNavigation = (id) => {
     window.open(`${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks/${id}`, "_blank");
   };
@@ -27,6 +29,10 @@ const BlocksTable = ({ blockData, blockStatus }) => {
   const copiedAddress = (data) => {
     navigator.clipboard.writeText(data);
     toast.success("Address Copied");
+  };
+
+  const getdata = (address) => {
+    navigate(`/validators/${address}`);
   };
 
   return blockStatus === "error" ? (
@@ -101,9 +107,13 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography variant="body2">
+                <Typography variant="body2" className="text-hover">
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <span className="validatorTruncate">
+                    <span
+                      className="validatorTruncate"
+                      onClick={() => getdata(data?.miner)}
+                      style={{ cursor: "pointer" }}
+                    >
                       {data?.miner ? getAddress(data?.miner, 8, 8) : "-"}
                     </span>
                     <text
