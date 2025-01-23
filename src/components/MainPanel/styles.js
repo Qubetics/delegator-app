@@ -155,7 +155,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     padding: "65px 30px",
   },
   [theme.breakpoints.down(575)]: {
-    padding: "65px 20px",
+    padding: "25px 20px",
   },
 
   // [theme.breakpoints.down(1680)]: {
@@ -337,7 +337,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     },
     ".MuiPaper-root": {
       border: "1px solid rgba(59, 57, 60, 1)",
-      overflow: "scroll",
+      overflow: "auto",
       borderRadius: "10px",
       background: " rgba(18, 18, 18, 1)",
       p: {

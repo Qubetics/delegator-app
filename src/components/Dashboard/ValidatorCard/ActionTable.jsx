@@ -83,7 +83,7 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
       >
         <TableCell>
           <Typography variant="body2">
-            <p onClick={() => transactionHash(data?.txhash)} className="text-hover">
+            <p onClick={() => transactionHash(data?.txhash)} className="text-hover paraText">
               <span className="recentHover"> {data?.txhash || "-"}</span>
               <text onClick={() => copiedAddress(data?.txhash)}>
                 <CopyIcon sx={{ fontSize: "17px" }} />
@@ -91,15 +91,15 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
             </p>
           </Typography>
         </TableCell>
-        <TableCell>
+        <TableCell className="grayText">
           <Typography variant="body2">{data?.type || "-"}</Typography>
         </TableCell>
-        <TableCell>
+        <TableCell className="grayText">
           <Typography variant="body2">
             {data?.value ? noExponential(data?.value) : 0} {CURRENCY}
           </Typography>
         </TableCell>
-        <TableCell sx={{ pr: 10 }}>
+        <TableCell sx={{ pr: 10 }} className="statusText">
           <ActionStatus
             variant="body2"
             status={data?.status}
