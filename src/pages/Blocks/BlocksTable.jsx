@@ -93,6 +93,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                         {getAddress(data?.blockhash, 8, 8)}
                       </span>
 
+                      {/*
                       <text
                         onClick={() => copiedAddress(data?.blockhash)}
                         className="copy-btn"
@@ -100,6 +101,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                       >
                         <CopyIcon sx={{ fontSize: "17px" }} />
                       </text>
+                    */}
                     </div>
                   ) : (
                     "-"
@@ -110,16 +112,16 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                 <Typography variant="body2" className="text-hover">
                   <div style={{ display: "flex", alignItems: "center" }}>
                     <span
-                      className="validatorTruncate"
                       onClick={() => getdata(data?.miner)}
                       style={{ cursor: "pointer" }}
+                      className="text-hover"
                     >
                       {data?.miner ? getAddress(data?.miner, 8, 8) : "-"}
                     </span>
                     <text
                       onClick={() => copiedAddress(data?.miner)}
                       className="copy-btn"
-                      style={{ marginLeft: "10px", cursor: "pointer" }}
+                      style={{ marginLeft: "16px", cursor: "pointer" }}
                     >
                       <CopyIcon sx={{ fontSize: "17px" }} />
                     </text>

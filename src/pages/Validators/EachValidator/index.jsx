@@ -8,8 +8,14 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
 import { toFixed } from "../../../utils/helper";
-import { CURRENCY, MINIMUM_BOND_AMOUNT } from "../../../components/Common/Constant";
-import { capitalizeFirstLetter, noExponential } from "../../../utils/commonFunctions";
+import {
+  CURRENCY,
+  MINIMUM_BOND_AMOUNT,
+} from "../../../components/Common/Constant";
+import {
+  capitalizeFirstLetter,
+  noExponential,
+} from "../../../utils/commonFunctions";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
 import Loader from "../../../components/Common/Loader";
 import CommonModal from "../../../components/CommonModal";
@@ -70,7 +76,11 @@ const ValidatorDetails = () => {
         </div>
         <div className="namesherlock">
           {/* <p>Name</p> */}
-          {detailStatus === "Init" || detailStatus === "Fetching" ? <Skeleton variant="text" width={200} height={25} /> : <p>{validatorDetail?.name}</p>}
+          {detailStatus === "Init" || detailStatus === "Fetching" ? (
+            <Skeleton variant="text" width={200} height={25} />
+          ) : (
+            <p>{validatorDetail?.name}</p>
+          )}
         </div>
         <div className="flex-itemssheloc">
           <div className="address_container">
@@ -78,12 +88,13 @@ const ValidatorDetails = () => {
             {detailStatus === "Init" || detailStatus === "Fetching" ? (
               <Skeleton variant="text" width={300} height={25} />
             ) : (
-              <div>
-                {params?.address} {CopyAddress(params?.address)}
-              </div>
+              <div>{params?.address}</div>
             )}
           </div>
-          <Button className=" btns headermetaBtn" onClick={() => delegate("new")}>
+          <Button
+            className=" btns headermetaBtn"
+            onClick={() => delegate("new")}
+          >
             Delegate
           </Button>
         </div>
@@ -109,7 +120,11 @@ const ValidatorDetails = () => {
                 <Typography color="text.secondary" variant="body2">
                   NAME
                 </Typography>
-                <Typography>{validatorDetail?.name ? capitalizeFirstLetter(validatorDetail?.name) : "-"}</Typography>
+                <Typography>
+                  {validatorDetail?.name
+                    ? capitalizeFirstLetter(validatorDetail?.name)
+                    : "-"}
+                </Typography>
               </ValidatorDetailItem>
 
               <ValidatorDetailItem>
@@ -119,42 +134,73 @@ const ValidatorDetails = () => {
                 <Typography
                   style={{
                     color:
-                      validatorDetail?.status === "Active" || validatorDetail?.status === "active"
+                      validatorDetail?.status === "Active" ||
+                      validatorDetail?.status === "active"
                         ? "green"
-                        : validatorDetail?.status === "PROCESSING" || validatorDetail?.status === "PENDING" || validatorDetail?.status === "pending" || validatorDetail?.status === "processing"
+                        : validatorDetail?.status === "PROCESSING" ||
+                          validatorDetail?.status === "PENDING" ||
+                          validatorDetail?.status === "pending" ||
+                          validatorDetail?.status === "processing"
                         ? "yellow"
-                        : validatorDetail?.status === "inactive" || validatorDetail?.status === "INACTIVE"
+                        : validatorDetail?.status === "inactive" ||
+                          validatorDetail?.status === "INACTIVE"
                         ? "red"
                         : "inherit", // Default color
                   }}
                 >
-                  {validatorDetail?.status ? capitalizeFirstLetter(validatorDetail?.status) : "-"}
+                  {validatorDetail?.status
+                    ? capitalizeFirstLetter(validatorDetail?.status)
+                    : "-"}
                 </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   COMMISSION RATE
                 </Typography>
-                <Typography>{validatorDetail?.commissionRate ? noExponential(toFixed(validatorDetail?.commissionRate, 4)) : 0} %</Typography>
+                <Typography>
+                  {validatorDetail?.commissionRate
+                    ? noExponential(toFixed(validatorDetail?.commissionRate, 4))
+                    : 0}{" "}
+                  %
+                </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   COMMISSION MAX RATE
                 </Typography>
-                <Typography>{validatorDetail?.commissionMaxRate ? noExponential(toFixed(validatorDetail?.commissionMaxRate, 4)) : 0} %</Typography>
+                <Typography>
+                  {validatorDetail?.commissionMaxRate
+                    ? noExponential(
+                        toFixed(validatorDetail?.commissionMaxRate, 4)
+                      )
+                    : 0}{" "}
+                  %
+                </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   COMMISSION CHANGE RATE
                 </Typography>
-                <Typography>{validatorDetail?.commissionMaxChangeRate ? noExponential(toFixed(validatorDetail?.commissionMaxChangeRate, 4)) : 0} %</Typography>
+                <Typography>
+                  {validatorDetail?.commissionMaxChangeRate
+                    ? noExponential(
+                        toFixed(validatorDetail?.commissionMaxChangeRate, 4)
+                      )
+                    : 0}{" "}
+                  %
+                </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   TOTAL STAKE
                 </Typography>
                 <Typography>
-                  {validatorDetail?.totalStake ? noExponential(Number(validatorDetail?.totalStake) / 10 ** 18) : "0"} {CURRENCY}
+                  {validatorDetail?.totalStake
+                    ? noExponential(
+                        Number(validatorDetail?.totalStake) / 10 ** 18
+                      )
+                    : "0"}{" "}
+                  {CURRENCY}
                 </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
@@ -162,20 +208,33 @@ const ValidatorDetails = () => {
                   SELF STAKE
                 </Typography>
                 <Typography>
-                  {validatorDetail?.selfStake ? noExponential(Number(validatorDetail?.selfStake) / 10 ** 18) : "0"} {CURRENCY}
+                  {validatorDetail?.selfStake
+                    ? noExponential(
+                        Number(validatorDetail?.selfStake) / 10 ** 18
+                      )
+                    : "0"}{" "}
+                  {CURRENCY}
                 </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   VALIDATOR SINCE
                 </Typography>
-                <Typography>{validatorDetail?.createdAt ? moment(validatorDetail?.createdAt).format("YYYY/MM/DD") : "-"}</Typography>
+                <Typography>
+                  {validatorDetail?.createdAt
+                    ? moment(validatorDetail?.createdAt).format("YYYY/MM/DD")
+                    : "-"}
+                </Typography>
               </ValidatorDetailItem>
               <ValidatorDetailItem>
                 <Typography color="text.secondary" variant="body2">
                   DELEGATORS
                 </Typography>
-                <Typography>{validatorDetail?.delegatorCount ? validatorDetail?.delegatorCount : "-"}</Typography>
+                <Typography>
+                  {validatorDetail?.delegatorCount
+                    ? validatorDetail?.delegatorCount
+                    : "-"}
+                </Typography>
               </ValidatorDetailItem>
             </>
           )}
