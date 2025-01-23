@@ -70,7 +70,7 @@ const ValidatorsTable = ({
   const [validatorStatus, setValidatorStatus] = useState("Init");
   let number = 0;
 
-  console.log(validatorListData, "validatorListData");
+  console.log(validatorListData?.length, "validatorListData");
 
   useEffect(() => {
     setCurrentPage(1);
@@ -206,11 +206,12 @@ const ValidatorsTable = ({
             aria-label="validators table"
             className="validator-table"
           >
-            <TableHead>
-              <TableRow>
-                {tabId == 0
-                  ? statusHeader?.map((item, index) => (
-                      <TableCell key={index + 1}>
+            {validatorListData?.length > 0 && (
+              <TableHead>
+                <TableRow>
+                  {(tabId === 0 ? statusHeader : tableHeader).map(
+                    (item, index) => (
+                      <TableCell key={index}>
                         <Typography
                           variant="label"
                           color="text.secondary"
@@ -220,22 +221,11 @@ const ValidatorsTable = ({
                           {item}
                         </Typography>
                       </TableCell>
-                    ))
-                  : tableHeader.map((item, index) => (
-                      <TableCell key={index + 1}>
-                        <Typography
-                          variant="label"
-                          color="text.secondary"
-                          fontSize="15px"
-                          fontWeight="500"
-                        >
-                          {item}
-                        </Typography>
-                      </TableCell>
-                    ))}
-              </TableRow>
-            </TableHead>
-
+                    )
+                  )}
+                </TableRow>
+              </TableHead>
+            )}
             <TableBody>
               {validatorStatus === "Init" || validatorStatus === "Fetching"
                 ? Array.from({ length: 6 }).map((_, index) => (
@@ -299,7 +289,7 @@ const ValidatorsTable = ({
                         )}
                       </TableCell>
 
-                      {tabId === 0 && (
+                      {tabId == 0 && validatorListData?.length > 0 && (
                         <TableCell>
                           <Typography
                             variant="body2"
@@ -356,23 +346,23 @@ const ValidatorsTable = ({
                     </TableRow>
                   ))}
             </TableBody>
-
-            {validatorListData?.length == 0 ||
-              (validatorListData == undefined && (
-                <TableBody>
-                  <TableRow>
-                    <TableCell
-                      colSpan={9}
-                      align="center"
-                      sx={{
-                        border: "0 !important",
-                      }}
-                    >
-                      <NotFound />
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              ))}
+            {(validatorStatus === "Success" &&
+              validatorListData?.length === 0) ||
+            validatorListData === undefined ? (
+              <TableBody>
+                <TableRow>
+                  <TableCell
+                    colSpan={statusHeader.length} // Use the length of the headers for correct colspan
+                    align="center"
+                    sx={{
+                      border: "0 !important",
+                    }}
+                  >
+                    <NotFound />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            ) : null}
           </Table>
         </TableContainer>
       </div>

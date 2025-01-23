@@ -72,11 +72,15 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
   const showRecentActivitesData = showAll ? txData : txData.slice(0, 5);
 
   const renderTableRows = () => {
-    if (txStatus === "Fetching") {
-      return Array.from({ length: 5 }).map((_, index) => (
-        <SkeletonRow key={index} columns={tableHeader.length} />
-      ));
+    {
+      showRecentActivitesData?.length > 0 &&
+        (txStatus === "Fetching"
+          ? Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonRow key={index} columns={tableHeader.length} />
+            ))
+          : null);
     }
+
     if (showRecentActivitesData?.length === 0) {
       return (
         <TableRow>
@@ -87,7 +91,7 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
             }}
           >
             <Typography variant="body2" align="center">
-              No Recent Action Available
+              <NotFound />
             </Typography>
           </TableCell>
         </TableRow>
