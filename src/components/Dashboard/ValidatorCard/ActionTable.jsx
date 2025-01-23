@@ -100,7 +100,7 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
           "&:last-of-type td, &:last-of-type th": { border: 0 },
         }}
       >
-        <TableCell>
+        <TableCell className="grayText">
           <Typography variant="body2">
             <span
             // onClick={() => transactionHash(data?.txhash)}

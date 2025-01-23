@@ -324,6 +324,10 @@
 //     backdropFilter: " blur(32px)",
 // }
 
+.headermetaBtn {
+  color: #fff;
+}
+
 .headermetaBtn,
 .Mui-selected .swal2-confirm,
 .MuiButtonBase-root,
@@ -334,7 +338,7 @@
   padding: 12.5px 20px;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;
+  color: #fff !important;
   background-color: #000;
   text-decoration: none;
   border: none;
