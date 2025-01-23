@@ -6,9 +6,17 @@ import FormWrapper from "../../../components/Common/FormWrapper";
 import TextField from "../../../components/Common/TextField";
 import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
-import { MINIMUM_BOND_MORE_AMOUNT, typesOfTransaction } from "../../../components/Common/Constant";
+import {
+  MINIMUM_BOND_MORE_AMOUNT,
+  typesOfTransaction,
+} from "../../../components/Common/Constant";
 import BackButton from "../../../components/BackButton/BackButton";
-import { NumFixed, countDecimal, removeZero, toFixed } from "../../../utils/helper";
+import {
+  NumFixed,
+  countDecimal,
+  removeZero,
+  toFixed,
+} from "../../../utils/helper";
 import { bondMoreValidations } from "../../../utils/validations";
 import { noExponential } from "../../../utils/commonFunctions";
 import { getUserAddress } from "../../../services/GetAddress";
@@ -37,7 +45,10 @@ const Bond = () => {
   };
 
   const handleMaxAmt = () => {
-    if (Number(userBalance) > 0 && Number(userBalance) >= Number(MINIMUM_BOND_MORE_AMOUNT)) {
+    if (
+      Number(userBalance) > 0 &&
+      Number(userBalance) >= Number(MINIMUM_BOND_MORE_AMOUNT)
+    ) {
       let remianingAmt = toFixed(Number(userBalance), 7);
       setStakeAmount(noExponential(remianingAmt));
       let e = {
@@ -54,7 +65,13 @@ const Bond = () => {
   const handleChange = async (e) => {
     let { name, value } = e.target;
     if (name === "Bond_More") {
-      if (!isNaN(Number(value)) && value !== " " && !value.includes("+") && !value.includes("-") && countDecimal(value) <= 18) {
+      if (
+        !isNaN(Number(value)) &&
+        value !== " " &&
+        !value.includes("+") &&
+        !value.includes("-") &&
+        countDecimal(value) <= 18
+      ) {
         bondMoreValidations(e, setErrMsg, userBalance);
         let val = removeZero(e.target.value);
         setStakeAmount(val);
@@ -67,7 +84,12 @@ const Bond = () => {
   };
 
   useEffect(() => {
-    if (!stakeAmount || !mnemonics || errMsg?.amount?.length > 0 || errMsg?.mnemonics?.length > 0) {
+    if (
+      !stakeAmount ||
+      !mnemonics ||
+      errMsg?.amount?.length > 0 ||
+      errMsg?.mnemonics?.length > 0
+    ) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -89,7 +111,11 @@ const Bond = () => {
         return;
       }
       if (Number(stakeAmount) < Number(MINIMUM_BOND_MORE_AMOUNT)) {
-        toast.error(`Bond amount should be equal or greater than minimum required bond amount ${Number(MINIMUM_BOND_MORE_AMOUNT)} `);
+        toast.error(
+          `Bond amount should be equal or greater than minimum required bond amount ${Number(
+            MINIMUM_BOND_MORE_AMOUNT
+          )} `
+        );
         return;
       }
       if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
@@ -105,7 +131,12 @@ const Bond = () => {
         return;
       }
       setIsLoading(true);
-      const response = await delagteAndBondMore(mnemonics, userAddress, stakeAmount, selectedAccounts?.valoperAddress);
+      const response = await delagteAndBondMore(
+        mnemonics,
+        userAddress,
+        stakeAmount,
+        selectedAccounts?.valoperAddress
+      );
       dispatch(isTxOccur(true));
       if (response?.length > 0) {
         setTimeout(() => {
@@ -129,7 +160,9 @@ const Bond = () => {
     } catch (err) {
       setIsLoading(false);
       navigate("/dashboard");
-      let msg = err?.message?.split("Broadcasting transaction failed with code");
+      let msg = err?.message?.split(
+        "Broadcasting transaction failed with code"
+      );
       toast.error(msg[1]);
       return err;
     }
@@ -141,7 +174,9 @@ const Bond = () => {
       <FormWrapper>
         <div className="common-wrapper">
           <BackButton onClick={onBackClick} />
-          <Typography className="common-wrapper__title">Bond More Funds</Typography>
+          <Typography className="common-wrapper__title">
+            Bond More Funds
+          </Typography>
           <div className="common-wrapper__amount">
             <TextField
               title="Additional Funds to Bond"
@@ -158,7 +193,11 @@ const Bond = () => {
               label="Enter additional funds to bond"
               autoComplete="off"
             />
-            <Button variant="contained" className="maxBtn" onClick={handleMaxAmt}>
+            <Button
+              variant="contained"
+              className="maxBtn"
+              onClick={handleMaxAmt}
+            >
               Max
             </Button>
           </div>
@@ -172,7 +211,8 @@ const Bond = () => {
               onChange={handleChange}
               helperText={
                 <>
-                  <strong>Note :</strong> Your account status may take some time to update and reflect on the dashboard..
+                  <strong>Note :</strong> Your account status may take some time
+                  to update and reflect on the dashboard.
                   <br />
                   <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
                   <br />
