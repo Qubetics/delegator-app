@@ -110,7 +110,15 @@ const BlocksTable = ({ blockData, blockStatus }) => {
               </TableCell>
               <TableCell>
                 <Typography variant="body2" className="text-hover">
-                  <div style={{ display: "flex", alignItems: "center" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      maxWidth: "180px",
+                      width: "100%",
+                    }}
+                  >
                     <span
                       onClick={() => getdata(data?.miner)}
                       style={{ cursor: "pointer" }}
