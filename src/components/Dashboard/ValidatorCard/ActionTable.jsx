@@ -1,10 +1,22 @@
 /*eslint-disable*/
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { ActionStatus } from "./styles";
 import { Pagination } from "./styles";
 import FlexBox from "../../Common/FlexBox";
 import { useEffect, useState } from "react";
-import { BASE_URL_EXPLORER_LINKS_TESTNET, CURRENCY, DEFAULT_TABLE_LIMIT } from "../../Common/Constant";
+import {
+  BASE_URL_EXPLORER_LINKS_TESTNET,
+  CURRENCY,
+  DEFAULT_TABLE_LIMIT,
+} from "../../Common/Constant";
 import NotFound from "../../Common/NotFound";
 import { usePagination } from "../../../hooks/UsePagination";
 import { useSelector } from "react-redux";
@@ -16,7 +28,8 @@ import CopyIcon from "../../../assets/Icons/CopyIcon";
 import { toast } from "../../toast/Toast";
 const tableHeader = ["Transaction Hash", "Type", "Amount", "Status"];
 const ActionTable = ({ setWalletActivitesLength, showAll }) => {
-  const { pageParams, handlePageChange, totalPages, setTotalCount } = usePagination(DEFAULT_TABLE_LIMIT);
+  const { pageParams, handlePageChange, totalPages, setTotalCount } =
+    usePagination(DEFAULT_TABLE_LIMIT);
   const [txData, setTxData] = useState([]);
   const [txStatus, setTxStatus] = useState("Idle");
   const { userAddress } = useSelector((state) => state?.auth);
@@ -31,7 +44,11 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
     try {
       if (userAddress) {
         setTxStatus("Fetching");
-        const response = await getTxByAddress(userAddress, pageParams?.page, DEFAULT_TABLE_LIMIT);
+        const response = await getTxByAddress(
+          userAddress,
+          pageParams?.page,
+          DEFAULT_TABLE_LIMIT
+        );
         if (response?.error === false) {
           setTxData(response?.data?.transactions);
           setTotalCount(response?.data?.count);
@@ -56,7 +73,9 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
 
   const renderTableRows = () => {
     if (txStatus === "Fetching") {
-      return Array.from({ length: 5 }).map((_, index) => <SkeletonRow key={index} columns={tableHeader.length} />);
+      return Array.from({ length: 5 }).map((_, index) => (
+        <SkeletonRow key={index} columns={tableHeader.length} />
+      ));
     }
     if (showRecentActivitesData?.length === 0) {
       return (
@@ -83,14 +102,23 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
       >
         <TableCell>
           <Typography variant="body2">
-            <p onClick={() => transactionHash(data?.txhash)} className="text-hover paraText">
+            <span
+              onClick={() => transactionHash(data?.txhash)}
+              className="text-hover"
+            >
               <span className="recentHover"> {data?.txhash || "-"}</span>
-              <text onClick={() => copiedAddress(data?.txhash)}>
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  copiedAddress(data?.txhash);
+                }}
+              >
                 <CopyIcon sx={{ fontSize: "17px" }} />
-              </text>
-            </p>
+              </span>
+            </span>
           </Typography>
         </TableCell>
+
         <TableCell className="grayText">
           <Typography variant="body2">{data?.type || "-"}</Typography>
         </TableCell>
@@ -105,10 +133,22 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
             status={data?.status}
             style={{
               color:
-                data?.status === "SUCCESS" || data?.status === "success" ? "green" : data?.status === "PROCESSING" || data?.status === "PENDING" || data?.status === "pending" || data?.status === "processing" ? "yellow" : data?.status === "FAILED" || data?.status === "failed" ? "red" : "inherit", // Default color
+                data?.status === "SUCCESS" || data?.status === "success"
+                  ? "green"
+                  : data?.status === "PROCESSING" ||
+                    data?.status === "PENDING" ||
+                    data?.status === "pending" ||
+                    data?.status === "processing"
+                  ? "yellow"
+                  : data?.status === "FAILED" || data?.status === "failed"
+                  ? "red"
+                  : "inherit", // Default color
             }}
           >
-            {data?.status ? data.status.charAt(0).toUpperCase() + data.status.slice(1).toLowerCase() : "-"}
+            {data?.status
+              ? data.status.charAt(0).toUpperCase() +
+                data.status.slice(1).toLowerCase()
+              : "-"}
           </ActionStatus>
         </TableCell>
       </TableRow>
@@ -126,7 +166,10 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
               <TableRow>
                 {tableHeader.map((item, index) => (
                   <TableCell key={index}>
-                    <Typography style={{ fontSize: "16px", fontWeight: "300" }} variant="label">
+                    <Typography
+                      style={{ fontSize: "16px", fontWeight: "300" }}
+                      variant="label"
+                    >
                       {item}
                     </Typography>
                   </TableCell>
@@ -144,7 +187,13 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
             paddingTop: "20px",
           }}
         >
-          <Pagination count={totalPages} variant="outlined" shape="rounded" page={pageParams?.page} onChange={handlePageChange} />
+          <Pagination
+            count={totalPages}
+            variant="outlined"
+            shape="rounded"
+            page={pageParams?.page}
+            onChange={handlePageChange}
+          />
         </FlexBox>
       )}
     </>

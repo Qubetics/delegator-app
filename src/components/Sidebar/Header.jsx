@@ -22,7 +22,9 @@ function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { userAddress, isLoggedIn, userBalance, isTx } = useSelector((state) => state?.auth);
+  const { userAddress, isLoggedIn, userBalance, isTx } = useSelector(
+    (state) => state?.auth
+  );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -78,7 +80,12 @@ function Header() {
 
   return (
     <>
-      <Drawer anchor="left" open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} className="drawerCustom">
+      <Drawer
+        anchor="left"
+        open={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        className="drawerCustom"
+      >
         {/* <p>Validator Application</p> */}
         <Drawersidebar>
           <div className="headerWrapper">
@@ -87,13 +94,28 @@ function Header() {
               <div className="headerLinks">
                 <ul className="">
                   <li className="li">
-                    <Link to="/dashboard" className={`link ${pathname === "/dashboard" ? "active" : ""}`}>
+                    <Link
+                      to="/dashboard"
+                      className={`link ${
+                        pathname === "/dashboard" ? "active" : ""
+                      }`}
+                    >
                       Dashboard
                     </Link>
-                    <Link to="/blocks" className={`link ${pathname === "/blocks" ? "active" : ""}`}>
+                    <Link
+                      to="/blocks"
+                      className={`link ${
+                        pathname === "/blocks" ? "active" : ""
+                      }`}
+                    >
                       Block
                     </Link>
-                    <Link to="/validators" className={`link ${pathname === "/validators" ? "active" : ""}`}>
+                    <Link
+                      to="/validators"
+                      className={`link ${
+                        pathname === "/validators" ? "active" : ""
+                      }`}
+                    >
                       Validators
                     </Link>
                   </li>
@@ -101,20 +123,36 @@ function Header() {
               </div>
               {isLoggedIn ? (
                 <div className="headerButtons">
-                  <button variant="contained" color="primary" className="headermetaBtn">
+                  <button
+                    variant="contained"
+                    color="primary"
+                    className="headermetaBtn"
+                  >
                     <div className="copyBtns">
                       {getAddress(userAddress, 8, 8)}
-                      <text onClick={() => copiedAddress(userAddress)} className="copy-btn" style={{ cursor: "pointer", zIndex: "9999" }}>
+                      <text
+                        onClick={() => copiedAddress(userAddress)}
+                        className="copy-btn"
+                        style={{ cursor: "pointer", zIndex: "9999" }}
+                      >
                         <CopyIcon sx={{ fontSize: "17px" }} />
                       </text>
                     </div>
                   </button>
-                  <button onClick={handleClick} className="btnsaad headermetaBtn" endIcon={<DownIcon />}>
+                  <button
+                    onClick={handleClick}
+                    className="btnsaad headermetaBtn"
+                    endIcon={<DownIcon />}
+                  >
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </button>
 
-                  <Button variant="contained" color="primary" className="btnsaad headermetaBtn" style={{ zIndex: "99999" }}>
-                    <div to={`${pathname}`} onClick={handleLogout} style={{ zIndex: "99999" }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className="btnsaad headermetaBtn"
+                  >
+                    <div to={`${pathname}`} onClick={handleLogout}>
                       Logout
                     </div>
                   </Button>
@@ -137,13 +175,26 @@ function Header() {
             <div className="headerLinks">
               <ul className="">
                 <li className="li">
-                  <Link to="/dashboard" className={`link ${pathname === "/dashboard" ? "active" : ""}`}>
+                  <Link
+                    to="/dashboard"
+                    className={`link ${
+                      pathname === "/dashboard" ? "active" : ""
+                    }`}
+                  >
                     Dashboard
                   </Link>
-                  <Link to="/blocks" className={`link ${pathname === "/blocks" ? "active" : ""}`}>
+                  <Link
+                    to="/blocks"
+                    className={`link ${pathname === "/blocks" ? "active" : ""}`}
+                  >
                     Blocks
                   </Link>
-                  <Link to="/validators" className={`link ${pathname === "/validators" ? "active" : ""}`}>
+                  <Link
+                    to="/validators"
+                    className={`link ${
+                      pathname === "/validators" ? "active" : ""
+                    }`}
+                  >
                     Validators
                   </Link>
                 </li>
@@ -154,7 +205,11 @@ function Header() {
                 <Button className="btns headermetaBtn">
                   <div className="copyBtns">
                     {getAddress(userAddress, 8, 8)}
-                    <text onClick={() => copiedAddress(userAddress)} className="copy-btn" style={{ cursor: "pointer", zIndex: "9999" }}>
+                    <text
+                      onClick={() => copiedAddress(userAddress)}
+                      className="copy-btn"
+                      style={{ cursor: "pointer", zIndex: "9999" }}
+                    >
                       <CopyIcon sx={{ fontSize: "17px" }} />
                     </text>
                   </div>
@@ -165,7 +220,11 @@ function Header() {
                 </button>
 
                 <Button className="btns headermetaBtn">
-                  <div to={`${pathname}`} onClick={handleLogout} style={{ zIndex: "99999" }}>
+                  <div
+                    to={`${pathname}`}
+                    onClick={handleLogout}
+                    style={{ zIndex: "99999" }}
+                  >
                     Logout
                   </div>
                 </Button>

@@ -1,5 +1,14 @@
 /*eslint-disable*/
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import NotFound from "../../Common/NotFound";
 import { Link } from "react-router-dom";
 import { getAddress, toFixed, toPrecision } from "../../../utils/helper";
@@ -8,6 +17,8 @@ import { useDispatch } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
 import CopyAddress from "../../Common/CopyAddress";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
+import CopyIcon from "../../../assets/Icons/CopyIcon";
+import { toast } from "../../toast/Toast";
 
 const stopMenuOptions = [
   {
@@ -31,6 +42,11 @@ const stopMenuOptions = [
 
 const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
   const dispatch = useDispatch();
+
+  const copiedAddress = (data) => {
+    navigator.clipboard.writeText(data);
+    toast.success("Address Copied");
+  };
 
   return (
     <TableContainer component={Paper} sx={{ borderRadius: "0 !important" }}>
@@ -95,27 +111,60 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
           </TableHead>
           <TableBody>
             {dashboardData?.map((item, index) => (
-              <TableRow sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }} key={index}>
+              <TableRow
+                sx={{ "&:last-of-type td, &:last-of-type th": { border: 0 } }}
+                key={index}
+              >
                 <TableCell>
                   <Typography variant="body2">{index + 1}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2">{item?.name ? item?.name : "-"}</Typography>
+                  <Typography variant="body2">
+                    {item?.name ? item?.name : "-"}
+                  </Typography>
                 </TableCell>
+
                 <TableCell sx={{ display: "flex" }}>
-                  <Typography variant="body2" sx={{ padding: "10px 0", display: "flex" }}>
-                    {item?.validatorAddress ? <span className="validatorAddress"> {getAddress(item?.validatorAddress, 8, 8)}</span> : "-"}
-                    <CopyAddress address={item?.validatorAddress} />
+                  <Typography
+                    variant="body2"
+                    sx={{ padding: "10px 0", display: "flex" }}
+                  >
+                    {item?.validatorAddress ? (
+                      <span className="validatorAddress">
+                        {" "}
+                        {getAddress(item?.validatorAddress, 8, 8)}
+                      </span>
+                    ) : (
+                      "-"
+                    )}
+                    <text
+                      onClick={() => copiedAddress(item?.validatorAddress)}
+                      className="copy-btn"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <CopyIcon sx={{ fontSize: "17px" }} />
+                    </text>
+                  </Typography>
+                </TableCell>
+
+                <TableCell>
+                  <Typography
+                    variant="body2"
+                    title={toPrecision(item?.balanceAmount)}
+                  >
+                    {item?.balanceAmount
+                      ? toPrecision(item?.balanceAmount)
+                      : "0"}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography variant="body2" title={toPrecision(item?.balanceAmount)}>
-                    {item?.balanceAmount ? toPrecision(item?.balanceAmount) : "0"}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography variant="body2" title={noExponential(item?.totalRewards)}>
-                    {item?.totalRewards ? noExponential(toFixed(item?.totalRewards, 4)) : "0"}
+                  <Typography
+                    variant="body2"
+                    title={noExponential(item?.totalRewards)}
+                  >
+                    {item?.totalRewards
+                      ? noExponential(toFixed(item?.totalRewards, 4))
+                      : "0"}
                   </Typography>
                 </TableCell>
                 <TableCell>
@@ -123,19 +172,38 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                     return (
                       <Link
                         key={option?.label}
-                        to={option?.label !== "Bond more" && noExponential(Number(item?.balanceAmount) / 10 ** 18) < 0.05 ? "" : option?.path}
+                        to={
+                          option?.label !== "Bond more" &&
+                          noExponential(
+                            Number(item?.balanceAmount) / 10 ** 18
+                          ) < 0.05
+                            ? ""
+                            : option?.path
+                        }
                         onClick={() => {
                           dispatch(
                             selectedAccounts({
                               accounts: item?.validatorAddress || "",
                               name: item?.name || "",
-                              valoperAddress: item?.validatorOperatorAddress || "",
-                              stake: item?.balanceAmount ? toPrecision(item?.balanceAmount) : 0,
-                              actual: item?.balanceAmount ? item?.balanceAmount : 0,
+                              valoperAddress:
+                                item?.validatorOperatorAddress || "",
+                              stake: item?.balanceAmount
+                                ? toPrecision(item?.balanceAmount)
+                                : 0,
+                              actual: item?.balanceAmount
+                                ? item?.balanceAmount
+                                : 0,
                             })
                           );
                         }}
-                        className={option?.label !== "Bond more" && noExponential(Number(item?.balanceAmount) / 10 ** 18) < 0.05 ? `bonds-btns ${option.styleDisable}` : `bonds-btns ${option.style}`}
+                        className={
+                          option?.label !== "Bond more" &&
+                          noExponential(
+                            Number(item?.balanceAmount) / 10 ** 18
+                          ) < 0.05
+                            ? `bonds-btns ${option.styleDisable}`
+                            : `bonds-btns ${option.style}`
+                        }
                       >
                         {option?.label}
                       </Link>

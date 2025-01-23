@@ -86,15 +86,18 @@ export const Wrapper = styled(Box)(({ theme }) => ({
     fontWeight: "500",
     border: "1.5 px solid",
     border: "2px solid transparent",
-    background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
+    background:
+      "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
     transition: " color 0.2s ease-out, filter 0.2s ease-out",
     color: "#fff",
 
     "&:hover": {
       border: "2px solid transparent",
-      background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
+      background:
+        "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
       transition: " color 0.2s ease-out, filter 0.2s ease-out",
-      background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
+      background:
+        "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
     },
     "&.Mui-disabled": {
       // border: "1.5 px solid",
@@ -325,7 +328,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       color: "rgb(255, 255, 255)",
       cursor: " pointer",
       // border: "2px solid transparent",
-      background: "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
+      background:
+        "linear-gradient(180deg, #000, #000) padding-box, conic-gradient(from 180deg at 50% 50%, #ff98e2, #ffc876 35.77deg, #79fff7 153.75deg, #9f53ff 258.75deg, #ff98e2 360deg) border-box",
       borderRadius: "25px",
       transition: "color 0.2s ease-out, filter 0.2s ease-out",
       minWidth: "123px",
@@ -455,7 +459,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
   ".vaildator-card": {
     height: "100%",
     position: "relative",
-    background: " linear-gradient(157.79deg, rgba(29, 29, 29, 0.54)-0.65 %, rgba(29, 29, 29, 0.9) 99.59%)",
+    background:
+      " linear-gradient(157.79deg, rgba(29, 29, 29, 0.54)-0.65 %, rgba(29, 29, 29, 0.9) 99.59%)",
     border: "1px solid rgba(255, 255, 255, 0.1)",
     "&__main": {
       display: "flex",
@@ -596,7 +601,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       ".addres-input": {
         marginBottom: "0",
         maxWidth: "fit-content",
-        background: "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
+        background:
+          "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
         [theme.breakpoints.down(767)]: {
           // maxWidth: "200px",
         },
@@ -639,7 +645,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       },
       ".MuiTableRow-root": {
         "&:hover": {
-          background: "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
+          background:
+            "linear-gradient(157.79deg, rgba(29, 29, 29, 0.54) -0.65%, rgba(29, 29, 29, 0.9) 99.59%)",
         },
       },
     },
@@ -802,7 +809,8 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
       color: "#68afef",
     },
     ".recentHover": {
-      minWidth: "547px",
+      minWidth: "627px",
+      fontSize: "16px",
     },
   },
   ".copy-address": {
