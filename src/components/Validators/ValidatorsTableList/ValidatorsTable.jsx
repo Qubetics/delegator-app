@@ -70,6 +70,8 @@ const ValidatorsTable = ({
   const [validatorStatus, setValidatorStatus] = useState("Init");
   let number = 0;
 
+  console.log(validatorListData, "validatorListData");
+
   useEffect(() => {
     setCurrentPage(1);
   }, [tabId]);
@@ -355,21 +357,22 @@ const ValidatorsTable = ({
                   ))}
             </TableBody>
 
-            {validatorListData?.length == 0 && (
-              <TableBody>
-                <TableRow>
-                  <TableCell
-                    colSpan={9}
-                    align="center"
-                    sx={{
-                      border: "0 !important",
-                    }}
-                  >
-                    <NotFound />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            )}
+            {validatorListData?.length == 0 ||
+              (validatorListData == undefined && (
+                <TableBody>
+                  <TableRow>
+                    <TableCell
+                      colSpan={9}
+                      align="center"
+                      sx={{
+                        border: "0 !important",
+                      }}
+                    >
+                      <NotFound />
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              ))}
           </Table>
         </TableContainer>
       </div>
