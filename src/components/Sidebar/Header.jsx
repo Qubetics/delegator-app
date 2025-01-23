@@ -15,6 +15,8 @@ import { logout } from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
 import "./index.scss";
+import CopyIcon from "../../assets/Icons/CopyIcon";
+import { toast } from "../toast/Toast";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -69,6 +71,10 @@ function Header() {
       }
     });
   };
+  const copiedAddress = (data) => {
+    navigator.clipboard.writeText(data);
+    toast.success("Address Copied");
+  };
 
   return (
     <>
@@ -98,15 +104,17 @@ function Header() {
                   <button variant="contained" color="primary" className="headermetaBtn">
                     <div className="copyBtns">
                       {getAddress(userAddress, 8, 8)}
-                      <CopyAddress address={userAddress} />
+                      <text onClick={() => copiedAddress(userAddress)} className="copy-btn" style={{ cursor: "pointer", zIndex: "9999" }}>
+                        <CopyIcon sx={{ fontSize: "17px" }} />
+                      </text>
                     </div>
                   </button>
                   <button onClick={handleClick} className="btnsaad headermetaBtn" endIcon={<DownIcon />}>
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </button>
 
-                  <Button variant="contained" color="primary" className="btnsaad headermetaBtn">
-                    <div to={`${pathname}`} onClick={handleLogout}>
+                  <Button variant="contained" color="primary" className="btnsaad headermetaBtn" style={{ zIndex: "99999" }}>
+                    <div to={`${pathname}`} onClick={handleLogout} style={{ zIndex: "99999" }}>
                       Logout
                     </div>
                   </Button>
@@ -146,15 +154,18 @@ function Header() {
                 <Button className="btns headermetaBtn">
                   <div className="copyBtns">
                     {getAddress(userAddress, 8, 8)}
-                    <CopyAddress address={userAddress} />
+                    <text onClick={() => copiedAddress(userAddress)} className="copy-btn" style={{ cursor: "pointer", zIndex: "9999" }}>
+                      <CopyIcon sx={{ fontSize: "17px" }} />
+                    </text>
                   </div>
                 </Button>
+
                 <button onClick={handleClick} className="btns headermetaBtn">
                   Balance : {Number(userBalance).toFixed(2)} TICS
                 </button>
 
                 <Button className="btns headermetaBtn">
-                  <div to={`${pathname}`} onClick={handleLogout}>
+                  <div to={`${pathname}`} onClick={handleLogout} style={{ zIndex: "99999" }}>
                     Logout
                   </div>
                 </Button>
