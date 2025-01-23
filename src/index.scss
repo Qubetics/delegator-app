@@ -526,3 +526,8 @@ input:-webkit-autofill:active {
     animation: rotate 3s linear infinite;
   }
 }
+.lottieIcon {
+  svg {
+    width: 300px !important;
+  }
+}

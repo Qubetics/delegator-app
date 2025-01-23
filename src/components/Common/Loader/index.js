@@ -1,7 +1,7 @@
 import { BallTriangle } from "react-loader-spinner";
 import Lottie from "lottie-react";
 import React from "react";
-import datajson from "../../../assets/loading.json"
+import datajson from "../../../assets/loading.json";
 const Loader = () => {
   return (
     <>
@@ -43,9 +43,6 @@ const Loader = () => {
           <Lottie animationData={datajson} loop={true} />
         </div>
       </div>
-
-
-
     </>
   );
 };
