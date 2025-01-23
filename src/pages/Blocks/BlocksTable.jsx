@@ -73,16 +73,16 @@ const BlocksTable = ({ blockData, blockStatus }) => {
               </TableCell>
 
               <TableCell>
-                <Typography variant="body2" className="text-hover">
+                <Typography variant="body2">
                   {data?.blockhash ? (
                     <div
                       style={{ display: "flex", alignItems: "center" }}
-                      className="blockItems"
+                      // className="blockItems"
                     >
                       <span
-                        onClick={() => handleBlockNavigation(data?.blockhash)}
-                        style={{ cursor: "pointer" }}
-                        className="blockTruncate"
+                      // onClick={() => handleBlockNavigation(data?.blockhash)}
+                      // style={{ cursor: "pointer" }}
+                      // className="blockTruncate"
                       >
                         {getAddress(data?.blockhash, 8, 8)}
                       </span>
