@@ -119,6 +119,20 @@ const Footer = () => {
               >
                 Qubetics Delegator App
               </a>
+              <a
+                href="  https://qubetics-ide.qubetics.work/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Qubetics IDE
+              </a>
+              <a
+                href="https://testnet-qubeqode-basic.qubetics.work/work-space"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                QubeQode
+              </a>
               <Link to="/" underline="none">
                 Qubetics DEX
               </Link>
@@ -150,20 +164,7 @@ const Footer = () => {
               >
                 Qubetics Documentations
               </a>
-              <a
-                href="  https://qubetics-ide.qubetics.work/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Qubetics IDE
-              </a>
-              <a
-                href="https://testnet-qubeqode-basic.qubetics.work/work-space"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                QubeQode
-              </a>
+
               <a
                 href="https://github.com/Qubetics"
                 target="_blank"
