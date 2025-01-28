@@ -62,7 +62,7 @@ const Dashboard = () => {
       <DelegatorInfos />
       <Container>
         <section className="validator-status mb-0">
-          <div className="validator-status__card" style={{ paddingLeft: "0" }}>
+          <div className="validator-status__card" style={{ paddingLeft: "0", paddingRight: "0" }}>
             <Typography>Recent Wallet Activities:</Typography>
             {walletActivitesLength > 5 && (
               <button className="headermetaBtn viewAll" onClick={() => navigate("/wallet-activites")}>
