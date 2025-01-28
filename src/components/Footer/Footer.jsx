@@ -106,14 +106,14 @@ const Footer = () => {
                 Product & Services
               </Typography>
               <a
-                href="https://alphatestnet-validator.qubetics.work/login"
+                href="https://dev-validator.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Qubetics Validator App
               </a>
               <a
-                href="https://alphatestnet-delegator.qubetics.work/login"
+                href="https://dev-delegator.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -146,6 +146,7 @@ const Footer = () => {
               <Typography variant="h6" gutterBottom>
                 Resources
               </Typography>
+
               <a
                 href="https://www.qubetics.com/"
                 target="_blank"
@@ -153,7 +154,6 @@ const Footer = () => {
               >
                 Official Web
               </a>
-
               <Link to="/" underline="none">
                 Qubetics Network Documentations
               </Link>
