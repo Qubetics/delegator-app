@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy_testnet_delegator:
-    uses: ./.github/workflows/testnet-delegator-service.yml
+    uses: ./.github/workflows/delegator-app.yaml
     with:
       SWR_ORGANIZATION: testnet-qubetics
       ARGOCD_BRANCH: testnet
