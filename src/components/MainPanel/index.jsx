@@ -11,6 +11,7 @@ import { toggleSidebar } from "../../redux/Reducer/drawer";
 import { Container, Wrapper } from "./styles";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import Header from "../Sidebar/Header";
+import { useNavigate } from "react-router-dom";
 
 const MainPanel = ({ children }) => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const MainPanel = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
   const { pathname } = location;
+  const navigate = useNavigate();
   const showStats =
     pathname?.includes("account/become-a-validator") ||
     (!pathname?.includes("/account") &&
@@ -59,13 +61,28 @@ const MainPanel = ({ children }) => {
   };
 
   return (
-    <Wrapper>
-      <div className="main_top">
-        <Header />
+    <>
+      <div className="bugSubButton">
+        <button
+          className="headermetaBtn"
+          // onClick={() => router.push("/bug-submission")}
+          onClick={() =>
+            window.open(
+              "https://alphatestnet-explorer.qubetics.work/bug-submission",
+              "_blank"
+            )
+          }
+        >
+          Reward Program
+        </button>
+      </div>
+      <Wrapper>
+        <div className="main_top">
+          <Header />
 
-        <div className="bg_content">
-          <Container ismobile={`${isMobile}`}>
-            {/* {isMobile && (
+          <div className="bg_content">
+            <Container ismobile={`${isMobile}`}>
+              {/* {isMobile && (
               <MenuIcon
                 className="open-icon"
                 sx={{
@@ -76,18 +93,19 @@ const MainPanel = ({ children }) => {
                 onClick={openSidebar}
               />
             )} */}
-            {showStats && <Statistics />}
-            {children}
-          </Container>
+              {showStats && <Statistics />}
+              {children}
+            </Container>
+          </div>
         </div>
-      </div>
 
-      <Footer />
-      {/* <Sidebar
+        <Footer />
+        {/* <Sidebar
         isMobileSidebarOpen={isMobileSidebarOpen}
         setIsMobileSidebarOpen={setIsMobileSidebarOpen}
       /> */}
-    </Wrapper>
+      </Wrapper>
+    </>
   );
 };
 
