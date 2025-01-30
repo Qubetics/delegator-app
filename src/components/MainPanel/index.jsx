@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { useMediaQuery } from "@mui/material";
 import { useCallback, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import Statistics from "../Statistics";
@@ -65,7 +65,6 @@ const MainPanel = ({ children }) => {
         <div className="bugSubButton">
           <button
             className="headermetaBtn"
-            // onClick={() => router.push("/bug-submission")}
             onClick={() =>
               window.open(
                 "https://alphatestnet-explorer.qubetics.work/bug-submission",
