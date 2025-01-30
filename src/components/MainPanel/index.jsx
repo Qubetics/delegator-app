@@ -62,6 +62,7 @@ const MainPanel = ({ children }) => {
 
   return (
     <>
+      {/*
       {isLoggedIn && (
         <div className="bugSubButton">
           <button
@@ -78,6 +79,7 @@ const MainPanel = ({ children }) => {
           </button>
         </div>
       )}
+      */}
       <Wrapper>
         <div className="main_top">
           <Header />
