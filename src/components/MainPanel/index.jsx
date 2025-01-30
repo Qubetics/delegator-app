@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { useMediaQuery } from "@mui/material";
 import { useCallback, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import Statistics from "../Statistics";
@@ -18,7 +18,6 @@ const MainPanel = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
   const { pathname } = location;
-  const { isLoggedIn } = useSelector((state) => state?.auth);
   const showStats =
     pathname?.includes("account/become-a-validator") ||
     (!pathname?.includes("/account") &&
@@ -61,21 +60,19 @@ const MainPanel = ({ children }) => {
 
   return (
     <>
-      {isLoggedIn && (
-        <div className="bugSubButton">
-          <button
-            className="headermetaBtn"
-            onClick={() =>
-              window.open(
-                "https://alphatestnet-explorer.qubetics.work/bug-submission",
-                "_blank"
-              )
-            }
-          >
-            Reward Program
-          </button>
-        </div>
-      )}
+      <div className="bugSubButton">
+        <button
+          className="headermetaBtn"
+          onClick={() =>
+            window.open(
+              "https://alphatestnet-explorer.qubetics.work/bug-submission",
+              "_blank"
+            )
+          }
+        >
+          Reward Program
+        </button>
+      </div>
 
       <Wrapper>
         <div className="main_top">
