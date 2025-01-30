@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import { useMediaQuery } from "@mui/material";
 import { useCallback, useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import Sidebar from "../Sidebar";
 import Statistics from "../Statistics";
@@ -11,7 +11,6 @@ import { toggleSidebar } from "../../redux/Reducer/drawer";
 import { Container, Wrapper } from "./styles";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import Header from "../Sidebar/Header";
-import { useNavigate } from "react-router-dom";
 
 const MainPanel = ({ children }) => {
   const dispatch = useDispatch();
@@ -19,7 +18,8 @@ const MainPanel = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
   const { pathname } = location;
-  const navigate = useNavigate();
+  const { isLoggedIn } = useSelector((state) => state?.auth);
+
   const showStats =
     pathname?.includes("account/become-a-validator") ||
     (!pathname?.includes("/account") &&
@@ -62,20 +62,22 @@ const MainPanel = ({ children }) => {
 
   return (
     <>
-      <div className="bugSubButton">
-        <button
-          className="headermetaBtn"
-          // onClick={() => router.push("/bug-submission")}
-          onClick={() =>
-            window.open(
-              "https://alphatestnet-explorer.qubetics.work/bug-submission",
-              "_blank"
-            )
-          }
-        >
-          Reward Program
-        </button>
-      </div>
+      {isLoggedIn && (
+        <div className="bugSubButton">
+          <button
+            className="headermetaBtn"
+            // onClick={() => router.push("/bug-submission")}
+            onClick={() =>
+              window.open(
+                "https://alphatestnet-explorer.qubetics.work/bug-submission",
+                "_blank"
+              )
+            }
+          >
+            Reward Program
+          </button>
+        </div>
+      )}
       <Wrapper>
         <div className="main_top">
           <Header />
