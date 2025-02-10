@@ -23,15 +23,30 @@ const Login = () => {
         return;
       }
       if (mnemonics?.length > 0) {
-        setIsLoading(true);
-        let res = await getUserAddress(mnemonics);
-        if (res?.message) {
-          toast.error(res?.message);
-          return;
-        }
-        let response = await fetchValoperAddress(mnemonics);
-        dispatch(logInSuccess(res));
-        return toast.success("Logged In Successfully");
+        const data = {};
+        window.qubetics.sendRequest(
+          "nativeConnect",
+          data,
+          async (error, response) => {
+            if (response?.type == "error") {
+              setIsLoading(false);
+              toast.error(response?.data?.message || "Something went wrong");
+              return;
+            } else {
+              if (response) {
+                setIsLoading(true);
+                let res = await getUserAddress(mnemonics);
+                if (res?.message) {
+                  toast.error(res?.message);
+                  return;
+                }
+                let response = await fetchValoperAddress(mnemonics);
+                dispatch(logInSuccess(res));
+                return toast.success("Logged In Successfully");
+              }
+            }
+          }
+        );
       }
     } catch (err) {
       setIsLoading(false);

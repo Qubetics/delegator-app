@@ -67,10 +67,17 @@ function Header() {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(logout());
-        navigate("/login");
-        dispatch(selectedAccounts({}));
-        sessionStorage.clear();
+        const data = {};
+        if (window?.qubetics) {
+          window.qubetics.sendRequest("disconnect", data, (err, res) => {
+            if (res) {
+              dispatch(logout());
+              navigate("/login");
+              dispatch(selectedAccounts({}));
+              sessionStorage.clear();
+            }
+          });
+        }
       }
     });
   };

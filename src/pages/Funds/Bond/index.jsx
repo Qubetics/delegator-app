@@ -8,6 +8,7 @@ import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
 import {
   MINIMUM_BOND_MORE_AMOUNT,
+  NODE_NAME,
   typesOfTransaction,
 } from "../../../components/Common/Constant";
 import BackButton from "../../../components/BackButton/BackButton";
@@ -38,6 +39,7 @@ const Bond = () => {
   const [errMsg, setErrMsg] = useState({ amount: "", mnemonics: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  let nodeUrl = NODE_NAME || "";
 
   const onBackClick = () => {
     setStakeAmount("");
@@ -123,6 +125,7 @@ const Bond = () => {
         return;
       }
       let res = await getUserAddress(mnemonics);
+      console.log(res);
       if (res?.message) {
         return toast.error(res?.message);
       }
@@ -131,31 +134,49 @@ const Bond = () => {
         return;
       }
       setIsLoading(true);
-      const response = await delagteAndBondMore(
+
+      const valoperAddress = selectedAccounts?.valoperAddress;
+
+      const data = {
         mnemonics,
         userAddress,
         stakeAmount,
-        selectedAccounts?.valoperAddress
-      );
-      dispatch(isTxOccur(true));
-      if (response?.length > 0) {
-        setTimeout(() => {
-          const fetchData = async () => {
-            let resp = await getTransactionLogs(response);
-            if (resp?.result?.tx_result?.data === null) {
+        valoperAddress,
+        nodeUrl,
+      };
+      if (window?.qubetics) {
+        window?.qubetics.sendRequest(
+          "delegatorBondMoreFunds",
+          data,
+          (error, response) => {
+            if (response?.type == "error") {
               setIsLoading(false);
-              toast.error("Transaction failed");
-              navigate("/dashboard");
+              toast.error(response?.data?.message || "Something went wrong");
               return;
             } else {
-              setIsLoading(false);
-              toast.success("Transaction successful");
-              navigate("/dashboard");
-              return;
+              dispatch(isTxOccur(true));
+              if (response) {
+                setTimeout(() => {
+                  const fetchData = async () => {
+                    let resp = await getTransactionLogs(response?.data);
+                    if (resp?.result?.tx_result?.data === null) {
+                      setIsLoading(false);
+                      toast.error("Transaction failed");
+                      navigate("/dashboard");
+                      return;
+                    } else {
+                      setIsLoading(false);
+                      toast.success("Transaction successful");
+                      navigate("/dashboard");
+                      return;
+                    }
+                  };
+                  fetchData();
+                }, 4000);
+              }
             }
-          };
-          fetchData();
-        }, 4000);
+          }
+        );
       }
     } catch (err) {
       setIsLoading(false);
@@ -164,6 +185,7 @@ const Bond = () => {
         "Broadcasting transaction failed with code"
       );
       toast.error(msg[1]);
+      console.log(err);
       return err;
     }
   };
@@ -230,24 +252,10 @@ const Bond = () => {
                 // marginTop: "50px",
               }
             }
-            disabled={isDisable || isLoading}
+            // disabled={isDisable || isLoading}
             onClick={handleBondMore}
           >
-            {isLoading ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                }}
-              >
-                <Spin /> {/* Replace with your Loader component */}
-                Loading...
-              </div>
-            ) : (
-              "Bond More"
-            )}
+            {isLoading ? <Loader /> : "Bond More"}
           </Button>
         </div>
       </FormWrapper>

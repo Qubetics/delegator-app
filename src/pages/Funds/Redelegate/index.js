@@ -22,7 +22,10 @@ import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
-import { typesOfTransaction } from "../../../components/Common/Constant";
+import {
+  NODE_NAME,
+  typesOfTransaction,
+} from "../../../components/Common/Constant";
 import { Spin } from "antd";
 
 const Redelegate = () => {
@@ -39,6 +42,7 @@ const Redelegate = () => {
   const [errMsg, setErrMsg] = useState({ mnemonics: "" });
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const nodeUrl = NODE_NAME;
 
   const handleChange = async (e) => {
     let { name, value } = e.target;
@@ -97,24 +101,43 @@ const Redelegate = () => {
         return;
       }
       setIsLoading(true);
-      const response = await redelegate(
+      // const response = await redelegate(
+      //   mnemonics,
+      //   selectedAccounts?.valoperAddress,
+      //   valoperAddress,
+      //   selectedAccounts?.stake
+      // );
+      const selectedAccount = selectedAccounts.valoperAddress;
+      const stakeAmount = selectedAccounts.stake;
+
+      const data = {
         mnemonics,
-        selectedAccounts?.valoperAddress,
+        selectedAccount,
         valoperAddress,
-        selectedAccounts?.stake
-      );
-      dispatch(isTxOccur(true));
-      if (response?.code == 0) {
-        setTimeout(async () => {
-          navigate("/dashboard");
-          toast.success("Transaction successful");
-          setIsLoading(false);
-        }, 4000);
-      } else {
-        setIsLoading(false);
-        navigate("/dashboard");
-        let msg = response?.rawLog;
-        toast.error(msg);
+        stakeAmount,
+        nodeUrl,
+      };
+      if (window?.qubetics) {
+        window?.qubetics?.sendRequest("redelegate", data, (error, response) => {
+          if (response?.type == "error") {
+            setIsLoading(false);
+            toast.error(response?.data?.message || "Something went wrong");
+            return;
+          }
+          dispatch(isTxOccur(true));
+          if (response?.data?.code == 0) {
+            setTimeout(async () => {
+              navigate("/dashboard");
+              toast.success("Transaction successful");
+              setIsLoading(false);
+            }, 4000);
+          } else {
+            setIsLoading(false);
+            navigate("/dashboard");
+            let msg = response?.data?.rawLog;
+            toast.error(msg);
+          }
+        });
       }
     } catch (err) {
       setIsLoading(false);
@@ -164,19 +187,22 @@ const Redelegate = () => {
                   inputProps={{ "aria-label": "Without label" }}
                 >
                   <MenuItem disabled value="">
-                    <em style={{ color: "rgba(83, 82, 82, 0.88)" }}> Select the validator for redelegation  </em>
+                    <em style={{ color: "rgba(83, 82, 82, 0.88)" }}>
+                      {" "}
+                      Select the validator for redelegation{" "}
+                    </em>
                   </MenuItem>
                   {validatorList
                     ? validatorList?.map((item) => {
-                      return (
-                        <MenuItem
-                          key={item?.operatorAddress}
-                          value={item?.operatorAddress}
-                        >
-                          {item?.name}, ({item?.validatorAddress})
-                        </MenuItem>
-                      );
-                    })
+                        return (
+                          <MenuItem
+                            key={item?.operatorAddress}
+                            value={item?.operatorAddress}
+                          >
+                            {item?.name}, ({item?.validatorAddress})
+                          </MenuItem>
+                        );
+                      })
                     : ""}
                 </Select>
               </FormControl>
@@ -190,7 +216,12 @@ const Redelegate = () => {
               name="Mnemonics"
               type="password"
               onChange={handleChange}
-              helperText={<><strong>Note:</strong> Your account status may take some time to update and reflect on the dashboard.</>}
+              helperText={
+                <>
+                  <strong>Note:</strong> Your account status may take some time
+                  to update and reflect on the dashboard.
+                </>
+              }
               autoComplete="off"
             />
           </div>
@@ -204,21 +235,7 @@ const Redelegate = () => {
             }}
             disabled={isDisable || isLoading}
           >
-            {isLoading ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                }}
-              >
-                <Spin /> {/* Replace with your Loader component */}
-                Loading...
-              </div>
-            ) : (
-              "Redelegate"
-            )}
+            {isLoading ? <Loader /> : "Redelegate"}
           </Button>
         </div>
       </FormWrapper>

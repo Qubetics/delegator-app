@@ -14,7 +14,15 @@ import { bondMoreValidations } from "../../utils/validations";
 import { noExponential } from "../../utils/commonFunctions";
 import DetailsBox from "../Common/DetailsBox";
 
-const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setErrMsg, errMsg, handleSetUpDelegator }) => {
+const SetupBond = ({
+  setStakeAmount,
+  stakeAmount,
+  mnemonics,
+  setMnemonics,
+  setErrMsg,
+  errMsg,
+  handleSetUpDelegator,
+}) => {
   const [isDisable, setIsDisable] = useState(false);
   const navigate = useNavigate();
   const { userBalance } = useSelector((state) => state?.auth);
@@ -28,7 +36,13 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
   const handleChange = async (e) => {
     let { name, value } = e.target;
     if (name === "Bond_Amount") {
-      if (!isNaN(Number(value)) && value !== " " && !value.includes("+") && !value.includes("-") && countDecimal(value) <= 18) {
+      if (
+        !isNaN(Number(value)) &&
+        value !== " " &&
+        !value.includes("+") &&
+        !value.includes("-") &&
+        countDecimal(value) <= 18
+      ) {
         bondMoreValidations(e, setErrMsg, userBalance);
         let val = removeZero(e.target.value);
         setStakeAmount(val);
@@ -41,7 +55,12 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
   };
 
   useEffect(() => {
-    if (!stakeAmount || !mnemonics || errMsg?.amount?.length > 0 || errMsg?.mnemonics?.length > 0) {
+    if (
+      !stakeAmount ||
+      !mnemonics ||
+      errMsg?.amount?.length > 0 ||
+      errMsg?.mnemonics?.length > 0
+    ) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -49,10 +68,16 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
   }, [errMsg, stakeAmount, mnemonics]);
 
   const handleMaxAmt = () => {
-    if (Number(userBalance) > 0 && Number(userBalance) > Number(FEE) && Number(userBalance) >= Number(MINIMUM_BOND_AMOUNT) + Number(FEE)) {
+    if (
+      Number(userBalance) > 0 &&
+      Number(userBalance) > Number(FEE) &&
+      Number(userBalance) >= Number(MINIMUM_BOND_AMOUNT) + Number(FEE)
+    ) {
       let remianingAmt = Number(userBalance) - Number(FEE);
       setStakeAmount(noExponential(remianingAmt));
-      let e = { target: { name: "Bond_Amount", value: noExponential(remianingAmt) } };
+      let e = {
+        target: { name: "Bond_Amount", value: noExponential(remianingAmt) },
+      };
       bondMoreValidations(e, setErrMsg, userBalance);
     } else {
       setStakeAmount(0);
@@ -65,7 +90,9 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
       <FormWrapper>
         <div className="common-wrapper">
           <BackButton onClick={onBackClick} />
-          <Typography className="common-wrapper__title">Setup Delegator Bond</Typography>
+          <Typography className="common-wrapper__title">
+            Setup Delegator Bond
+          </Typography>
           <div className="common-wrapper__amount">
             <TextField
               paddingright={100}
@@ -83,7 +110,11 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
               label="Enter amount to stake"
               autoComplete="off"
             />
-            <Button variant="outlined" className="maxBtn" onClick={handleMaxAmt}>
+            <Button
+              variant="outlined"
+              className="maxBtn"
+              onClick={handleMaxAmt}
+            >
               Max
             </Button>
           </div>
@@ -97,7 +128,8 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
             className="delegatorbnd"
             helperText={
               <>
-                <strong>Note :</strong> Your account status may take some time to update and reflect on the dashboard.
+                <strong>Note :</strong> Your account status may take some time
+                to update and reflect on the dashboard.
                 <br />
                 <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
                 <br />
@@ -105,7 +137,13 @@ const SetupBond = ({ setStakeAmount, stakeAmount, mnemonics, setMnemonics, setEr
             }
             autoComplete="off"
           />
-          <Button sx={{ marginTop: "50px" }} onClick={handleSetUpDelegator} disabled={isDisable} className="btnbondmore headermetaBtn" style={{ margin: "auto", display: "block" }}>
+          <Button
+            sx={{ marginTop: "50px" }}
+            onClick={handleSetUpDelegator}
+            disabled={isDisable}
+            className="btnbondmore headermetaBtn"
+            style={{ margin: "auto", display: "block" }}
+          >
             Sign & Submit
           </Button>
         </div>

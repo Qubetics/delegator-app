@@ -8,6 +8,7 @@ import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
 import {
   CURRENCY,
+  NODE_NAME,
   typesOfTransaction,
 } from "../../../components/Common/Constant";
 import BackButton from "../../../components/BackButton/BackButton";
@@ -33,12 +34,13 @@ const UnBond = () => {
   const { selectedAccounts } = drawer;
   const [mnemonics, setMnemonics] = useState("");
   const [isDisable, setIsDisable] = useState(false);
-  const [unbondAmount, setUnbondAmount] = useState("");
+  const [unBoundAmt, setUnbondAmount] = useState("");
   const [errMsg, setErrMsg] = useState({ amount: "", mnemonics: "" });
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [maxClicked, setMaxClicked] = useState(true);
+  let nodeUrl = NODE_NAME || "";
 
   const onSubmit = async () => {
     try {
@@ -51,31 +53,49 @@ const UnBond = () => {
         return;
       }
       setIsLoading(true);
-      const response = await unBondFunds(
+      // const response = await unBondFunds(
+      //   mnemonics,
+      //   userAddress,
+      //   selectedAccounts?.valoperAddress,
+      //   unBoundAmt,
+      //   maxClicked,
+      //   selectedAccounts?.actual
+      // );
+      const valoperAddress = selectedAccounts?.valoperAddress;
+      const data = {
         mnemonics,
         userAddress,
-        selectedAccounts?.valoperAddress,
-        unbondAmount,
-        maxClicked,
-        selectedAccounts?.actual
-      );
-      dispatch(isTxOccur(true));
-      if (response?.length > 0) {
-        setTimeout(() => {
-          const fetchData = async () => {
-            let resp = await getTransactionLogs(response);
-            if (resp?.result?.tx_result?.data === null) {
-              setIsLoading(false);
-              toast.error("Transaction failed");
-              return navigate("/dashboard");
-            } else {
-              setIsLoading(false);
-              toast.success("Transaction successful");
-              return navigate("/dashboard");
+        unBoundAmt,
+        valoperAddress,
+        nodeUrl,
+      };
+      if (window?.qubetics) {
+        window.qubetics.sendRequest("unBondFunds", data, (error, response) => {
+          if (response?.type == "error") {
+            setIsLoading(false);
+            toast.error(response?.data?.message || "Something went wrong");
+            return;
+          } else {
+            dispatch(isTxOccur(true));
+            if (response) {
+              setTimeout(() => {
+                const fetchData = async () => {
+                  let resp = await getTransactionLogs(response?.data);
+                  if (resp?.result?.tx_result?.data === null) {
+                    setIsLoading(false);
+                    toast.error("Transaction failed");
+                    return navigate("/dashboard");
+                  } else {
+                    setIsLoading(false);
+                    toast.success("Transaction successful");
+                    return navigate("/dashboard");
+                  }
+                };
+                fetchData();
+              }, 5000);
             }
-          };
-          fetchData();
-        }, 5000);
+          }
+        });
       }
     } catch (err) {
       setIsLoading(false);
@@ -83,6 +103,7 @@ const UnBond = () => {
       let msg = err?.message?.split(
         "Broadcasting transaction failed with code"
       );
+      console.log(err);
       toast.error(msg[1]);
     }
   };
@@ -104,7 +125,7 @@ const UnBond = () => {
   };
   useEffect(() => {
     if (
-      !unbondAmount ||
+      !unBoundAmt ||
       !mnemonics ||
       errMsg?.amount?.length > 0 ||
       errMsg?.mnemonics?.length > 0
@@ -113,7 +134,7 @@ const UnBond = () => {
     } else {
       setIsDisable(false);
     }
-  }, [errMsg, unbondAmount, mnemonics]);
+  }, [errMsg, unBoundAmt, mnemonics]);
 
   const handleChange = async (e) => {
     let { name, value } = e.target;
@@ -155,7 +176,7 @@ const UnBond = () => {
           </Typography>
           <div className="common-wrapper__amount">
             <TextField
-              value={unbondAmount}
+              value={unBoundAmt}
               placeholder="Enter amount to unstake"
               name="Unbond_Amount"
               paddingright={150}
@@ -199,21 +220,7 @@ const UnBond = () => {
             onClick={onSubmit}
             className="reletebtn"
           >
-            {isLoading ? (
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "8px",
-                }}
-              >
-                <Spin /> {/* Replace with your Loader component */}
-                Loading...
-              </div>
-            ) : (
-              "Unbond"
-            )}
+            {isLoading ? <Loader /> : "Unbond"}
           </Button>
         </div>
       </FormWrapper>
