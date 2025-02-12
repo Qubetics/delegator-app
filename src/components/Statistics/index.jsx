@@ -1,16 +1,18 @@
 /*eslint-disable*/
 import { useEffect, useState } from "react";
-import { Box, Typography, IconButton, InputAdornment, Skeleton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  IconButton,
+  InputAdornment,
+  Skeleton,
+} from "@mui/material";
 import { Tooltip } from "antd";
 import { Wrapper, StatItem, Search } from "./styles";
-import { useLocation } from 'react-router-dom';
-import MarketCapIcon from "../../assets/Icons/MarketCapIcon";
-import PriceIcon from "../../assets/Icons/PriceIcon";
-import InflationIcon from "../../assets/Icons/InflationIcon";
-import TextField from '@mui/material/TextField';
+import { useLocation } from "react-router-dom";
+import TextField from "@mui/material/TextField";
 import { APP_NAME, CURRENCY, DECIMAL_VALUE, msg } from "../Common/Constant";
 import InfoIcon from "../../assets/Icons/InfoIcon";
-import CalendarIcon from "../../assets/Icons/CalendarIcon";
 import { toFixed } from "../../utils/helper";
 import { getApy, getTotalValidators } from "../../redux/Reducer/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,22 +22,29 @@ import {
   formatMillionNumber,
   noExponential,
 } from "../../utils/commonFunctions";
-import { AprIcon, InfliationIcon, MarcketIcon, QubpriceIcon, SupplyIcon, MagnifierIcon } from "../../assets/Icons/SvgIcon";
+import {
+  AprIcon,
+  InfliationIcon,
+  MarcketIcon,
+  QubpriceIcon,
+  SupplyIcon,
+  MagnifierIcon,
+} from "../../assets/Icons/SvgIcon";
+import getQubeticsPrice from "../../services/api/getQubeticsPrice";
 
 const Statistics = () => {
   const dispatch = useDispatch();
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = useSelector(
-    (state) => state.auth
-  );
-  const { pathname } = useLocation()
+  const [price, setPrice] = useState();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let response = await getAllStats();
-        setLoading(true)
+        setLoading(true);
         setStats(response?.data);
         dispatch(getApy(response?.data?.apy));
         dispatch(getTotalValidators(response?.data?.totalValidator));
@@ -47,39 +56,49 @@ const Statistics = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    getPrice();
+  }, []);
+  const getPrice = async () => {
+    try {
+      let response = await getQubeticsPrice();
+      setLoading(true);
+      setPrice(response?.data);
+    } catch (err) {
+      setLoading(true);
+      console.log(err);
+    }
+  };
+
   return (
     <>
-      {pathname != "/login" || isLoggedIn &&
-        <Wrapper>
-
-          <Search>
-            <TextField
-              variant="outlined"
-              placeholder="Search by TX Hash/ Address/ Block/ Block Hash"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <MagnifierIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Search>
-        </Wrapper>
-      }
+      {pathname != "/login" ||
+        (isLoggedIn && (
+          <Wrapper>
+            <Search>
+              <TextField
+                variant="outlined"
+                placeholder="Search by TX Hash/ Address/ Block/ Block Hash"
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <MagnifierIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            </Search>
+          </Wrapper>
+        ))}
 
       <Wrapper>
-
-
         <StatItem className="cardbg">
-
           <div className="icon-wrap firstbg">
             <MarcketIcon />
           </div>
 
           <Box ml="10px">
-
             <Typography variant="h6" color="text.secondary">
               Market Cap
               <TooltipEle
@@ -89,16 +108,20 @@ const Statistics = () => {
             </Typography>
             {!loading ? (
               <Skeleton variant="circle" width={100} height={20} />
-            ) : (<>
-              <h4>$
-                {stats?.marketCap ? formatMillionNumber(Number(stats?.marketCap)) : 0}</h4>
-            </>)}
+            ) : (
+              <>
+                <h4>
+                  $
+                  {stats?.marketCap
+                    ? formatMillionNumber(Number(stats?.marketCap))
+                    : 0}
+                </h4>
+              </>
+            )}
           </Box>
-
         </StatItem>
 
         <StatItem className="cardbg">
-
           <div className="icon-wrap secondbg icon-large">
             <QubpriceIcon />
           </div>
@@ -123,18 +146,16 @@ const Statistics = () => {
             </Typography>
             {!loading ? (
               <Skeleton variant="circle" width={100} height={20} />
-            ) : (<>
-              $ {''}
-              {stats?.tokenPrice
-                ? noExponential(toFixed(Number(stats?.tokenPrice), 6))
-                : 0.03112491}
-            </>)}
-
+            ) : (
+              <>
+                $ {""}
+                {price ? noExponential(toFixed(Number(price), 6)) : "-"}
+              </>
+            )}
           </Box>
         </StatItem>
 
         <StatItem className="cardbg">
-
           <div className="icon-wrap thirdbg icon-large">
             <InfliationIcon />
           </div>
@@ -148,8 +169,8 @@ const Statistics = () => {
                 arrow
                 title={
                   <Typography variant="h6" padding={1}>
-                    This inflation rate is adjusted automatically by the protocol,
-                    based on how much total stake is bonded by staking
+                    This inflation rate is adjusted automatically by the
+                    protocol, based on how much total stake is bonded by staking
                     participants.
                   </Typography>
                 }
@@ -161,14 +182,18 @@ const Statistics = () => {
             </Typography>
             {!loading ? (
               <Skeleton variant="circle" width={50} height={20} />
-            ) : (<>
-              {stats?.inflation ? noExponential(toFixed(stats?.inflation, 1)) : 0}%
-            </>)}
+            ) : (
+              <>
+                {stats?.inflation
+                  ? noExponential(toFixed(stats?.inflation, 1))
+                  : 0}
+                %
+              </>
+            )}
           </Box>
         </StatItem>
 
         <StatItem className="cardbg">
-
           <div className="icon-wrap fourthbg">
             <AprIcon />
           </div>
@@ -183,8 +208,8 @@ const Statistics = () => {
                 title={
                   <Typography variant="h6" padding={1}>
                     The annual percentage yield in {CURRENCY} is calculated by
-                    dividing the estimated yearly reward by the current {CURRENCY}{" "}
-                    ({APP_NAME}'s native token) holding.
+                    dividing the estimated yearly reward by the current{" "}
+                    {CURRENCY} ({APP_NAME}'s native token) holding.
                   </Typography>
                 }
               >
@@ -196,14 +221,13 @@ const Statistics = () => {
             <Typography>
               {!loading ? (
                 <Skeleton variant="circle" width={50} height={20} />
-              ) : (<>
-                {stats?.apy ? toFixed(stats?.apy, 3) : 0}%
-              </>)}
+              ) : (
+                <>{stats?.apy ? toFixed(stats?.apy, 3) : 0}%</>
+              )}
             </Typography>
           </Box>
         </StatItem>
         <StatItem className="cardbg">
-
           <div className="icon-wrap fifthbg">
             <SupplyIcon />
           </div>
@@ -217,13 +241,16 @@ const Statistics = () => {
             </Typography>
             {!loading ? (
               <Skeleton variant="circle" width={80} height={20} />
-            ) : (<>
-              {stats?.totalSupply
-                ? formatMillionNumber(
-                  Number(stats?.totalSupply) / 10 ** DECIMAL_VALUE
-                )
-                : 0}{" "}{CURRENCY}
-            </>)}
+            ) : (
+              <>
+                {stats?.totalSupply
+                  ? formatMillionNumber(
+                      Number(stats?.totalSupply) / 10 ** DECIMAL_VALUE
+                    )
+                  : 0}{" "}
+                {CURRENCY}
+              </>
+            )}
           </Box>
         </StatItem>
       </Wrapper>
