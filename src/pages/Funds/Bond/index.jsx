@@ -138,12 +138,12 @@ const Bond = () => {
       const valoperAddress = selectedAccounts?.valoperAddress;
 
       const data = {
-        mnemonics,
         userAddress,
         stakeAmount,
         valoperAddress,
         nodeUrl,
       };
+      console.log(userAddress, valoperAddress);
       if (window?.qubetics) {
         window?.qubetics.sendRequest(
           "delegatorBondMoreFunds",

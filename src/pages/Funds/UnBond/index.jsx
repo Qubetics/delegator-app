@@ -63,7 +63,6 @@ const UnBond = () => {
       // );
       const valoperAddress = selectedAccounts?.valoperAddress;
       const data = {
-        mnemonics,
         userAddress,
         unBoundAmt,
         valoperAddress,

@@ -111,7 +111,6 @@ const Redelegate = () => {
       const stakeAmount = selectedAccounts.stake;
 
       const data = {
-        mnemonics,
         selectedAccount,
         valoperAddress,
         stakeAmount,
