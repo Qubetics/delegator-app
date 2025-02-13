@@ -18,6 +18,8 @@ const Dashboard = () => {
   const { userAddress, isTx, isDelegated } = useSelector((state) => state.auth);
   const [walletActivitesLength, setWalletActivitesLength] = useState(0);
 
+  console.log(userAddress, "09837438290728197842483");
+
   useEffect(() => {
     if (userAddress?.length > 0 || isTx) {
       setTimeout(() => {
@@ -42,7 +44,10 @@ const Dashboard = () => {
     <Wrapper className="">
       <Container>
         <div className="dashTitle_btn">
-          <h3 className="heading_dashboard" style={{ marginTop: "0px", marginBottom: "0px" }}>
+          <h3
+            className="heading_dashboard"
+            style={{ marginTop: "0px", marginBottom: "0px" }}
+          >
             Delegator Status
           </h3>
           {isDelegated ? (
@@ -62,10 +67,16 @@ const Dashboard = () => {
       <DelegatorInfos />
       <Container>
         <section className="validator-status mb-0">
-          <div className="validator-status__card" style={{ paddingLeft: "0", paddingRight: "0" }}>
+          <div
+            className="validator-status__card"
+            style={{ paddingLeft: "0", paddingRight: "0" }}
+          >
             <Typography>Recent Wallet Activities:</Typography>
             {walletActivitesLength > 5 && (
-              <button className="headermetaBtn viewAll" onClick={() => navigate("/wallet-activites")}>
+              <button
+                className="headermetaBtn viewAll"
+                onClick={() => navigate("/wallet-activites")}
+              >
                 View All
               </button>
             )}

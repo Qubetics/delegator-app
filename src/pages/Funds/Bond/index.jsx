@@ -120,19 +120,7 @@ const Bond = () => {
         );
         return;
       }
-      if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
-        toast.error("Enter Mnemonics");
-        return;
-      }
-      let res = await getUserAddress(mnemonics);
-      console.log(res);
-      if (res?.message) {
-        return toast.error(res?.message);
-      }
-      if (res?.length > 0 && res !== userAddress) {
-        toast.error("Mnemonics are not same as login");
-        return;
-      }
+
       setIsLoading(true);
 
       const valoperAddress = selectedAccounts?.valoperAddress;
@@ -143,7 +131,7 @@ const Bond = () => {
         valoperAddress,
         nodeUrl,
       };
-      console.log(userAddress, valoperAddress);
+      console.log("valoperAddress", valoperAddress);
       if (window?.qubetics) {
         window?.qubetics.sendRequest(
           "delegatorBondMoreFunds",
@@ -224,24 +212,8 @@ const Bond = () => {
             </Button>
           </div>
           <div className="common-wrapper__amount redelect">
-            <TextField
-              value={mnemonics}
-              label="Enter mnemonics to authorize the transaction"
-              placeholder="Paste or enter your mnemonics"
-              type="password"
-              name="Mnemonics"
-              onChange={handleChange}
-              helperText={
-                <>
-                  <strong>Note :</strong> Your account status may take some time
-                  to update and reflect on the dashboard.
-                  <br />
-                  <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
-                  <br />
-                </>
-              }
-              autoComplete="off"
-            />
+            <strong>Note :</strong> Your account status may take some time to
+            update and reflect on the dashboard.
           </div>
           <Button
             variant="outlined"
@@ -255,10 +227,11 @@ const Bond = () => {
             // disabled={isDisable || isLoading}
             onClick={handleBondMore}
           >
-            {isLoading ? <Loader /> : "Bond More"}
+            "Bond More"
           </Button>
         </div>
       </FormWrapper>
+      {isLoading && <Loader />}
     </>
   );
 };

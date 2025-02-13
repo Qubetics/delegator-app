@@ -33,6 +33,7 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
   const [txData, setTxData] = useState([]);
   const [txStatus, setTxStatus] = useState("Idle");
   const { userAddress } = useSelector((state) => state?.auth);
+  console.log(userAddress, "userAddress");
   const transactionHash = (id) => {
     window.open(` ${BASE_URL_EXPLORER_LINKS_TESTNET}/tx/${id}`, "_blank");
   };

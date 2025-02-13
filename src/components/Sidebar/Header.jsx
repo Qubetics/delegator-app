@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAddress } from "../../utils/helper";
 import { Typography } from "antd";
 import CopyAddress from "../Common/CopyAddress";
-import { logout } from "../../redux/Reducer/auth";
+import { logInSuccess, logout } from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
 import "./index.scss";
@@ -21,6 +21,8 @@ function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { userAddress, isLoggedIn, userBalance, isTx } = useSelector(
     (state) => state?.auth
@@ -86,6 +88,35 @@ function Header() {
     toast.success("Address Copied");
   };
 
+  const connectWallet = async (event) => {
+    event.preventDefault();
+    try {
+      if (window?.qubetics) {
+        const data = {};
+        window.qubetics.sendRequest(
+          "nativeConnect",
+          data,
+          async (error, response) => {
+            if (response?.type == "error") {
+              setIsLoading(false);
+              toast.error(response?.data?.message || "Something went wrong");
+              return;
+            } else {
+              if (response) {
+                dispatch(logInSuccess(response?.data?.address));
+                return toast.success("Logged In Successfully");
+              }
+            }
+          }
+        );
+      }
+    } catch (err) {
+      alert("Intall Extenion");
+      setIsLoading(false);
+      toast.error(err?.message);
+    }
+  };
+
   return (
     <>
       <Drawer
@@ -126,6 +157,13 @@ function Header() {
                     >
                       Validators
                     </Link>
+                    {!isLoggedIn && (
+                      <div className="headerButtons">
+                        <button variant="contained" className="headermetaBtn">
+                          <div onClick={connectWallet}>Connect Wallet</div>
+                        </button>
+                      </div>
+                    )}
                   </li>
                 </ul>
               </div>
@@ -205,6 +243,13 @@ function Header() {
                   >
                     Validators
                   </Link>
+                  {!isLoggedIn && (
+                    <div className="headerButtons">
+                      <button variant="contained">
+                        <div onClick={connectWallet}>Connect Wallet</div>
+                      </button>
+                    </div>
+                  )}
                 </li>
               </ul>
             </div>

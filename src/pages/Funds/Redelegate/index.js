@@ -75,12 +75,7 @@ const Redelegate = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      !redelegationAddress ||
-      !mnemonics ||
-      errMsg?.mnemonics?.length > 0 ||
-      !valoperAddress
-    ) {
+    if (!redelegationAddress || !valoperAddress) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -88,18 +83,6 @@ const Redelegate = () => {
   }, [errMsg, redelegationAddress, mnemonics, valoperAddress]);
   const handleReDelegation = async () => {
     try {
-      if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
-        toast.error("Enter Mnemonics");
-        return;
-      }
-      let res = await getUserAddress(mnemonics);
-      if (res?.message) {
-        return toast.error(res?.message);
-      }
-      if (res?.length > 0 && res !== userAddress) {
-        toast.error("Mnemonics are not same as login");
-        return;
-      }
       setIsLoading(true);
       // const response = await redelegate(
       //   mnemonics,
@@ -208,21 +191,8 @@ const Redelegate = () => {
             </div>
           </div>
           <div className="redelect" style={{ marginTop: "30px" }}>
-            <TextField
-              value={mnemonics}
-              label="Enter mnemonics to authorize the transaction"
-              placeholder="Paste or enter your mnemonics"
-              name="Mnemonics"
-              type="password"
-              onChange={handleChange}
-              helperText={
-                <>
-                  <strong>Note:</strong> Your account status may take some time
-                  to update and reflect on the dashboard.
-                </>
-              }
-              autoComplete="off"
-            />
+            <strong>Note:</strong> Your account status may take some time to
+            update and reflect on the dashboard.
           </div>
           <Button
             onClick={handleReDelegation}
@@ -234,10 +204,11 @@ const Redelegate = () => {
             }}
             disabled={isDisable || isLoading}
           >
-            {isLoading ? <Loader /> : "Redelegate"}
+            "Redelegate"
           </Button>
         </div>
       </FormWrapper>
+      {isLoading && <Loader />}
     </>
   );
 };

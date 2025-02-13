@@ -8,7 +8,6 @@ import {
   NODE_NAME,
   typesOfTransaction,
 } from "../../../components/Common/Constant";
-import { getUserAddress } from "../../../services/GetAddress";
 import delagteAndBondMore from "../../../services/Delegate&BondMore";
 import getTransactionLogs from "../../../services/api/getTxLogs";
 import { useNavigate } from "react-router-dom";
@@ -55,18 +54,7 @@ const Delegate = () => {
         );
         return;
       }
-      if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
-        toast.error("Enter Mnemonics");
-        return;
-      }
-      let res = await getUserAddress(mnemonics);
-      if (res?.message) {
-        return toast.error(res?.message);
-      }
-      if (res?.length > 0 && res !== userAddress) {
-        toast.error("Mnemonics are not same as login");
-        return;
-      }
+
       setIsLoading(true);
       const valoperAddress = selectedAccounts?.valoperAddress;
 

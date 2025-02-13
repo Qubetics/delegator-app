@@ -55,12 +55,7 @@ const SetupBond = ({
   };
 
   useEffect(() => {
-    if (
-      !stakeAmount ||
-      !mnemonics ||
-      errMsg?.amount?.length > 0 ||
-      errMsg?.mnemonics?.length > 0
-    ) {
+    if (!stakeAmount || errMsg?.amount?.length > 0) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -118,25 +113,8 @@ const SetupBond = ({
               Max
             </Button>
           </div>
-          <TextField
-            value={mnemonics}
-            label="Enter mnemonics to authorize the transaction"
-            placeholder="Paste or enter your mnemonics"
-            type="password"
-            name="Mnemonics"
-            onChange={handleChange}
-            className="delegatorbnd"
-            helperText={
-              <>
-                <strong>Note :</strong> Your account status may take some time
-                to update and reflect on the dashboard.
-                <br />
-                <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
-                <br />
-              </>
-            }
-            autoComplete="off"
-          />
+          <strong>Note :</strong> Your account status may take some time to
+          update and reflect on the dashboard.
           <Button
             sx={{ marginTop: "50px" }}
             onClick={handleSetUpDelegator}

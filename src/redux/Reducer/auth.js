@@ -18,6 +18,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logInSuccess: (state, action) => {
+      console.log(action, "ACTIOn", action.payload);
       state.loading = false;
       state.isLoggedIn = true;
       state.userAddress = action?.payload;

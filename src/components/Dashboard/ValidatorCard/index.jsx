@@ -17,6 +17,8 @@ const DashboardValidatorCard = () => {
   const [dashboardStatus, setDashboardStatus] = useState("Idle");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const userAddresss = useSelector((state) => state);
+  console.log(userAddresss, "userAddresss");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,7 +26,10 @@ const DashboardValidatorCard = () => {
         if (userAddress) {
           setDashboardStatus("Fetching");
           const response = await getDelegatorByAddress(userAddress);
-          if (response?.error === false && response?.data?.validatorStakes?.length > 0) {
+          if (
+            response?.error === false &&
+            response?.data?.validatorStakes?.length > 0
+          ) {
             setDashboardData(response?.data);
             dispatch(checkIfDelegatorExist(true));
             setDashboardStatus("Success");
@@ -60,10 +65,12 @@ const DashboardValidatorCard = () => {
             </Button>
           )}
         </div> */}
-        {
-          isDelegated &&
-          <ValidatorTable dashboardData={dashboardData?.validatorStakes} dashboardStatus={dashboardStatus} />
-        }
+        {isDelegated && (
+          <ValidatorTable
+            dashboardData={dashboardData?.validatorStakes}
+            dashboardStatus={dashboardStatus}
+          />
+        )}
       </section>
     </Container>
   );

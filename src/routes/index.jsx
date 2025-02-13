@@ -33,17 +33,18 @@ const RoutePath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   console.log("Don++++++++++++++++++++++e", pathname);
-  //   window?.qubetics.events.on("switchAccount", (data) => {
-  //     if (data?.result?.type == "success") {
-  //       dispatch(logout());
-  //       navigate("/login");
-  //       dispatch(selectedAccounts({}));
-  //       sessionStorage.clear();
-  //     }
-  //   });
-  // }, [pathname]);
+  useEffect(() => {
+    window?.qubetics.events.on("switchAccount", (data) => {
+      if (data?.result?.type == "success") {
+        dispatch(logout());
+        navigate("/login");
+        dispatch(selectedAccounts({}));
+        sessionStorage.clear();
+      }
+    });
+  }, [pathname]);
+
+  console.log(isLoggedIn, "isLoggedIn");
 
   return (
     <MainPanel>
@@ -52,9 +53,10 @@ const RoutePath = () => {
           <Route
             path="/login"
             element={
-              !isLoggedIn ? <Login /> : <Navigate to="/dashboard" replace />
+              isLoggedIn ? <Navigate to="/dashboard" replace /> : <BlocksPage />
             }
           />
+
           <Route path="/blocks" element={<BlocksPage />} />
           <Route path="/validators" element={<Validators />} />
           <Route
@@ -117,8 +119,8 @@ const RoutePath = () => {
 
           {/* <Route path="*" element={<Navigate to="/blocks" replace />} />
           <Route path="/" element={<Navigate to="/blocks" replace />} /> */}
-          <Route path="*" element={<Navigate to="/login" replace />} />
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/blocks" replace />} />
+          <Route path="/" element={<Navigate to="/blocks" replace />} />
         </Routes>
       </Suspense>
     </MainPanel>
