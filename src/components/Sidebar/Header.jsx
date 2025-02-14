@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 import "./index.scss";
 import CopyIcon from "../../assets/Icons/CopyIcon";
 import { toast } from "../toast/Toast";
+import { NODE_NAME } from "../Common/Constant";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -69,16 +70,25 @@ function Header() {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
+        dispatch(logout());
+        navigate("/login");
+        dispatch(selectedAccounts({}));
+        sessionStorage.clear();
+        localStorage.clear();
         const data = {};
         if (window?.qubetics) {
           window.qubetics.sendRequest("disconnect", data, (err, res) => {
-            if (res) {
-              dispatch(logout());
-              navigate("/login");
-              dispatch(selectedAccounts({}));
-              sessionStorage.clear();
-            }
+            dispatch(logout());
+            navigate("/login");
+            dispatch(selectedAccounts({}));
+            sessionStorage.clear();
           });
+        } else {
+          dispatch(logout());
+          navigate("/login");
+          dispatch(selectedAccounts({}));
+          sessionStorage.clear();
+          localStorage.clear();
         }
       }
     });
@@ -92,7 +102,9 @@ function Header() {
     event.preventDefault();
     try {
       if (window?.qubetics) {
-        const data = {};
+        const data = {
+          nodeUrl: NODE_NAME,
+        };
         window.qubetics.sendRequest(
           "nativeConnect",
           data,

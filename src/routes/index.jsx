@@ -48,7 +48,7 @@ const RoutePath = () => {
 
   useEffect(() => {
     console.log(window?.qubetics);
-    if (!window?.qubetics) {
+    if (!window?.qubetics && !isLoggedIn) {
       setConnectionOpen(true);
     }
   }, []);

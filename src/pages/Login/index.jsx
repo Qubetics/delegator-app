@@ -9,6 +9,7 @@ import { useState } from "react";
 import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
+import { NODE_NAME } from "../../components/Common/Constant";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,36 +19,35 @@ const Login = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      if (!mnemonics) {
-        toast.error("Mnemonics is required!");
-        return;
-      }
-      if (mnemonics?.length > 0) {
-        const data = {};
-        window.qubetics.sendRequest(
-          "nativeConnect",
-          data,
-          async (error, response) => {
-            if (response?.type == "error") {
-              setIsLoading(false);
-              toast.error(response?.data?.message || "Something went wrong");
-              return;
-            } else {
-              if (response) {
-                setIsLoading(true);
-                let res = await getUserAddress(mnemonics);
-                if (res?.message) {
-                  toast.error(res?.message);
-                  return;
-                }
-                let response = await fetchValoperAddress(mnemonics);
-                dispatch(logInSuccess(res));
-                return toast.success("Logged In Successfully");
-              }
+      const data = {
+        nodeUrl: NODE_NAME,
+      };
+      window.qubetics.sendRequest(
+        "nativeConnect",
+        data,
+        async (error, response) => {
+          console.log(response, "VALLIALAIALAII");
+          return;
+          if (response?.type == "error") {
+            setIsLoading(false);
+            toast.error(response?.data?.message || "Something went wrong");
+            return;
+          } else {
+            if (response) {
+              console.log(response, "RESREESESDELEGATOR");
+              // setIsLoading(true);
+              // let res = await getUserAddress(mnemonics);
+              // if (res?.message) {
+              //   toast.error(res?.message);
+              //   return;
+              // }
+              // let response = await fetchValoperAddress(mnemonics);
+              // dispatch(logInSuccess(res));
+              return toast.success("Logged In Successfully");
             }
           }
-        );
-      }
+        }
+      );
     } catch (err) {
       setIsLoading(false);
       toast.error(err?.message);
