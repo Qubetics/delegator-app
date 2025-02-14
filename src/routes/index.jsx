@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Navigate,
@@ -14,6 +14,7 @@ import Redelegate from "../pages/Funds/Redelegate/index.js";
 import PrivateRouter from "./PrivateRouter";
 import { selectedAccounts } from "../redux/Reducer/drawer";
 import { logout } from "../redux/Reducer/auth";
+import ConnectionErrorModal from "../components/ConnectionErrorModal";
 
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -28,13 +29,14 @@ const Delegate = lazy(() => import("../pages/Validators/Delegate/index.jsx"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 const RoutePath = () => {
+  const [connectionOpen, setConnectionOpen] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    window?.qubetics.events.on("switchAccount", (data) => {
+    window?.qubetics?.events?.on("switchAccount", (data) => {
       if (data?.result?.type == "success") {
         dispatch(logout());
         navigate("/login");
@@ -44,7 +46,16 @@ const RoutePath = () => {
     });
   }, [pathname]);
 
-  console.log(isLoggedIn, "isLoggedIn");
+  useEffect(() => {
+    console.log(window?.qubetics);
+    if (!window?.qubetics) {
+      setConnectionOpen(true);
+    }
+  }, []);
+
+  const connectionClose = () => {
+    setConnectionOpen(false);
+  };
 
   return (
     <MainPanel>
@@ -123,6 +134,12 @@ const RoutePath = () => {
           <Route path="/" element={<Navigate to="/blocks" replace />} />
         </Routes>
       </Suspense>
+      {connectionOpen && (
+        <ConnectionErrorModal
+          connectionOpen={connectionOpen}
+          connectionClose={connectionClose}
+        />
+      )}
     </MainPanel>
   );
 };
