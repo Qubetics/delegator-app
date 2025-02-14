@@ -227,7 +227,7 @@ const Bond = () => {
             // disabled={isDisable || isLoading}
             onClick={handleBondMore}
           >
-            "Bond More"
+            Bond More
           </Button>
         </div>
       </FormWrapper>

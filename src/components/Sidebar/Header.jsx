@@ -70,11 +70,6 @@ function Header() {
       allowOutsideClick: false,
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(logout());
-        navigate("/login");
-        dispatch(selectedAccounts({}));
-        sessionStorage.clear();
-        localStorage.clear();
         const data = {};
         if (window?.qubetics) {
           window.qubetics.sendRequest("disconnect", data, (err, res) => {
@@ -205,12 +200,12 @@ function Header() {
                     Balance : {Number(userBalance).toFixed(2)} TICS
                   </button>
 
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className="btnsaad headermetaBtn"
-                  >
-                    <div to={`${pathname}`} onClick={handleLogout}>
+                  <Button className="btns headermetaBtn">
+                    <div
+                      to={`${pathname}`}
+                      onClick={handleLogout}
+                      style={{ zIndex: "99999" }}
+                    >
                       Logout
                     </div>
                   </Button>
@@ -256,11 +251,11 @@ function Header() {
                     Validators
                   </Link>
                   {!isLoggedIn && (
-                    <div className="headerButtons">
-                      <button variant="contained">
-                        <div onClick={connectWallet}>Connect Wallet</div>
-                      </button>
-                    </div>
+                    <Button className="btns headermetaBtn">
+                      <div onClick={connectWallet} style={{ zIndex: "99999" }}>
+                        Connect Wallet
+                      </div>
+                    </Button>
                   )}
                 </li>
               </ul>
