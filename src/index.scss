@@ -586,7 +586,7 @@ input:-webkit-autofill:active {
     background-color: #000;
     text-decoration: none;
     border: none;
-    border-radius: 30px;
+    border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
 
@@ -595,7 +595,7 @@ input:-webkit-autofill:active {
       position: absolute;
       inset: 0;
       padding: 2px;
-      border-radius: 30px;
+      border-radius: 20px;
       background: conic-gradient(from var(--gradient-angle),
           var(--clr-card),
           var(--clr-1),
