@@ -10,13 +10,15 @@ import {
 import { Tooltip } from "antd";
 import { Wrapper, StatItem, Search } from "./styles";
 import { useLocation } from "react-router-dom";
+<<<<<<< HEAD
 import MarketCapIcon from "../../assets/Icons/MarketCapIcon";
 import PriceIcon from "../../assets/Icons/PriceIcon";
 import InflationIcon from "../../assets/Icons/InflationIcon";
+=======
+>>>>>>> dev_stable
 import TextField from "@mui/material/TextField";
 import { APP_NAME, CURRENCY, DECIMAL_VALUE, msg } from "../Common/Constant";
 import InfoIcon from "../../assets/Icons/InfoIcon";
-import CalendarIcon from "../../assets/Icons/CalendarIcon";
 import { toFixed } from "../../utils/helper";
 import { getApy, getTotalValidators } from "../../redux/Reducer/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,11 +36,13 @@ import {
   SupplyIcon,
   MagnifierIcon,
 } from "../../assets/Icons/SvgIcon";
+import getQubeticsPrice from "../../services/api/getQubeticsPrice";
 
 const Statistics = () => {
   const dispatch = useDispatch();
   const [stats, setStats] = useState({});
   const [loading, setLoading] = useState(false);
+  const [price, setPrice] = useState();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
 
@@ -57,6 +61,20 @@ const Statistics = () => {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    getPrice();
+  }, []);
+  const getPrice = async () => {
+    try {
+      let response = await getQubeticsPrice();
+      setLoading(true);
+      setPrice(response?.data);
+    } catch (err) {
+      setLoading(true);
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -137,9 +155,7 @@ const Statistics = () => {
             ) : (
               <>
                 $ {""}
-                {stats?.tokenPrice
-                  ? noExponential(toFixed(Number(stats?.tokenPrice), 6))
-                  : 0.03112491}
+                {price ? noExponential(toFixed(Number(price), 6)) : "-"}
               </>
             )}
           </Box>
