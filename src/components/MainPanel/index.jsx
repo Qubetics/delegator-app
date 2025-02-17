@@ -18,8 +18,11 @@ const MainPanel = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const location = useLocation();
   const { pathname } = location;
+<<<<<<< HEAD
   const { isLoggedIn } = useSelector((state) => state?.auth);
 
+=======
+>>>>>>> testnet
   const showStats =
     pathname?.includes("account/become-a-validator") ||
     (!pathname?.includes("/account") &&
@@ -62,6 +65,7 @@ const MainPanel = ({ children }) => {
 
   return (
     <>
+<<<<<<< HEAD
       {/*
       {isLoggedIn && (
         <div className="bugSubButton">
@@ -80,6 +84,22 @@ const MainPanel = ({ children }) => {
         </div>
       )}
       */}
+=======
+      <div className="bugSubButton">
+        <button
+          className="headermetaBtn"
+          onClick={() =>
+            window.open(
+              "https://alphatestnet-explorer.qubetics.work/bug-submission",
+              "_blank"
+            )
+          }
+        >
+          Reward Program
+        </button>
+      </div>
+
+>>>>>>> testnet
       <Wrapper>
         <div className="main_top">
           <Header />
