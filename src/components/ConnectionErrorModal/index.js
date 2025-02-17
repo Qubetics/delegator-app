@@ -6,9 +6,10 @@ import CancelIcon from "../../assets/Icons/CancelIcon";
 
 const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
   return (
-    <StyledDialog className="connectionAttempt"
+    <StyledDialog
+      className="connectionAttempt"
       open={connectionOpen}
-      onClose={connectionClose}
+      // onClose={connectionClose}
       aria-labelledby="logout-dialog-title"
       aria-describedby="logout-dialog-description"
     >

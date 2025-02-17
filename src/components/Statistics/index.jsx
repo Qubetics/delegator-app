@@ -10,12 +10,6 @@ import {
 import { Tooltip } from "antd";
 import { Wrapper, StatItem, Search } from "./styles";
 import { useLocation } from "react-router-dom";
-<<<<<<< HEAD
-import MarketCapIcon from "../../assets/Icons/MarketCapIcon";
-import PriceIcon from "../../assets/Icons/PriceIcon";
-import InflationIcon from "../../assets/Icons/InflationIcon";
-=======
->>>>>>> dev_stable
 import TextField from "@mui/material/TextField";
 import { APP_NAME, CURRENCY, DECIMAL_VALUE, msg } from "../Common/Constant";
 import InfoIcon from "../../assets/Icons/InfoIcon";
