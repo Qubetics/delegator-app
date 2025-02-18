@@ -1,20 +1,21 @@
 /*eslint-disable */
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   loading: false,
   isLoggedIn: false,
-  userAddress: '',
+  userAddress: "",
   isTx: false,
-  userBalance: '',
-  APY: '',
+  userBalance: "",
+  APY: "",
   isDelegated: false,
-  totalValidators: 0
+  totalValidators: 0,
+  userEvmAddress: "",
 };
 
 export const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     logInSuccess: (state, action) => {
@@ -24,17 +25,20 @@ export const authSlice = createSlice({
     },
 
     checkIfDelegatorExist: (state, action) => {
-      state.isDelegated = action.payload
+      state.isDelegated = action.payload;
     },
     isTxOccur: (state, action) => {
-      state.isTx = action.payload
+      state.isTx = action.payload;
     },
 
     getTotalValidators: (state, action) => {
-      state.totalValidators = action.payload
+      state.totalValidators = action.payload;
     },
     getWalletBalance: (state, action) => {
       state.userBalance = action.payload;
+    },
+    getEvmAddress: (state, action) => {
+      state.userEvmAddress = action.payload;
     },
     getApy: (state, action) => {
       state.APY = action.payload;
@@ -53,7 +57,8 @@ export const {
   getWalletBalance,
   getApy,
   isTxOccur,
-  getTotalValidators
+  getTotalValidators,
+  getEvmAddress,
 } = authSlice.actions;
 
 export default authSlice.reducer;

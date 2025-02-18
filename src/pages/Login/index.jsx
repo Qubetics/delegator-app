@@ -2,13 +2,14 @@
 import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import TextField from "../../components/Common/TextField";
-import { logInSuccess } from "../../redux/Reducer/auth";
+import { getEvmAddress, logInSuccess } from "../../redux/Reducer/auth";
 import LoginIcon from "../../assets/Icons/LoginIcon";
 import fetchValoperAddress from "../../services/fetchValoperAddress";
 import { useState } from "react";
 import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
+import { userEvmAddress } from "../../services/userEvmAddress";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,12 +26,16 @@ const Login = () => {
       if (mnemonics?.length > 0) {
         setIsLoading(true);
         let res = await getUserAddress(mnemonics);
+        let evmAddress = await userEvmAddress(mnemonics);
+
         if (res?.message) {
           toast.error(res?.message);
           return;
         }
         let response = await fetchValoperAddress(mnemonics);
+        dispatch(getEvmAddress(evmAddress));
         dispatch(logInSuccess(res));
+
         return toast.success("Logged In Successfully");
       }
     } catch (err) {
