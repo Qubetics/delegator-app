@@ -34,6 +34,7 @@ const Login = () => {
         }
         let response = await fetchValoperAddress(mnemonics);
         dispatch(getEvmAddress(evmAddress));
+
         dispatch(logInSuccess(res));
 
         return toast.success("Logged In Successfully");

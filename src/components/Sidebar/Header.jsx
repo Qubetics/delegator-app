@@ -28,6 +28,8 @@ function Header() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
 
+  console.log(userEvmAddress, "userEvmAddress");
+
   const toggleDrawer = (newOpen) => () => {
     setIsDrawerOpen(true);
   };
