@@ -83,7 +83,6 @@ const ValidatorsTable = ({
           );
         }
       }
-      console.log(updatedAddresses, "updatedAddresses");
       setEvmAddresses(updatedAddresses);
     };
 

@@ -245,7 +245,9 @@ const Statistics = () => {
               <>
                 {stats?.totalSupply
                   ? formatMillionNumber(
-                      Number(stats?.totalSupply) / 10 ** DECIMAL_VALUE
+                      noExponential(
+                        Number(stats?.totalSupply) / 10 ** DECIMAL_VALUE
+                      )
                     )
                   : 0}{" "}
                 {CURRENCY}
