@@ -1,4 +1,5 @@
 /*eslint-disable*/
+import { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,10 +18,12 @@ import { brder_comm } from "./styles";
 import CopyAddress from "../../components/Common/CopyAddress";
 import { toast } from "../../components/toast/Toast";
 import { useNavigate } from "react-router-dom";
+import { showEvmAddress } from "../../services/showEvmAddress";
 
 const tableHeader = ["Blocks", "Block Hash", "Validator", "Age"];
 
 const BlocksTable = ({ blockData, blockStatus }) => {
+  const [evmAddresses, setEvmAddresses] = useState({}); // Store EVM addresses
   const navigate = useNavigate();
   const handleBlockNavigation = (id) => {
     window.open(`${BASE_URL_EXPLORER_LINKS_TESTNET}/blocks/${id}`, "_blank");
@@ -34,6 +37,24 @@ const BlocksTable = ({ blockData, blockStatus }) => {
   const getdata = (address) => {
     navigate(`/validators/${address}`);
   };
+
+  useEffect(() => {
+    const fetchEvmAddresses = async () => {
+      const updatedAddresses = {};
+      for (const validator of blockData) {
+        if (validator?.miner) {
+          updatedAddresses[validator.miner] = await showEvmAddress(
+            validator.miner
+          );
+        }
+      }
+      setEvmAddresses(updatedAddresses);
+    };
+
+    if (blockData.length > 0) {
+      fetchEvmAddresses();
+    }
+  }, [blockData]);
 
   return blockStatus === "error" ? (
     <NotFound />
@@ -120,14 +141,16 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                     }}
                   >
                     <span
-                      onClick={() => getdata(data?.miner)}
+                      onClick={() => getdata(evmAddresses[data?.miner])}
                       style={{ cursor: "pointer" }}
                       className="text-hover"
                     >
-                      {data?.miner ? getAddress(data?.miner, 8, 8) : "-"}
+                      {data?.miner
+                        ? getAddress(evmAddresses[data?.miner], 8, 8)
+                        : "-"}
                     </span>
                     <text
-                      onClick={() => copiedAddress(data?.miner)}
+                      onClick={() => copiedAddress(evmAddresses[data?.miner])}
                       className="copy-btn"
                       style={{ marginLeft: "16px", cursor: "pointer" }}
                     >
