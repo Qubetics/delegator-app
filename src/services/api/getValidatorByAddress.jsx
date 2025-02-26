@@ -2,8 +2,12 @@ import { BASE_URL_EXPLORER_NEW } from "../../components/Common/Constant";
 import { valoperAddress } from "../showEvmAddress";
 
 const getValidatorByAddress = async (value, page, limit) => {
-  let val = value?.trim();
-  const valAddress = await valoperAddress(val);
+  let valAddress = value?.trim();
+
+  if (valAddress.startsWith("0x")) {
+    valAddress = await valoperAddress(valAddress);
+  }
+
   const response = page
     ? await fetch(
         `${BASE_URL_EXPLORER_NEW}/validators/search?value=${valAddress}&page=${page}&limit=${limit}`
