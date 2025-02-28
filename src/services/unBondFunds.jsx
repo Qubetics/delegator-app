@@ -11,9 +11,7 @@ export default async function unBondFunds(
   mnemonic,
   address,
   valporAddress,
-  unbondAmount,
-  maxClicked,
-  totalAmount
+  unbondAmount
 ) {
   let nodeUrl = NODE_NAME || "";
   const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
@@ -40,8 +38,7 @@ export default async function unBondFunds(
       validatorAddress: valporAddress, //userInput
       amount: {
         denom: DENOM,
-        amount:
-          maxClicked == true ? totalAmount : toPrecisionMultiply(unbondAmount), //userInput
+        amount: toPrecisionMultiply(unbondAmount), //userInput
       },
     }),
   };
