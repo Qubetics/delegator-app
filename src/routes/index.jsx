@@ -46,11 +46,11 @@ const RoutePath = () => {
     });
   }, [pathname]);
 
-  useEffect(() => {
-    if (!window?.qubetics && !isLoggedIn) {
-      setConnectionOpen(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!window?.qubetics && !isLoggedIn) {
+  //     setConnectionOpen(true);
+  //   }
+  // }, []);
 
   const connectionClose = () => {
     setConnectionOpen(false);

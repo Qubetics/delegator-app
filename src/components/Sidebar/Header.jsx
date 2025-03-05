@@ -103,6 +103,7 @@ function Header() {
           "nativeConnect",
           data,
           async (error, response) => {
+            console.log(response?.data?.address, "RESPONSE");
             if (response?.type == "error") {
               setIsLoading(false);
               toast.error(response?.data?.message || "Something went wrong");
@@ -110,7 +111,7 @@ function Header() {
             } else {
               if (response) {
                 dispatch(logInSuccess(response?.data?.address));
-                return toast.success("Logged In Successfully");
+                return toast.success("Logged In Successfully++++++++");
               }
             }
           }

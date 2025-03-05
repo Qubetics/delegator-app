@@ -11,10 +11,7 @@ const initialState = {
   APY: "",
   isDelegated: false,
   totalValidators: 0,
-<<<<<<< HEAD
-=======
   userEvmAddress: "",
->>>>>>> testnet
 };
 
 export const authSlice = createSlice({
