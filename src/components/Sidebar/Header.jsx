@@ -18,6 +18,7 @@ import "./index.scss";
 import CopyIcon from "../../assets/Icons/CopyIcon";
 import { toast } from "../toast/Toast";
 import { NODE_NAME } from "../Common/Constant";
+import { OsmosisChainInfo } from "../../constants";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -123,7 +124,30 @@ function Header() {
       toast.error(err?.message);
     }
   };
+  async function connectKeplr() {
+    if (!window.keplr) {
+      alert("Please install Keplr Wallet extension");
+      return;
+    }
 
+    const chainId = OsmosisChainInfo?.chainId;
+
+    try {
+      await window.keplr.disable(chainId);
+
+      await window.keplr.enable(chainId);
+
+      const offlineSigner = window.keplr.getOfflineSigner(chainId);
+      const accounts = await offlineSigner.getAccounts();
+
+      if (accounts[0].address) {
+        dispatch(logInSuccess(accounts[0].address));
+        return toast.success("Logged In Successfully");
+      }
+    } catch (error) {
+      console.error("Error connecting Keplr:", error);
+    }
+  }
   return (
     <>
       <Drawer
@@ -301,6 +325,7 @@ function Header() {
           <MenuIcon className="open-icon" onClick={toggleDrawer(true)} />
         </div>
       </Mobilereasponsive>
+      <Button onClick={connectKeplr}>Keplr Connect</Button>
     </>
   );
 }
