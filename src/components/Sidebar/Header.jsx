@@ -25,9 +25,8 @@ function Header() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { userAddress, isLoggedIn, userBalance, isTx } = useSelector(
-    (state) => state?.auth
-  );
+  const { userAddress, isLoggedIn, userBalance, isTx, userEvmAddress } =
+    useSelector((state) => state?.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { pathname } = useLocation();
@@ -182,9 +181,9 @@ function Header() {
                     className="headermetaBtn"
                   >
                     <div className="copyBtns">
-                      {getAddress(userAddress, 8, 8)}
+                      {getAddress(userEvmAddress, 8, 8)}
                       <text
-                        onClick={() => copiedAddress(userAddress)}
+                        onClick={() => copiedAddress(userEvmAddress)}
                         className="copy-btn"
                         style={{ cursor: "pointer", zIndex: "9999" }}
                       >
@@ -264,9 +263,9 @@ function Header() {
               <div className="headerButtons">
                 <Button className="btns headermetaBtn">
                   <div className="copyBtns">
-                    {getAddress(userAddress, 8, 8)}
+                    {getAddress(userEvmAddress, 8, 8)}
                     <text
-                      onClick={() => copiedAddress(userAddress)}
+                      onClick={() => copiedAddress(userEvmAddress)}
                       className="copy-btn"
                       style={{ cursor: "pointer", zIndex: "9999" }}
                     >

@@ -2,7 +2,7 @@
 import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import TextField from "../../components/Common/TextField";
-import { logInSuccess } from "../../redux/Reducer/auth";
+import { getEvmAddress, logInSuccess } from "../../redux/Reducer/auth";
 import LoginIcon from "../../assets/Icons/LoginIcon";
 import fetchValoperAddress from "../../services/fetchValoperAddress";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
 import { NODE_NAME } from "../../components/Common/Constant";
+import { userEvmAddress } from "../../services/userEvmAddress";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -26,32 +27,38 @@ const Login = () => {
         "nativeConnect",
         data,
         async (error, response) => {
-          console.log(response, "VALLIALAIALAII");
-          return;
+
+        setIsLoading(true);
+        let res = await getUserAddress(mnemonics);
+        let evmAddress = await userEvmAddress(mnemonics);
+
+        if (res?.message) {
+          toast.error(res?.message);
           if (response?.type == "error") {
             setIsLoading(false);
             toast.error(response?.data?.message || "Something went wrong");
-            return;
           } else {
             if (response) {
               console.log(response, "RESREESESDELEGATOR");
               // setIsLoading(true);
-              // let res = await getUserAddress(mnemonics);
-              // if (res?.message) {
-              //   toast.error(res?.message);
-              //   return;
-              // }
-              // let response = await fetchValoperAddress(mnemonics);
-              // dispatch(logInSuccess(res));
-              return toast.success("Logged In Successfully");
+          
+
+        let response = await fetchValoperAddress(mnemonics);
+        dispatch(getEvmAddress(evmAddress));
+
+        dispatch(logInSuccess(res));
+
+        return toast.success("Logged In Successfully");
             }
           }
+        
+      
         }
-      );
-    } catch (err) {
+     catch (err) {
       setIsLoading(false);
       toast.error(err?.message);
     }
+  
   };
 
   const changeHandler = (e) => {

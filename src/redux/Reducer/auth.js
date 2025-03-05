@@ -11,6 +11,10 @@ const initialState = {
   APY: "",
   isDelegated: false,
   totalValidators: 0,
+<<<<<<< HEAD
+=======
+  userEvmAddress: "",
+>>>>>>> testnet
 };
 
 export const authSlice = createSlice({
@@ -37,6 +41,9 @@ export const authSlice = createSlice({
     getWalletBalance: (state, action) => {
       state.userBalance = action.payload;
     },
+    getEvmAddress: (state, action) => {
+      state.userEvmAddress = action.payload;
+    },
     getApy: (state, action) => {
       state.APY = action.payload;
     },
@@ -55,6 +62,7 @@ export const {
   getApy,
   isTxOccur,
   getTotalValidators,
+  getEvmAddress,
 } = authSlice.actions;
 
 export default authSlice.reducer;

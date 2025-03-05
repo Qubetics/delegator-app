@@ -236,19 +236,16 @@ const Statistics = () => {
               Total Supply
               <TooltipEle
                 classStyle="tooltip-common"
-                content={msg.tooltip.totalSupply}
+                content={msg.tooltip?.circulation_supply}
               />
             </Typography>
             {!loading ? (
               <Skeleton variant="circle" width={80} height={20} />
             ) : (
               <>
-                {stats?.totalSupply
-                  ? formatMillionNumber(
-                      Number(stats?.totalSupply) / 10 ** DECIMAL_VALUE
-                    )
+                {stats?.circulation_supply
+                  ? formatMillionNumber(stats?.circulation_supply)
                   : 0}{" "}
-                {CURRENCY}
               </>
             )}
           </Box>

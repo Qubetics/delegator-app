@@ -28,6 +28,7 @@ import Skeleton from "./Skeleton";
 import NotFound from "../../Common/NotFound";
 import CopyIcon from "../../../assets/Icons/CopyIcon";
 import { toast } from "../../toast/Toast";
+import { showEvmAddress } from "../../../services/showEvmAddress";
 
 const tableHeader = [
   "#No",
@@ -68,9 +69,27 @@ const ValidatorsTable = ({
   } = usePagination(PAGE_LIMIT);
   const [validatorListData, setValidatorListData] = useState([]);
   const [validatorStatus, setValidatorStatus] = useState("Init");
+  const [evmAddresses, setEvmAddresses] = useState({});
+
   let number = 0;
 
-  console.log(validatorListData?.length, "validatorListData");
+  useEffect(() => {
+    const fetchEvmAddresses = async () => {
+      const updatedAddresses = {};
+      for (const validator of validatorListData) {
+        if (validator?.validatorAddress) {
+          updatedAddresses[validator.validatorAddress] = await showEvmAddress(
+            validator.validatorAddress
+          );
+        }
+      }
+      setEvmAddresses(updatedAddresses);
+    };
+
+    if (validatorListData.length > 0) {
+      fetchEvmAddresses();
+    }
+  }, [validatorListData]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -268,16 +287,24 @@ const ValidatorsTable = ({
                         {data?.validatorAddress ? (
                           <Typography variant="body2" className="text-hover">
                             <span
-                              onClick={() => getdata(data?.validatorAddress)}
+                              onClick={() =>
+                                getdata(evmAddresses[data?.validatorAddress])
+                              }
                               style={{ cursor: "pointer" }}
                               className="txTruncate"
                             >
                               {" "}
-                              {getAddress(data?.validatorAddress, 8, 8)}
+                              {getAddress(
+                                evmAddresses[data?.validatorAddress],
+                                8,
+                                8
+                              )}
                             </span>
                             <text
                               onClick={() =>
-                                copiedAddress(data?.validatorAddress)
+                                copiedAddress(
+                                  evmAddresses[data?.validatorAddress]
+                                )
                               }
                               className="copy-btn"
                             >

@@ -19,6 +19,8 @@ import CopyAddress from "../../Common/CopyAddress";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
 import CopyIcon from "../../../assets/Icons/CopyIcon";
 import { toast } from "../../toast/Toast";
+import { showEvmAddress } from "../../../services/showEvmAddress";
+import { useEffect, useState } from "react";
 
 const stopMenuOptions = [
   {
@@ -42,6 +44,26 @@ const stopMenuOptions = [
 
 const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
   const dispatch = useDispatch();
+
+  const [evmAddresses, setEvmAddresses] = useState({});
+
+  useEffect(() => {
+    if (dashboardData && dashboardData.length > 0) {
+      const fetchEvmAddresses = async () => {
+        const updatedAddresses = {};
+        for (const validator of dashboardData) {
+          if (validator?.validatorAddress) {
+            updatedAddresses[validator.validatorAddress] = await showEvmAddress(
+              validator.validatorAddress
+            );
+          }
+        }
+        setEvmAddresses(updatedAddresses);
+      };
+
+      fetchEvmAddresses();
+    }
+  }, [dashboardData]);
 
   const copiedAddress = (data) => {
     navigator.clipboard.writeText(data);
@@ -132,13 +154,15 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                     {item?.validatorAddress ? (
                       <span className="validatorAddress">
                         {" "}
-                        {getAddress(item?.validatorAddress, 8, 8)}
+                        {getAddress(evmAddresses[item?.validatorAddress], 8, 8)}
                       </span>
                     ) : (
                       "-"
                     )}
                     <text
-                      onClick={() => copiedAddress(item?.validatorAddress)}
+                      onClick={() =>
+                        copiedAddress(evmAddresses[item?.validatorAddress])
+                      }
                       className="copy-btn"
                       style={{ cursor: "pointer" }}
                     >
