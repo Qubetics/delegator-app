@@ -1,3 +1,4 @@
+import { parseUnits } from "ethers";
 import { simulateMsgs } from "../util/simulateMsgs";
 import { sendMsgs } from "../util/sendMsgs";
 import { MsgDelegate } from "../proto-types-gen/src/cosmos/staking/v1beta1/tx";
@@ -10,7 +11,7 @@ export const keplrBondMore = async (
 ) => {
   if (window.keplr) {
     const key = await window.keplr?.getKey(OsmosisChainInfo.chainId);
-    const amt = "1000000000000000000";
+    const scaledAmount = parseUnits(stakeAmount.toString(), 18).toString();
 
     const protoMsgs = {
       typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
@@ -19,7 +20,7 @@ export const keplrBondMore = async (
         validatorAddress: valoperAddress, //userInput
         amount: {
           denom: "tics",
-          amount: amt, //userInput
+          amount: scaledAmount, //userInput
         },
       }).finish(),
     };

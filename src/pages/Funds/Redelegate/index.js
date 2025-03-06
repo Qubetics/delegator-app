@@ -27,12 +27,17 @@ import {
   typesOfTransaction,
 } from "../../../components/Common/Constant";
 import { Spin } from "antd";
+import {
+  keplrBondMore,
+  keplrRedelegate,
+} from "../../../keplrEvents/keplrRedelegate";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
   const drawer = useSelector((state) => state?.drawer);
   const { selectedAccounts } = drawer;
   const { userAddress } = auth;
+
   const [redelegationAddress, setRedligationAddress] = useState("");
   const [valoperAddress, setValoperAddress] = useState("");
   const [validatorList, setVaidatorList] = useState([]);
@@ -83,7 +88,7 @@ const Redelegate = () => {
   }, [errMsg, redelegationAddress, mnemonics, valoperAddress]);
   const handleReDelegation = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       // const response = await redelegate(
       //   mnemonics,
       //   selectedAccounts?.valoperAddress,
@@ -99,6 +104,13 @@ const Redelegate = () => {
         stakeAmount,
         nodeUrl,
       };
+      await keplrRedelegate(
+        userAddress,
+        selectedAccount,
+        valoperAddress,
+        stakeAmount
+      );
+      return;
       if (window?.qubetics) {
         window?.qubetics?.sendRequest("redelegate", data, (error, response) => {
           if (response?.type == "error") {

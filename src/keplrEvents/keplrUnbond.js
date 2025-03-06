@@ -1,20 +1,22 @@
+import { parseUnits } from "ethers";
 import { simulateMsgs } from "../util/simulateMsgs";
 import { sendMsgs } from "../util/sendMsgs";
-import { MsgDelegate } from "../proto-types-gen/src/cosmos/staking/v1beta1/tx";
+import { MsgUndelegate } from "../proto-types-gen/src/cosmos/staking/v1beta1/tx";
 import { OsmosisChainInfo } from "../constants";
 
 export const keplrUnbond = async (userAddress, stakeAmount, valoperAddress) => {
   if (window.keplr) {
     const key = await window.keplr?.getKey(OsmosisChainInfo.chainId);
+    const scaledAmount = parseUnits(stakeAmount.toString(), 18).toString();
 
     const protoMsgs = {
       typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
-      value: MsgDelegate.encode({
+      value: MsgUndelegate.encode({
         delegatorAddress: userAddress, //userInput
         validatorAddress: valoperAddress, //userInput
         amount: {
           denom: "tics",
-          amount: String(stakeAmount), //userInput
+          amount: scaledAmount, //userInput
         },
       }).finish(),
     };
