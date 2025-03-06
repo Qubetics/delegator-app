@@ -27,6 +27,7 @@ import Loader from "../../../components/Common/Loader";
 import delagteAndBondMore from "../../../services/Delegate&BondMore";
 import { toast } from "../../../components/toast/Toast";
 import { Spin } from "antd";
+import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
 
 const Bond = () => {
   const drawer = useSelector((state) => state?.drawer);
@@ -121,7 +122,7 @@ const Bond = () => {
         return;
       }
 
-      setIsLoading(true);
+      // setIsLoading(true);
 
       const valoperAddress = selectedAccounts?.valoperAddress;
 
@@ -131,7 +132,9 @@ const Bond = () => {
         valoperAddress,
         nodeUrl,
       };
+      await keplrBondMore(userAddress, stakeAmount, valoperAddress);
       console.log("valoperAddress", valoperAddress);
+      return;
       if (window?.qubetics) {
         window?.qubetics.sendRequest(
           "delegatorBondMoreFunds",

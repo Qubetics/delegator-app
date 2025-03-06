@@ -26,6 +26,7 @@ import { bondMoreValidations } from "../../../utils/validations";
 import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { Spin } from "antd";
+import { keplrBondMore, keplrUnbond } from "../../../keplrEvents/keplrUnbond";
 
 const UnBond = () => {
   const auth = useSelector((state) => state?.auth);
@@ -53,6 +54,8 @@ const UnBond = () => {
         valoperAddress,
         nodeUrl,
       };
+      await keplrUnbond(userAddress, unBoundAmt, valoperAddress);
+      return;
       if (window?.qubetics) {
         window.qubetics.sendRequest("unBondFunds", data, (error, response) => {
           if (response?.type == "error") {

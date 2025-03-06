@@ -14,7 +14,7 @@ import Long from "long";
 import { Buffer } from "buffer";
 import { TendermintTxTracer } from "@keplr-wallet/cosmos";
 import axios from "axios";
-
+window.Buffer = Buffer;
 export const sendMsgs = async (
   keplr: Keplr,
   chainInfo: ChainInfo,

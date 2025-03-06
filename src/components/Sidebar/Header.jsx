@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAddress } from "../../utils/helper";
 import { Typography } from "antd";
 import CopyAddress from "../Common/CopyAddress";
-import { logInSuccess, logout } from "../../redux/Reducer/auth";
+import { getEvmAddress, logInSuccess, logout } from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
 import "./index.scss";
@@ -19,6 +19,7 @@ import CopyIcon from "../../assets/Icons/CopyIcon";
 import { toast } from "../toast/Toast";
 import { NODE_NAME } from "../Common/Constant";
 import { OsmosisChainInfo } from "../../constants";
+import { showEvmAddress } from "../../services/showEvmAddress";
 function Header() {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -139,8 +140,10 @@ function Header() {
 
       const offlineSigner = window.keplr.getOfflineSigner(chainId);
       const accounts = await offlineSigner.getAccounts();
-
+      let evmAddress = await showEvmAddress(accounts[0].address);
       if (accounts[0].address) {
+        dispatch(getEvmAddress(evmAddress));
+
         dispatch(logInSuccess(accounts[0].address));
         return toast.success("Logged In Successfully");
       }
