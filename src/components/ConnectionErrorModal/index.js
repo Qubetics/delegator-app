@@ -1,8 +1,6 @@
 /*eslint-disable*/
-import { Button, Typography } from "@mui/material";
-import { CancelIconWrapper, DialogContent, StyledDialog } from "./styles";
-import ConnectionErrorImage from "../../assets/Images/ConnectionError.png";
-import CancelIcon from "../../assets/Icons/CancelIcon";
+import { Button } from "@mui/material";
+import { DialogContent, StyledDialog } from "./styles";
 import { OsmosisChainInfo } from "../../constants";
 import { showEvmAddress } from "../../services/showEvmAddress";
 import {
@@ -12,30 +10,19 @@ import {
 } from "../../redux/Reducer/auth";
 import { toast } from "../toast/Toast";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loader from "../loader/Loader";
 import { NODE_NAME } from "../Common/Constant";
 
 const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
   const dispatch = useDispatch();
-  const [qubeticsWalletExits, setIsQubeticsWalletExist] = useState(false);
-  const [keplrWalletExits, setKeplrWalletExist] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    if (!window?.qubetics) {
-      setIsQubeticsWalletExist(true);
-    }
-    if (!window?.keplr) {
-      setKeplrWalletExist(true);
-    }
-  }, []);
 
   const connectWallet = async (event, walletType) => {
     event.preventDefault();
     if (walletType == "qubetics") {
       if (!window?.qubetics) {
-        toast.error("Intall Qubetics Wallet Extenion");
+        toast.error("Install Qubetics Wallet Extenion");
       }
       try {
         if (window?.qubetics) {
@@ -104,44 +91,25 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
         aria-labelledby="logout-dialog-title"
         aria-describedby="logout-dialog-description"
       >
-        <CancelIconWrapper>
-          <CancelIcon onClick={connectionClose} />
-        </CancelIconWrapper>
         <DialogContent>
           <h3>Login with</h3>
 
           <div className="connectionAttempt_btn">
             <div className="connectionAttempt_btn_inner">
               <Button
-                className={`headermetaBtn  ${
-                  keplrWalletExits ? "disabled" : ""
-                }`}
+                className="headermetaBtn"
                 onClick={(event) => connectWallet(event, "keplr")}
-                disabled={keplrWalletExits}
               >
                 Keplr Connect
               </Button>
-              {window?.keplr ? (
-                <p className="install">install </p>
-              ) : (
-                <p className="uninstall">Uninstall</p>
-              )}
             </div>
             <div className="connectionAttempt_btn_inner">
               <Button
-                className={`headermetaBtn  ${
-                  qubeticsWalletExits ? "disabled" : ""
-                }`}
+                className="headermetaBtn"
                 onClick={(event) => connectWallet(event, "qubetics")}
-                disabled={qubeticsWalletExits}
               >
                 Qubetics Wallet
               </Button>
-              {window?.qubetics ? (
-                <p className="install">install </p>
-              ) : (
-                <p className="uninstall">Uninstall</p>
-              )}
             </div>
           </div>
         </DialogContent>

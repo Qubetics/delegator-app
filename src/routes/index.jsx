@@ -63,7 +63,7 @@ const RoutePath = () => {
           <Route
             path="/login"
             element={
-              isLoggedIn ? <Navigate to="/dashboard" replace /> : <BlocksPage />
+              isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login />
             }
           />
 
@@ -129,8 +129,8 @@ const RoutePath = () => {
 
           {/* <Route path="*" element={<Navigate to="/blocks" replace />} />
           <Route path="/" element={<Navigate to="/blocks" replace />} /> */}
-          <Route path="*" element={<Navigate to="/blocks" replace />} />
-          <Route path="/" element={<Navigate to="/blocks" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </Suspense>
       {connectionOpen && (
