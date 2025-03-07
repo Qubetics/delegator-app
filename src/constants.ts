@@ -89,6 +89,8 @@
 //   ],
 // };
 
+/*Constant file*/
+
 export const OsmosisChainInfo = {
   // Chain-id of the Osmosis chain.
   chainId: "qubetics_9003-1",
