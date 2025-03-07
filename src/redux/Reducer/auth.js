@@ -12,6 +12,7 @@ const initialState = {
   isDelegated: false,
   totalValidators: 0,
   userEvmAddress: "",
+  walletType: "",
 };
 
 export const authSlice = createSlice({
@@ -19,7 +20,6 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logInSuccess: (state, action) => {
-      console.log(action, "ACTIOn", action.payload);
       state.loading = false;
       state.isLoggedIn = true;
       state.userAddress = action?.payload;
@@ -48,6 +48,9 @@ export const authSlice = createSlice({
       state = {};
       sessionStorage.clear();
     },
+    getWalletType: (state, action) => {
+      state.walletType = action.payload;
+    },
   },
 });
 
@@ -60,6 +63,7 @@ export const {
   isTxOccur,
   getTotalValidators,
   getEvmAddress,
+  getWalletType,
 } = authSlice.actions;
 
 export default authSlice.reducer;

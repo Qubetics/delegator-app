@@ -24,11 +24,6 @@ export const keplrBondMore = async (
         },
       }).finish(),
     };
-    console.log(
-      stakeAmount,
-      "STAKE AMOUNT",
-      String(Math.floor(Number(stakeAmount)))
-    );
 
     try {
       const gasUsed = await simulateMsgs(

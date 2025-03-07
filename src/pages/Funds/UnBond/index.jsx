@@ -27,11 +27,12 @@ import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { Spin } from "antd";
 import { keplrBondMore, keplrUnbond } from "../../../keplrEvents/keplrUnbond";
+import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 
 const UnBond = () => {
   const auth = useSelector((state) => state?.auth);
   const drawer = useSelector((state) => state?.drawer);
-  const { userAddress } = auth;
+  const { userAddress, walletType } = auth;
   const { selectedAccounts } = drawer;
   const [mnemonics, setMnemonics] = useState("");
   const [isDisable, setIsDisable] = useState(false);
@@ -45,6 +46,15 @@ const UnBond = () => {
 
   const onSubmit = async () => {
     try {
+      if (walletType == "keplr" && !window?.keplr) {
+        toast.error("Install Keplr Wallet extension");
+        return;
+      }
+
+      if (walletType == "qubetics" && !window?.qubetics) {
+        toast.error("Install qubetics Wallet extension");
+        return;
+      }
       setIsLoading(true);
 
       const valoperAddress = selectedAccounts?.valoperAddress;
@@ -54,9 +64,13 @@ const UnBond = () => {
         valoperAddress,
         nodeUrl,
       };
-      await keplrUnbond(userAddress, unBoundAmt, valoperAddress);
-      return;
-      if (window?.qubetics) {
+
+      if (window?.keplr && walletType == "keplr") {
+        await keplrUnbond(userAddress, unBoundAmt, valoperAddress);
+        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      }
+
+      if (window?.qubetics && walletType == "qubetics") {
         window.qubetics.sendRequest("unBondFunds", data, (error, response) => {
           if (response?.type == "error") {
             setIsLoading(false);
@@ -65,21 +79,10 @@ const UnBond = () => {
           } else {
             dispatch(isTxOccur(true));
             if (response) {
-              setTimeout(() => {
-                const fetchData = async () => {
-                  let resp = await getTransactionLogs(response?.data);
-                  if (resp?.result?.tx_result?.data === null) {
-                    setIsLoading(false);
-                    toast.error("Transaction failed");
-                    return navigate("/dashboard");
-                  } else {
-                    setIsLoading(false);
-                    toast.success("Transaction successful");
-                    return navigate("/dashboard");
-                  }
-                };
-                fetchData();
-              }, 5000);
+              setTimeout(
+                () => checkTransaction(response?.data, navigate),
+                4000
+              );
             }
           }
         });

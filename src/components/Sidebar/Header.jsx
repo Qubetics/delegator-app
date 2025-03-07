@@ -94,63 +94,6 @@ function Header() {
     toast.success("Address Copied");
   };
 
-  const connectWallet = async (event) => {
-    event.preventDefault();
-    try {
-      if (window?.qubetics) {
-        const data = {
-          nodeUrl: NODE_NAME,
-        };
-        window.qubetics.sendRequest(
-          "nativeConnect",
-          data,
-          async (error, response) => {
-            console.log(response?.data?.address, "RESPONSE");
-            if (response?.type == "error") {
-              setIsLoading(false);
-              toast.error(response?.data?.message || "Something went wrong");
-              return;
-            } else {
-              if (response) {
-                dispatch(logInSuccess(response?.data?.address));
-                return toast.success("Logged In Successfully++++++++");
-              }
-            }
-          }
-        );
-      }
-    } catch (err) {
-      alert("Intall Extenion");
-      setIsLoading(false);
-      toast.error(err?.message);
-    }
-  };
-  async function connectKeplr() {
-    if (!window.keplr) {
-      alert("Please install Keplr Wallet extension");
-      return;
-    }
-
-    const chainId = OsmosisChainInfo?.chainId;
-
-    try {
-      await window.keplr.disable(chainId);
-
-      await window.keplr.enable(chainId);
-
-      const offlineSigner = window.keplr.getOfflineSigner(chainId);
-      const accounts = await offlineSigner.getAccounts();
-      let evmAddress = await showEvmAddress(accounts[0].address);
-      if (accounts[0].address) {
-        dispatch(getEvmAddress(evmAddress));
-
-        dispatch(logInSuccess(accounts[0].address));
-        return toast.success("Logged In Successfully");
-      }
-    } catch (error) {
-      console.error("Error connecting Keplr:", error);
-    }
-  }
   return (
     <>
       <Drawer
@@ -191,6 +134,7 @@ function Header() {
                     >
                       Validators
                     </Link>
+                    {/*
                     {!isLoggedIn && (
                       <div className="headerButtons">
                         <button variant="contained" className="headermetaBtn">
@@ -198,6 +142,7 @@ function Header() {
                         </button>
                       </div>
                     )}
+                    */}
                   </li>
                 </ul>
               </div>
@@ -277,6 +222,7 @@ function Header() {
                   >
                     Validators
                   </Link>
+                  {/*
                   {!isLoggedIn && (
                     <Button className="btns headermetaBtn">
                       <div onClick={connectWallet} style={{ zIndex: "99999" }}>
@@ -284,6 +230,7 @@ function Header() {
                       </div>
                     </Button>
                   )}
+                  */}
                 </li>
               </ul>
             </div>
@@ -328,7 +275,6 @@ function Header() {
           <MenuIcon className="open-icon" onClick={toggleDrawer(true)} />
         </div>
       </Mobilereasponsive>
-      <Button onClick={connectKeplr}>Keplr Connect</Button>
     </>
   );
 }

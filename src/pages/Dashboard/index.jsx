@@ -18,8 +18,6 @@ const Dashboard = () => {
   const { userAddress, isTx, isDelegated } = useSelector((state) => state.auth);
   const [walletActivitesLength, setWalletActivitesLength] = useState(0);
 
-  console.log(userAddress, "09837438290728197842483");
-
   useEffect(() => {
     if (userAddress?.length > 0 || isTx) {
       setTimeout(() => {

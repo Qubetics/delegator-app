@@ -35,6 +35,8 @@ const RoutePath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  console.log(pathname, "pathname");
+
   useEffect(() => {
     window?.qubetics?.events?.on("switchAccount", (data) => {
       if (data?.result?.type == "success") {
@@ -46,11 +48,9 @@ const RoutePath = () => {
     });
   }, [pathname]);
 
-  // useEffect(() => {
-  //   if (!window?.qubetics && !isLoggedIn) {
-  //     setConnectionOpen(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    setConnectionOpen(pathname === "/login");
+  }, [pathname]);
 
   const connectionClose = () => {
     setConnectionOpen(false);

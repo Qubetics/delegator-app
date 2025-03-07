@@ -18,7 +18,6 @@ const DashboardValidatorCard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userAddresss = useSelector((state) => state);
-  console.log(userAddresss, "userAddresss");
 
   useEffect(() => {
     const fetchData = async () => {

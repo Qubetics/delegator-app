@@ -66,7 +66,6 @@ const Statistics = () => {
       setPrice(response?.data);
     } catch (err) {
       setLoading(true);
-      console.log(err);
     }
   };
 

@@ -24,11 +24,9 @@ export const sendMsgs = async (
   memo: string = ""
 ) => {
   const account = await fetchAccountInfo(chainInfo, sender);
-  console.log("account========", account);
   const { pubKey } = await keplr.getKey(chainInfo.chainId);
 
   if (account) {
-    console.log("account========", account);
     const signDoc = {
       bodyBytes: TxBody.encode(
         TxBody.fromPartial({
@@ -82,7 +80,8 @@ export const sendMsgs = async (
     const txHash = await broadcastTxSync(keplr, chainInfo.chainId, signedTx.tx);
     const txTracer = new TendermintTxTracer(chainInfo.rpc, "/websocket");
     txTracer.traceTx(txHash).then((tx) => {
-      alert("Transaction commit successfully");
+      return tx;
+      console.log("Transaction commit successfully");
     });
   }
 };
@@ -94,7 +93,6 @@ export const fetchAccountInfo = async (
   try {
     const uri = `${chainInfo.rest}/cosmos/auth/v1beta1/accounts/${address}`;
     const response = await api<AccountResponse>(uri);
-    console.log("response--", response.account.base_account.sequence);
     return response.account;
   } catch (e) {
     console.error(

@@ -28,10 +28,13 @@ import delagteAndBondMore from "../../../services/Delegate&BondMore";
 import { toast } from "../../../components/toast/Toast";
 import { Spin } from "antd";
 import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
+import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 
 const Bond = () => {
   const drawer = useSelector((state) => state?.drawer);
-  const { userBalance, userAddress } = useSelector((state) => state?.auth);
+  const { userBalance, userAddress, walletType } = useSelector(
+    (state) => state?.auth
+  );
   const { selectedAccounts } = drawer;
   const [mnemonics, setMnemonics] = useState("");
   const [isDisable, setIsDisable] = useState(false);
@@ -101,69 +104,52 @@ const Bond = () => {
 
   const handleBondMore = async () => {
     try {
-      if (stakeAmount === 0 || stakeAmount === "") {
-        toast.error("Enter bond amount");
-        return;
-      }
-      if (Number(stakeAmount) > Number(userBalance)) {
-        toast.error("Insufficient funds");
-        return;
-      }
-      if (Number(userBalance) < Number(MINIMUM_BOND_MORE_AMOUNT)) {
-        toast.error("Low wallet Balance");
-        return;
-      }
-      if (Number(stakeAmount) < Number(MINIMUM_BOND_MORE_AMOUNT)) {
-        toast.error(
-          `Bond amount should be equal or greater than minimum required bond amount ${Number(
-            MINIMUM_BOND_MORE_AMOUNT
-          )} `
-        );
+      const amount = Number(stakeAmount);
+      const balance = Number(userBalance);
+      const minAmount = Number(MINIMUM_BOND_MORE_AMOUNT);
+
+      if (!amount) return toast.error("Enter bond amount");
+      if (amount > balance) return toast.error("Insufficient funds");
+      if (balance < minAmount) return toast.error("Low wallet balance");
+      if (amount < minAmount)
+        return toast.error(`Bond amount should be at least ${minAmount}`);
+
+      if (walletType == "keplr" && !window?.keplr) {
+        toast.error("Install Keplr Wallet extension");
         return;
       }
 
-      // setIsLoading(true);
+      if (walletType == "qubetics" && !window?.qubetics) {
+        toast.error("Install qubetics Wallet extension");
+        return;
+      }
 
+      setIsLoading(true);
       const valoperAddress = selectedAccounts?.valoperAddress;
+      const data = { userAddress, stakeAmount, valoperAddress, nodeUrl };
 
-      const data = {
-        userAddress,
-        stakeAmount,
-        valoperAddress,
-        nodeUrl,
-      };
-      await keplrBondMore(userAddress, stakeAmount, valoperAddress);
-      console.log("valoperAddress", valoperAddress);
-      return;
-      if (window?.qubetics) {
-        window?.qubetics.sendRequest(
+      if (window?.keplr && walletType == "keplr") {
+        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
+        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      }
+
+      if (window?.qubetics && walletType == "qubetics") {
+        window.qubetics.sendRequest(
           "delegatorBondMoreFunds",
           data,
           (error, response) => {
-            if (response?.type == "error") {
+            if (response?.type === "error") {
               setIsLoading(false);
-              toast.error(response?.data?.message || "Something went wrong");
-              return;
+              return toast.error(
+                response?.data?.message || "Something went wrong"
+              );
             } else {
               dispatch(isTxOccur(true));
               if (response) {
-                setTimeout(() => {
-                  const fetchData = async () => {
-                    let resp = await getTransactionLogs(response?.data);
-                    if (resp?.result?.tx_result?.data === null) {
-                      setIsLoading(false);
-                      toast.error("Transaction failed");
-                      navigate("/dashboard");
-                      return;
-                    } else {
-                      setIsLoading(false);
-                      toast.success("Transaction successful");
-                      navigate("/dashboard");
-                      return;
-                    }
-                  };
-                  fetchData();
-                }, 4000);
+                setTimeout(
+                  () => checkTransaction(response?.data, navigate),
+                  4000
+                );
               }
             }
           }
@@ -172,15 +158,13 @@ const Bond = () => {
     } catch (err) {
       setIsLoading(false);
       navigate("/dashboard");
-      let msg = err?.message?.split(
-        "Broadcasting transaction failed with code"
-      );
-      toast.error(msg[1]);
-      console.log(err);
-      return err;
+      const msg =
+        err?.message?.split("Broadcasting transaction failed with code")[1] ||
+        "Unknown error";
+      toast.error(msg);
+      console.error(err);
     }
   };
-
   return (
     <>
       <DetailsBox address={selectedAccounts?.accounts} />

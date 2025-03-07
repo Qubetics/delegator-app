@@ -9,6 +9,7 @@ export const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiPaper-root": {
     minWidth: 320,
     maxWidth: 457,
+    width: "100%",
     padding: "26px 26px 68px",
     background: theme.palette.primary.main,
     border: `1px solid ${theme.palette.blue.main}`,
@@ -40,10 +41,8 @@ export const CancelIconWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const DialogContent = styled(Box)({
-  padding: "63px 32px 0px 32px",
-
   img: {
-    maxWidth: 300,
+    maxWidth: 400,
     width: "100%",
   },
 });

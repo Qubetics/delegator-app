@@ -26,7 +26,6 @@ export const simulateMsgs = async (
   memo: string = ""
 ) => {
   const account = await fetchAccountInfo(chainInfo, sender);
-  console.log("DONE", account);
   if (account) {
     const unsignedTx = TxRaw.encode({
       bodyBytes: TxBody.encode(

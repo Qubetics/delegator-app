@@ -27,16 +27,14 @@ import {
   typesOfTransaction,
 } from "../../../components/Common/Constant";
 import { Spin } from "antd";
-import {
-  keplrBondMore,
-  keplrRedelegate,
-} from "../../../keplrEvents/keplrRedelegate";
+import { keplrRedelegate } from "../../../keplrEvents/keplrRedelegate";
+import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
   const drawer = useSelector((state) => state?.drawer);
   const { selectedAccounts } = drawer;
-  const { userAddress } = auth;
+  const { userAddress, walletType } = auth;
 
   const [redelegationAddress, setRedligationAddress] = useState("");
   const [valoperAddress, setValoperAddress] = useState("");
@@ -87,8 +85,17 @@ const Redelegate = () => {
     }
   }, [errMsg, redelegationAddress, mnemonics, valoperAddress]);
   const handleReDelegation = async () => {
+    if (walletType == "keplr" && !window?.keplr) {
+      toast.error("Install Keplr Wallet extension");
+      return;
+    }
+
+    if (walletType == "qubetics" && !window?.qubetics) {
+      toast.error("Install qubetics Wallet extension");
+      return;
+    }
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       // const response = await redelegate(
       //   mnemonics,
       //   selectedAccounts?.valoperAddress,
@@ -110,8 +117,12 @@ const Redelegate = () => {
         valoperAddress,
         stakeAmount
       );
-      return;
-      if (window?.qubetics) {
+      if (window?.keplr && walletType == "keplr") {
+        await keplrUnbond(userAddress, stakeAmount, valoperAddress);
+        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      }
+
+      if (window?.qubetics && walletType == "qubetics") {
         window?.qubetics?.sendRequest("redelegate", data, (error, response) => {
           if (response?.type == "error") {
             setIsLoading(false);
@@ -139,7 +150,7 @@ const Redelegate = () => {
       let msg = err?.message?.split(
         "Broadcasting transaction failed with code"
       );
-      toast.error(msg[1]);
+      // toast.error(msg[1]);
       return err;
     }
   };

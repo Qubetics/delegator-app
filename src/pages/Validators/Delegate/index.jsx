@@ -14,11 +14,15 @@ import { useNavigate } from "react-router-dom";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
 import { toast } from "../../../components/toast/Toast";
+import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
+import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 
 const Delegate = () => {
   const [stakeAmount, setStakeAmount] = useState("");
   const [mnemonics, setMnemonics] = useState("");
-  const { userAddress, userBalance } = useSelector((state) => state?.auth);
+  const { userAddress, userBalance, walletType } = useSelector(
+    (state) => state?.auth
+  );
   const [errMsg, setErrMsg] = useState({
     amount: "",
     mnemonics: "",
@@ -54,6 +58,15 @@ const Delegate = () => {
         );
         return;
       }
+      if (walletType == "keplr" && !window?.keplr) {
+        toast.error("Install Keplr Wallet extension");
+        return;
+      }
+
+      if (walletType == "qubetics" && !window?.qubetics) {
+        toast.error("Install qubetics Wallet extension");
+        return;
+      }
 
       setIsLoading(true);
       const valoperAddress = selectedAccounts?.valoperAddress;
@@ -64,7 +77,12 @@ const Delegate = () => {
         valoperAddress,
         nodeUrl,
       };
-      if (window?.qubetics) {
+      if (window?.keplr && walletType == "keplr") {
+        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
+        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      }
+
+      if (window?.qubetics && walletType == "qubetics") {
         window?.qubetics?.sendRequest(
           "delegatorBondMoreFunds",
           data,
@@ -76,21 +94,10 @@ const Delegate = () => {
             } else {
               dispatch(isTxOccur(true));
               if (response) {
-                setTimeout(() => {
-                  const fetchData = async () => {
-                    let resp = await getTransactionLogs(response?.data);
-                    if (resp?.result?.tx_result?.data === null) {
-                      setIsLoading(false);
-                      toast.error("Transaction failed");
-                      navigate("/dashboard");
-                    } else {
-                      setIsLoading(false);
-                      toast.success("Transaction successful");
-                      navigate("/dashboard");
-                    }
-                  };
-                  fetchData();
-                }, 5000);
+                setTimeout(
+                  () => checkTransaction(response?.data, navigate),
+                  4000
+                );
               }
             }
           }
