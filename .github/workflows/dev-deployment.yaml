@@ -1,8 +1,8 @@
-name: '[dev] Deploy dev delegator'
+name: "[dev] Deploy dev delegator"
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - dev
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     with:
       SWR_ORGANIZATION: dev-qubetics
       ARGOCD_BRANCH: dev
-      HUAWEI_REGION: 'ap-southeast-3'
+      HUAWEI_REGION: "ap-southeast-3"
       ARGOCD_REPOSITORY: Qubetics/argocd-qubetics
       DEPLOYMENT_PATH: Delegator/delegator.yaml
       HUAWEI_IMAGE: dev-delegator

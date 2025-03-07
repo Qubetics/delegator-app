@@ -1,8 +1,8 @@
-name: '[testnet] Deploy delegator'
+name: "[testnet] Deploy delegator"
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - testnet
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     with:
       SWR_ORGANIZATION: testnet-qubetics
       ARGOCD_BRANCH: testnet
-      HUAWEI_REGION: 'ap-southeast-3'
+      HUAWEI_REGION: "ap-southeast-3"
       ARGOCD_REPOSITORY: Qubetics/argocd-qubetics
       DEPLOYMENT_PATH: Delegator/delegator.yaml
       HUAWEI_IMAGE: testnet-delegator
