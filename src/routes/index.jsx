@@ -14,7 +14,6 @@ import Redelegate from "../pages/Funds/Redelegate/index.js";
 import PrivateRouter from "./PrivateRouter";
 import { selectedAccounts } from "../redux/Reducer/drawer";
 import { logout } from "../redux/Reducer/auth";
-import ConnectionErrorModal from "../components/ConnectionErrorModal";
 
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -51,10 +50,6 @@ const RoutePath = () => {
   useEffect(() => {
     setConnectionOpen(pathname === "/login");
   }, [pathname]);
-
-  const connectionClose = () => {
-    setConnectionOpen(false);
-  };
 
   return (
     <MainPanel>

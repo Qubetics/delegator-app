@@ -14,11 +14,13 @@ import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
 import { userEvmAddress } from "../../services/userEvmAddress";
+import ConnectionErrorModal from "../../components/ConnectionErrorModal";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [mnemonics, setMnemonics] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [connectionOpen, setConnectionOpen] = useState(false);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -53,6 +55,14 @@ const Login = () => {
     setMnemonics(e.target.value);
   };
 
+  const openConnection = () => {
+    setConnectionOpen(true);
+  };
+
+  const connectionClose = () => {
+    setConnectionOpen(false);
+  };
+
   return (
     <>
       <div className="auth-wrapper">
@@ -77,10 +87,29 @@ const Login = () => {
                   Login
                 </button>
               </div>
+
+              <div className="auth-wrapper__btns">
+                <button
+                  className="headermetaBtn"
+                  onClick={openConnection}
+                  type="button"
+                >
+                  {/* <span className="btn-icon">
+                  <LoginIcon />
+                </span> */}
+                  Login with wallet
+                </button>
+              </div>
             </form>
           </div>
         </>
         {isLoading && <Loader />}
+        {connectionOpen && (
+          <ConnectionErrorModal
+            connectionOpen={connectionOpen}
+            connectionClose={connectionClose}
+          />
+        )}
       </div>
     </>
   );
