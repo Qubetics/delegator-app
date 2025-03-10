@@ -46,6 +46,22 @@ const UnBond = () => {
 
   const onSubmit = async () => {
     try {
+      if (walletType == "noWallet") {
+        let res = await getUserAddress(mnemonics);
+        if (res?.message) {
+          return toast.error("Invalid Mnemonics");
+        }
+
+        if (
+          res?.length > 0 &&
+          res !== userAddress &&
+          walletType == "noWallet"
+        ) {
+          toast.error("Mnemonics are not same as login");
+          return;
+        }
+      }
+
       if (walletType == "keplr" && !window?.keplr) {
         toast.error("Install Keplr Wallet extension");
         return;
@@ -68,6 +84,21 @@ const UnBond = () => {
       if (window?.keplr && walletType == "keplr") {
         await keplrUnbond(userAddress, unBoundAmt, valoperAddress);
         setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      }
+
+      if (walletType == "noWallet") {
+        const response = await unBondFunds(
+          mnemonics,
+          userAddress,
+          selectedAccounts?.valoperAddress,
+          unBoundAmt,
+          maxClicked,
+          selectedAccounts?.actual
+        );
+        if (response) {
+          dispatch(isTxOccur(true));
+          setTimeout(() => checkTransaction(response?.data, navigate), 4000);
+        }
       }
 
       if (window?.qubetics && walletType == "qubetics") {
@@ -114,7 +145,12 @@ const UnBond = () => {
     }
   };
   useEffect(() => {
-    if (!unBoundAmt || errMsg?.amount?.length > 0) {
+    if (
+      !unBoundAmt ||
+      errMsg?.amount?.length > 0 ||
+      !mnemonics ||
+      errMsg?.mnemonics?.length > 0
+    ) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
@@ -180,10 +216,33 @@ const UnBond = () => {
               Unbond All
             </Button>
           </div>
-          <div className="common-wrapper__title currencytitle">
-            <strong>Note :</strong> Your account status may take some time to
-            update and reflect on the dashboard.
-          </div>
+
+          {walletType == "noWallet" && (
+            <TextField
+              value={mnemonics}
+              label="Enter mnemonics to authorize the transaction"
+              placeholder="Paste or enter your mnemonics"
+              type="password"
+              name="Mnemonics"
+              onChange={handleChange}
+              helperText={
+                <>
+                  <strong>Note :</strong> Your account status may take some time
+                  to update and reflect on the dashboard.
+                  <br />
+                  <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
+                  <br />
+                </>
+              }
+              autoComplete="off"
+            />
+          )}
+          {walletType !== "noWallet" && (
+            <div className="common-wrapper__title currencytitle">
+              <strong>Note :</strong> Your account status may take some time to
+              update and reflect on the dashboard.
+            </div>
+          )}
           <Button
             variant="outlined"
             disabled={isDisable || isLoading}

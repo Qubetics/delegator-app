@@ -25,7 +25,7 @@ const SetupBond = ({
 }) => {
   const [isDisable, setIsDisable] = useState(false);
   const navigate = useNavigate();
-  const { userBalance } = useSelector((state) => state?.auth);
+  const { userBalance, walletType } = useSelector((state) => state?.auth);
   const { selectedAccounts } = useSelector((state) => state?.drawer);
 
   const onBackClick = () => {
@@ -113,8 +113,34 @@ const SetupBond = ({
               Max
             </Button>
           </div>
-          <strong>Note :</strong> Your account status may take some time to
-          update and reflect on the dashboard.
+          {walletType == "noWallet" && (
+            <TextField
+              value={mnemonics}
+              label="Enter mnemonics to authorize the transaction"
+              placeholder="Paste or enter your mnemonics"
+              type="password"
+              name="Mnemonics"
+              onChange={handleChange}
+              className="delegatorbnd"
+              helperText={
+                <>
+                  <strong>Note :</strong> Your account status may take some time
+                  to update and reflect on the dashboard.
+                  <br />
+                  <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
+                  <br />
+                </>
+              }
+              autoComplete="off"
+            />
+          )}
+          {walletType !== "noWallet" && (
+            <div>
+              <strong>Note:</strong> Your account status may take some time to
+              update and reflect on the dashboard.
+            </div>
+          )}
+
           <Button
             sx={{ marginTop: "50px" }}
             onClick={handleSetUpDelegator}

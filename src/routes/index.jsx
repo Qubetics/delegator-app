@@ -35,7 +35,7 @@ const RoutePath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(pathname, "pathname");
+  console.log(pathname, "pathname", isLoggedIn);
 
   useEffect(() => {
     window?.qubetics?.events?.on("switchAccount", (data) => {
@@ -133,12 +133,14 @@ const RoutePath = () => {
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </Suspense>
+      {/*
       {connectionOpen && (
         <ConnectionErrorModal
           connectionOpen={connectionOpen}
           connectionClose={connectionClose}
         />
       )}
+      */}
     </MainPanel>
   );
 };

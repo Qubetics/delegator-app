@@ -2,14 +2,17 @@
 import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import TextField from "../../components/Common/TextField";
-import { getEvmAddress, logInSuccess } from "../../redux/Reducer/auth";
+import {
+  getEvmAddress,
+  getWalletType,
+  logInSuccess,
+} from "../../redux/Reducer/auth";
 import LoginIcon from "../../assets/Icons/LoginIcon";
 import fetchValoperAddress from "../../services/fetchValoperAddress";
 import { useState } from "react";
 import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
-import { NODE_NAME } from "../../components/Common/Constant";
 import { userEvmAddress } from "../../services/userEvmAddress";
 
 const Login = () => {
@@ -17,79 +20,29 @@ const Login = () => {
   const [mnemonics, setMnemonics] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // const submitHandler = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const data = {
-  //       nodeUrl: NODE_NAME,
-  //     };
-  //     window.qubetics.sendRequest(
-  //       "nativeConnect",
-  //       data,
-  //       async (error, response) => {
-
-  //       setIsLoading(true);
-  //       let res = await getUserAddress(mnemonics);
-  //       let evmAddress = await userEvmAddress(mnemonics);
-
-  //       if (res?.message) {
-  //         toast.error(res?.message);
-  //         if (response?.type == "error") {
-  //           setIsLoading(false);
-  //           toast.error(response?.data?.message || "Something went wrong");
-  //         } else {
-  //           if (response) {
-  //             console.log(response, "RESREESESDELEGATOR");
-  //             // setIsLoading(true);
-
-  //       let response = await fetchValoperAddress(mnemonics);
-  //       dispatch(getEvmAddress(evmAddress));
-
-  //       dispatch(logInSuccess(res));
-
-  //       return toast.success("Logged In Successfully");
-  //           }
-  //         }
-
-  //       }
-  //    catch (err) {
-  //     setIsLoading(false);
-  //     toast.error(err?.message);
-  //   }
-
-  // };
-
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const data = {
-        nodeUrl: NODE_NAME,
-      };
-      window.qubetics.sendRequest(
-        "nativeConnect",
-        data,
-        async (error, response) => {
-          console.log(response?.result?.data?.address, "RESPONSE");
-          if (response?.type == "error") {
-            setIsLoading(false);
-            toast.error(response?.data?.message || "Something went wrong");
-          } else {
-            if (response) {
-              console.log(response, "RESREESESDELEGATOR");
+      if (!mnemonics) {
+        toast.error("Mnemonics is required!");
+        return;
+      }
+      if (mnemonics?.length > 0) {
+        // setIsLoading(true);
+        let res = await getUserAddress(mnemonics);
+        let evmAddress = await userEvmAddress(mnemonics);
 
-              // setIsLoading(true);
-              // let res = await getUserAddress(mnemonics);
-              // if (res?.message) {
-              //   toast.error(res?.message);
-              //   return;
-              // }
-              // let response = await fetchValoperAddress(mnemonics);
-              // dispatch(logInSuccess(res));
-              return toast.success("Logged In Successfully+++++++++++++");
-            }
-          }
+        if (res?.message) {
+          toast.error(res?.message);
+          return;
         }
-      );
+        let response = await fetchValoperAddress(mnemonics);
+        dispatch(getEvmAddress(evmAddress));
+        dispatch(getWalletType("noWallet"));
+        dispatch(logInSuccess(res));
+
+        return toast.success("Logged In Successfully");
+      }
     } catch (err) {
       setIsLoading(false);
       toast.error(err?.message);
