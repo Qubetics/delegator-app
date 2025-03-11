@@ -395,6 +395,9 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
     "&__backbtn": {
       textAlign: "right",
     },
+    "&__btns:last-child": {
+      paddingTop: "20px !important",
+    },
     "&__btns": {
       display: "flex",
       gap: "0 30px",
@@ -406,7 +409,7 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
 
       button: {
         // flex: "1",
-        width: "174px",
+        width: "100%",
         margin: "auto",
         height: "50px",
         fontSize: "18px",

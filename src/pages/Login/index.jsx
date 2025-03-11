@@ -35,7 +35,7 @@ const Login = () => {
         let evmAddress = await userEvmAddress(mnemonics);
 
         if (res?.message) {
-          toast.error(res?.message);
+          toast.error("Invalid Mnemonics");
           return;
         }
         let response = await fetchValoperAddress(mnemonics);
@@ -84,7 +84,7 @@ const Login = () => {
                   {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
-                  Login
+                  Login with Mnemonics
                 </button>
               </div>
 
@@ -94,10 +94,7 @@ const Login = () => {
                   onClick={openConnection}
                   type="button"
                 >
-                  {/* <span className="btn-icon">
-                  <LoginIcon />
-                </span> */}
-                  Login with wallet
+                  Login with Wallet
                 </button>
               </div>
             </form>
