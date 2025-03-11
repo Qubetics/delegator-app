@@ -84,7 +84,7 @@ const Login = () => {
                   {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
-                  Login with Mnemonics
+                  Log In
                 </button>
               </div>
 
@@ -94,7 +94,7 @@ const Login = () => {
                   onClick={openConnection}
                   type="button"
                 >
-                  Login with Wallet
+                  Connect Wallet
                 </button>
               </div>
             </form>
