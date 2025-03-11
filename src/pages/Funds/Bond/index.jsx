@@ -124,21 +124,20 @@ const Bond = () => {
       }
 
       if (walletType === "noWallet") {
-        console.log("walletType is 'noWallet'");
         if (!mnemonics?.trim()) {
           return toast.error("Enter Mnemonics");
         }
-      }
-      const res = await getUserAddress(mnemonics);
-      if (res !== userAddress && walletType == "noWallet") {
-        return toast.error("Mnemonics are not same as login");
+        const res = await getUserAddress(mnemonics);
+        if (res !== userAddress && walletType == "noWallet") {
+          return toast.error("Mnemonics are not same as login");
+        }
       }
 
       setIsLoading(true);
       const valoperAddress = selectedAccounts?.valoperAddress;
       const data = { userAddress, stakeAmount, valoperAddress, nodeUrl };
 
-      if (walletType == "noWallet") {
+      if (walletType === "noWallet") {
         const response = await delagteAndBondMore(
           mnemonics,
           userAddress,
@@ -152,12 +151,10 @@ const Bond = () => {
         return;
       }
 
-      if (window?.keplr && walletType == "keplr") {
+      if (window?.keplr && walletType === "keplr") {
         await keplrBondMore(userAddress, stakeAmount, valoperAddress);
-        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
       }
-
-      if (window?.qubetics && walletType == "qubetics") {
+      if (window?.qubetics && walletType === "qubetics") {
         window.qubetics.sendRequest(
           "delegatorBondMoreFunds",
           data,

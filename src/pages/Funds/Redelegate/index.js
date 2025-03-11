@@ -287,7 +287,7 @@ const Redelegate = () => {
             }}
             disabled={isDisable || isLoading}
           >
-            "Redelegate"
+            Redelegate
           </Button>
         </div>
       </FormWrapper>

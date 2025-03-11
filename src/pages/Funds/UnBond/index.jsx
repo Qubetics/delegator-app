@@ -145,17 +145,12 @@ const UnBond = () => {
     }
   };
   useEffect(() => {
-    if (
-      !unBoundAmt ||
-      errMsg?.amount?.length > 0 ||
-      !mnemonics ||
-      errMsg?.mnemonics?.length > 0
-    ) {
+    if (!unBoundAmt || errMsg?.amount?.length > 0) {
       setIsDisable(true);
     } else {
       setIsDisable(false);
     }
-  }, [errMsg, unBoundAmt, mnemonics]);
+  }, [errMsg, unBoundAmt]);
 
   const handleChange = async (e) => {
     let { name, value } = e.target;

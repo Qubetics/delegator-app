@@ -80,6 +80,7 @@ export const sendMsgs = async (
     const txHash = await broadcastTxSync(keplr, chainInfo.chainId, signedTx.tx);
     const txTracer = new TendermintTxTracer(chainInfo.rpc, "/websocket");
     txTracer.traceTx(txHash).then((tx) => {
+      console.log(tx, "TXTXTXTX");
       return tx;
       console.log("Transaction commit successfully");
     });
