@@ -114,26 +114,47 @@ const Bond = () => {
       if (amount < minAmount)
         return toast.error(`Bond amount should be at least ${minAmount}`);
 
-      if (walletType == "keplr" && !window?.keplr) {
-        toast.error("Install Keplr Wallet extension");
-        return;
+      const walletExtensions = {
+        keplr: window?.keplr,
+        qubetics: window?.qubetics,
+      };
+
+      if (walletType in walletExtensions && !walletExtensions[walletType]) {
+        return toast.error(`Install ${walletType} Wallet extension`);
       }
 
-      if (walletType == "qubetics" && !window?.qubetics) {
-        toast.error("Install qubetics Wallet extension");
-        return;
+      if (walletType === "noWallet") {
+        if (!mnemonics?.trim()) {
+          return toast.error("Enter Mnemonics");
+        }
+        const res = await getUserAddress(mnemonics);
+        if (res !== userAddress && walletType == "noWallet") {
+          return toast.error("Mnemonics are not same as login");
+        }
       }
 
       setIsLoading(true);
       const valoperAddress = selectedAccounts?.valoperAddress;
       const data = { userAddress, stakeAmount, valoperAddress, nodeUrl };
 
-      if (window?.keplr && walletType == "keplr") {
-        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
-        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+      if (walletType === "noWallet") {
+        const response = await delagteAndBondMore(
+          mnemonics,
+          userAddress,
+          stakeAmount,
+          selectedAccounts?.valoperAddress
+        );
+        if (response) {
+          dispatch(isTxOccur(true));
+          setTimeout(() => checkTransaction(response, navigate), 3000);
+        }
+        return;
       }
 
-      if (window?.qubetics && walletType == "qubetics") {
+      if (window?.keplr && walletType === "keplr") {
+        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
+      }
+      if (window?.qubetics && walletType === "qubetics") {
         window.qubetics.sendRequest(
           "delegatorBondMoreFunds",
           data,
@@ -198,10 +219,35 @@ const Bond = () => {
               Max
             </Button>
           </div>
-          <div className="common-wrapper__amount redelect">
-            <strong>Note :</strong> Your account status may take some time to
-            update and reflect on the dashboard.
-          </div>
+
+          {walletType == "noWallet" && (
+            <div className="common-wrapper__amount redelect">
+              <TextField
+                value={mnemonics}
+                label="Enter mnemonics to authorize the transaction"
+                placeholder="Paste or enter your mnemonics"
+                type="password"
+                name="Mnemonics"
+                onChange={handleChange}
+                helperText={
+                  <>
+                    <strong>Note :</strong> Your account status may take some
+                    time to update and reflect on the dashboard.
+                    <br />
+                    <span style={{ color: "red" }}>{errMsg?.mnemonics}</span>
+                    <br />
+                  </>
+                }
+                autoComplete="off"
+              />
+            </div>
+          )}
+          {walletType !== "noWallet" && (
+            <div className="common-wrapper__amount redelect">
+              <strong>Note :</strong> Your account status may take some time to
+              update and reflect on the dashboard.
+            </div>
+          )}
           <Button
             variant="outlined"
             fullWidth

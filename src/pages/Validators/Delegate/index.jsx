@@ -16,6 +16,7 @@ import Loader from "../../../components/Common/Loader";
 import { toast } from "../../../components/toast/Toast";
 import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
+import { getUserAddress } from "../../../services/GetAddress";
 
 const Delegate = () => {
   const [stakeAmount, setStakeAmount] = useState("");
@@ -58,6 +59,20 @@ const Delegate = () => {
         );
         return;
       }
+      if (walletType == "noWallet") {
+        if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
+          toast.error("Enter Mnemonics");
+          return;
+        }
+        let res = await getUserAddress(mnemonics);
+        if (res?.message) {
+          return toast.error("Invalid Mnemonics");
+        }
+        if (res?.length > 0 && res !== userAddress) {
+          toast.error("Mnemonics are not same as login");
+          return;
+        }
+      }
       if (walletType == "keplr" && !window?.keplr) {
         toast.error("Install Keplr Wallet extension");
         return;
@@ -77,6 +92,19 @@ const Delegate = () => {
         valoperAddress,
         nodeUrl,
       };
+
+      if (walletType == "noWallet") {
+        const response = await delagteAndBondMore(
+          mnemonics,
+          userAddress,
+          stakeAmount,
+          selectedAccounts?.valoperAddress
+        );
+        if (response) {
+          dispatch(isTxOccur(true));
+          setTimeout(() => checkTransaction(response, navigate), 4000);
+        }
+      }
       if (window?.keplr && walletType == "keplr") {
         await keplrBondMore(userAddress, stakeAmount, valoperAddress);
         setTimeout(() => checkTransaction(userAddress, navigate), 4000);

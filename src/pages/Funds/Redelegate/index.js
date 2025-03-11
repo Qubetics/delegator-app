@@ -94,6 +94,21 @@ const Redelegate = () => {
       toast.error("Install qubetics Wallet extension");
       return;
     }
+
+    if (walletType == "noWallet") {
+      if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
+        toast.error("Enter Mnemonics");
+        return;
+      }
+      let res = await getUserAddress(mnemonics);
+      if (res?.message) {
+        return toast.error("Invalid Menomonics");
+      }
+      if (res?.length > 0 && res !== userAddress) {
+        toast.error("Mnemonics are not same as login");
+        return;
+      }
+    }
     try {
       setIsLoading(true);
       // const response = await redelegate(
@@ -117,6 +132,30 @@ const Redelegate = () => {
         valoperAddress,
         stakeAmount
       );
+
+      if (walletType == "noWallet") {
+        const response = await redelegate(
+          mnemonics,
+          selectedAccounts?.valoperAddress,
+          valoperAddress,
+          selectedAccounts?.stake
+        );
+        dispatch(isTxOccur(true));
+        if (response?.data?.code == 0) {
+          setTimeout(async () => {
+            navigate("/dashboard");
+            toast.success("Transaction successful");
+            setIsLoading(false);
+          }, 4000);
+        } else {
+          setIsLoading(false);
+          navigate("/dashboard");
+          let msg = response?.data?.rawLog;
+          toast.error(msg);
+        }
+        return;
+      }
+
       if (window?.keplr && walletType == "keplr") {
         await keplrUnbond(userAddress, stakeAmount, valoperAddress);
         setTimeout(() => checkTransaction(userAddress, navigate), 4000);
@@ -213,10 +252,31 @@ const Redelegate = () => {
               </FormControl>
             </div>
           </div>
-          <div className="redelect" style={{ marginTop: "30px" }}>
-            <strong>Note:</strong> Your account status may take some time to
-            update and reflect on the dashboard.
-          </div>
+          {walletType == "noWallet" && (
+            <div className="redelect" style={{ marginTop: "30px" }}>
+              <TextField
+                value={mnemonics}
+                label="Enter mnemonics to authorize the transaction"
+                placeholder="Paste or enter your mnemonics"
+                name="Mnemonics"
+                type="password"
+                onChange={handleChange}
+                helperText={
+                  <>
+                    <strong>Note:</strong> Your account status may take some
+                    time to update and reflect on the dashboard.
+                  </>
+                }
+                autoComplete="off"
+              />
+            </div>
+          )}
+          {walletType !== "noWallet" && (
+            <div className="redelect" style={{ marginTop: "30px" }}>
+              <strong>Note:</strong> Your account status may take some time to
+              update and reflect on the dashboard.
+            </div>
+          )}
           <Button
             onClick={handleReDelegation}
             variant="outlined"
@@ -227,7 +287,7 @@ const Redelegate = () => {
             }}
             disabled={isDisable || isLoading}
           >
-            "Redelegate"
+            Redelegate
           </Button>
         </div>
       </FormWrapper>

@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import { Button } from "@mui/material";
-import { DialogContent, StyledDialog } from "./styles";
+import { CancelIconWrapper, DialogContent, StyledDialog } from "./styles";
 import { OsmosisChainInfo } from "../../constants";
 import { showEvmAddress } from "../../services/showEvmAddress";
 import {
@@ -87,7 +87,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
       <StyledDialog
         className="connectionAttempt"
         open={connectionOpen}
-        // onClose={connectionClose}
+        onClose={connectionClose}
         aria-labelledby="logout-dialog-title"
         aria-describedby="logout-dialog-description"
       >

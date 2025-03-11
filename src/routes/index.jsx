@@ -14,7 +14,6 @@ import Redelegate from "../pages/Funds/Redelegate/index.js";
 import PrivateRouter from "./PrivateRouter";
 import { selectedAccounts } from "../redux/Reducer/drawer";
 import { logout } from "../redux/Reducer/auth";
-import ConnectionErrorModal from "../components/ConnectionErrorModal";
 
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -35,7 +34,7 @@ const RoutePath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(pathname, "pathname");
+  console.log(pathname, "pathname", isLoggedIn);
 
   useEffect(() => {
     window?.qubetics?.events?.on("switchAccount", (data) => {
@@ -51,10 +50,6 @@ const RoutePath = () => {
   useEffect(() => {
     setConnectionOpen(pathname === "/login");
   }, [pathname]);
-
-  const connectionClose = () => {
-    setConnectionOpen(false);
-  };
 
   return (
     <MainPanel>
@@ -133,12 +128,14 @@ const RoutePath = () => {
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </Suspense>
+      {/*
       {connectionOpen && (
         <ConnectionErrorModal
           connectionOpen={connectionOpen}
           connectionClose={connectionClose}
         />
       )}
+      */}
     </MainPanel>
   );
 };
