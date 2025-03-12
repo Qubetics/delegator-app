@@ -26,7 +26,7 @@ import { bondMoreValidations } from "../../../utils/validations";
 import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { Spin } from "antd";
-import { keplrBondMore, keplrUnbond } from "../../../keplrEvents/keplrUnbond";
+import { keplrUnbond } from "../../../keplrEvents/keplrUnbond";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 
 const UnBond = () => {
@@ -82,8 +82,13 @@ const UnBond = () => {
       };
 
       if (window?.keplr && walletType == "keplr") {
-        await keplrUnbond(userAddress, unBoundAmt, valoperAddress);
-        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+        await keplrUnbond(
+          userAddress,
+          unBoundAmt,
+          valoperAddress,
+          setIsLoading,
+          navigate
+        );
       }
 
       if (walletType == "noWallet") {

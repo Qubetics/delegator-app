@@ -152,7 +152,13 @@ const Bond = () => {
       }
 
       if (window?.keplr && walletType === "keplr") {
-        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
+        await keplrBondMore(
+          userAddress,
+          stakeAmount,
+          valoperAddress,
+          setIsLoading,
+          navigate
+        );
       }
       if (window?.qubetics && walletType === "qubetics") {
         window.qubetics.sendRequest(

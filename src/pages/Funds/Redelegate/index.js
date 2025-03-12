@@ -29,6 +29,7 @@ import {
 import { Spin } from "antd";
 import { keplrRedelegate } from "../../../keplrEvents/keplrRedelegate";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
+import { keplrUnbond } from "../../../keplrEvents/keplrUnbond";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
@@ -126,12 +127,6 @@ const Redelegate = () => {
         stakeAmount,
         nodeUrl,
       };
-      await keplrRedelegate(
-        userAddress,
-        selectedAccount,
-        valoperAddress,
-        stakeAmount
-      );
 
       if (walletType == "noWallet") {
         const response = await redelegate(
@@ -157,8 +152,14 @@ const Redelegate = () => {
       }
 
       if (window?.keplr && walletType == "keplr") {
-        await keplrUnbond(userAddress, stakeAmount, valoperAddress);
-        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+        await keplrRedelegate(
+          userAddress,
+          selectedAccount,
+          valoperAddress,
+          stakeAmount,
+          setIsLoading,
+          navigate
+        );
       }
 
       if (window?.qubetics && walletType == "qubetics") {

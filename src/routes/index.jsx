@@ -34,8 +34,6 @@ const RoutePath = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(pathname, "pathname", isLoggedIn);
-
   useEffect(() => {
     window?.qubetics?.events?.on("switchAccount", (data) => {
       if (data?.result?.type == "success") {
