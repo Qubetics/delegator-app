@@ -136,7 +136,7 @@ const Redelegate = () => {
           selectedAccounts?.stake
         );
         dispatch(isTxOccur(true));
-        if (response?.data?.code == 0) {
+        if (response?.code == 0) {
           setTimeout(async () => {
             navigate("/dashboard");
             toast.success("Transaction successful");
@@ -145,7 +145,7 @@ const Redelegate = () => {
         } else {
           setIsLoading(false);
           navigate("/dashboard");
-          let msg = response?.data?.rawLog;
+          let msg = response?.rawLog;
           toast.error(msg);
         }
         return;
