@@ -30,7 +30,7 @@ const Login = () => {
         return;
       }
       if (mnemonics?.length > 0) {
-        // setIsLoading(true);
+        setIsLoading(true);
         let res = await getUserAddress(mnemonics);
         let evmAddress = await userEvmAddress(mnemonics);
 

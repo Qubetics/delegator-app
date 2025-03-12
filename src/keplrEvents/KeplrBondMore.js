@@ -15,8 +15,6 @@ export const keplrBondMore = async (
   if (window.keplr) {
     const key = await window.keplr?.getKey(OsmosisChainInfo.chainId);
 
-    console.log(key, "PUBKEY");
-
     const scaledAmount = parseUnits(stakeAmount.toString(), 18).toString();
     let res = "";
 
@@ -52,7 +50,6 @@ export const keplrBondMore = async (
           }
         );
       }
-      console.log(res, "RESGASUSED");
       if (res) {
         setTimeout(() => {
           toast.success("Transaction successful");
