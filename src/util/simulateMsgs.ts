@@ -1,4 +1,4 @@
-import { ChainInfo } from "@keplr-wallet/types";
+import { ChainInfo, Keplr } from "@keplr-wallet/types";
 import { Any } from "../proto-types-gen/src/google/protobuf/any";
 import {
   AuthInfo,
@@ -8,12 +8,15 @@ import {
   TxRaw,
 } from "../proto-types-gen/src/cosmos/tx/v1beta1/tx";
 import { SignMode } from "../proto-types-gen/src/cosmos/tx/signing/v1beta1/signing";
+import { PubKey } from "../proto-types-gen/src/cosmos/crypto/secp256k1/keys";
+
 import { fetchAccountInfo } from "./sendMsgs";
 import { api } from "./api";
 import { GasSimulateResponse } from "../types/simulate";
 import { OsmosisChainInfo } from "../constants";
 
 export const simulateMsgs = async (
+  keplr: Keplr,
   chainInfo: ChainInfo,
   sender: string,
   proto: Any[],
@@ -26,6 +29,7 @@ export const simulateMsgs = async (
   memo: string = ""
 ) => {
   const account = await fetchAccountInfo(chainInfo, sender);
+  const { pubKey } = await keplr.getKey(chainInfo.chainId);
   if (account) {
     const unsignedTx = TxRaw.encode({
       bodyBytes: TxBody.encode(
@@ -37,9 +41,12 @@ export const simulateMsgs = async (
       authInfoBytes: AuthInfo.encode({
         signerInfos: [
           SignerInfo.fromPartial({
-            // Pub key is ignored.
-            // It is fine to ignore the pub key when simulating tx.
-            // However, the estimated gas would be slightly smaller because tx size doesn't include pub key.
+            publicKey: {
+              typeUrl: "/ethermint.crypto.v1.ethsecp256k1.PubKey",
+              value: PubKey.encode({
+                key: pubKey,
+              }).finish(),
+            },
             modeInfo: {
               single: {
                 mode: SignMode.SIGN_MODE_DIRECT,

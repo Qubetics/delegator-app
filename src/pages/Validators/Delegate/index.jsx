@@ -106,8 +106,13 @@ const Delegate = () => {
         }
       }
       if (window?.keplr && walletType == "keplr") {
-        await keplrBondMore(userAddress, stakeAmount, valoperAddress);
-        setTimeout(() => checkTransaction(userAddress, navigate), 4000);
+        await keplrBondMore(
+          userAddress,
+          stakeAmount,
+          valoperAddress,
+          setIsLoading,
+          navigate
+        );
       }
 
       if (window?.qubetics && walletType == "qubetics") {
