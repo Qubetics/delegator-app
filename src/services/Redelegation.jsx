@@ -53,6 +53,6 @@ export async function redelegate(
     );
     return txResult;
   } catch (err) {
-    console.log(err);
+    console.log(err, "err");
   }
 }
