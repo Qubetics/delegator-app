@@ -73,7 +73,7 @@ const Login = () => {
               <TextField
                 label="Mnemonics"
                 value={mnemonics}
-                placeholder="Paste or enter your Mnemonics"
+                placeholder="Paste or enter your Mnemonics."
                 onChange={changeHandler}
                 type="password"
                 className="input-style"
