@@ -226,27 +226,41 @@ const Statistics = () => {
             </Typography>
           </Box>
         </StatItem>
+
         <StatItem className="cardbg">
-          <div className="icon-wrap fifthbg">
-            <SupplyIcon />
+          <div className="icon-wrap fourthbg">
+            <AprIcon />
           </div>
           <Box ml="10px">
             <Typography variant="h6" color="text.secondary">
               Total Supply
-              <TooltipEle
-                classStyle="tooltip-common"
-                content={msg.tooltip?.circulation_supply}
-              />
+              <Tooltip
+                color="rgb(72, 69, 69)"
+                className="tooltip-common"
+                placement="top"
+                arrow
+                title={
+                  <Typography variant="h6" padding={1}>
+                    Total tokens issued by the system
+                  </Typography>
+                }
+              >
+                <IconButton>
+                  <InfoIcon />
+                </IconButton>
+              </Tooltip>
             </Typography>
-            {!loading ? (
-              <Skeleton variant="circle" width={80} height={20} />
-            ) : (
-              <>
-                {stats?.circulation_supply
-                  ? formatMillionNumber(stats?.circulation_supply)
-                  : 0}{" "}
-              </>
-            )}
+            <Typography>
+              {!loading ? (
+                <Skeleton variant="circle" width={50} height={20} />
+              ) : (
+                <>
+                  {stats?.circulation_supply
+                    ? formatMillionNumber(stats?.circulation_supply)
+                    : 0}{" "}
+                </>
+              )}
+            </Typography>
           </Box>
         </StatItem>
       </Wrapper>

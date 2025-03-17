@@ -35,6 +35,7 @@ const Login = () => {
         let evmAddress = await userEvmAddress(mnemonics);
 
         if (res?.message) {
+          setIsLoading(false);
           toast.error("Invalid Mnemonics");
           return;
         }
