@@ -13,6 +13,7 @@ import MenuIcon from "../../assets/Icons/MenuIcon";
 import Header from "../Sidebar/Header";
 
 const MainPanel = ({ children }) => {
+  const { isLoggedIn } = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -60,7 +61,6 @@ const MainPanel = ({ children }) => {
 
   return (
     <>
-      {/*
       {isLoggedIn && (
         <div className="bugSubButton">
           <button
@@ -68,7 +68,7 @@ const MainPanel = ({ children }) => {
             // onClick={() => router.push("/bug-submission")}
             onClick={() =>
               window.open(
-                "https://alphatestnet-explorer.qubetics.work/bug-submission",
+                "https://testnet.qubetics.work/bug-submission",
                 "_blank"
               )
             }
@@ -77,7 +77,7 @@ const MainPanel = ({ children }) => {
           </button>
         </div>
       )}
-      */}
+
       <Wrapper>
         <div className="main_top">
           <Header />
