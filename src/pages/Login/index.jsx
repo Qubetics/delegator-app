@@ -15,6 +15,8 @@ import { getUserAddress } from "../../services/GetAddress";
 import Loader from "../../components/Common/Loader";
 import { userEvmAddress } from "../../services/userEvmAddress";
 import ConnectionErrorModal from "../../components/ConnectionErrorModal";
+import { OsmosisChainInfo } from "../../constants";
+import { showEvmAddress } from "../../services/showEvmAddress";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -22,33 +24,63 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [connectionOpen, setConnectionOpen] = useState(false);
 
-  const submitHandler = async (event) => {
+  const submitHandler = async (event, walletType) => {
     event.preventDefault();
-    try {
-      if (!mnemonics) {
-        toast.error("Mnemonics is required!");
+    if (walletType == "keplr") {
+      if (!window.keplr) {
+        toast.error("Install Keplr Wallet extension");
         return;
       }
-      if (mnemonics?.length > 0) {
-        setIsLoading(true);
-        let res = await getUserAddress(mnemonics);
-        let evmAddress = await userEvmAddress(mnemonics);
+      setIsLoading(true);
+      const chainId = OsmosisChainInfo?.chainId;
 
-        if (res?.message) {
-          setIsLoading(false);
-          toast.error("Invalid Mnemonics");
+      try {
+        await window.keplr.disable(chainId);
+
+        await window.keplr.enable(chainId);
+
+        const offlineSigner = window.keplr.getOfflineSigner(chainId);
+        const accounts = await offlineSigner.getAccounts();
+        let evmAddress = await showEvmAddress(accounts[0].address);
+        if (accounts[0].address) {
+          dispatch(getWalletType("keplr"));
+          dispatch(getEvmAddress(evmAddress));
+
+          dispatch(logInSuccess(accounts[0].address));
+          return toast.success("Logged In Successfully");
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.error("Error connecting Keplr:", error);
+      }
+    }
+    if (walletType == "noWallet") {
+      try {
+        if (!mnemonics) {
+          toast.error("Mnemonics is required!");
           return;
         }
-        let response = await fetchValoperAddress(mnemonics);
-        dispatch(getEvmAddress(evmAddress));
-        dispatch(getWalletType("noWallet"));
-        dispatch(logInSuccess(res));
+        if (mnemonics?.length > 0) {
+          setIsLoading(true);
+          let res = await getUserAddress(mnemonics);
+          let evmAddress = await userEvmAddress(mnemonics);
 
-        return toast.success("Logged In Successfully");
+          if (res?.message) {
+            setIsLoading(false);
+            toast.error("Invalid Mnemonics");
+            return;
+          }
+          let response = await fetchValoperAddress(mnemonics);
+          dispatch(getEvmAddress(evmAddress));
+          dispatch(getWalletType("noWallet"));
+          dispatch(logInSuccess(res));
+
+          return toast.success("Logged In Successfully");
+        }
+      } catch (err) {
+        setIsLoading(false);
+        toast.error(err?.message);
       }
-    } catch (err) {
-      setIsLoading(false);
-      toast.error(err?.message);
     }
   };
 
@@ -81,7 +113,11 @@ const Login = () => {
                 id="mnemonics"
               />
               <div className="auth-wrapper__btns">
-                <button className="headermetaBtn" onClick={submitHandler}>
+                <button
+                  className="headermetaBtn"
+                  // onClick={submitHandler}
+                  onClick={(event) => submitHandler(event, "noWallet")}
+                >
                   {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
@@ -92,22 +128,25 @@ const Login = () => {
               <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
-                  onClick={openConnection}
+                  // onClick={openConnection}
+                  onClick={(event) => submitHandler(event, "keplr")}
                   type="button"
                 >
-                  Connect Wallet
+                  Connect With Keplr
                 </button>
               </div>
             </form>
           </div>
         </>
         {isLoading && <Loader />}
+        {/*
         {connectionOpen && (
           <ConnectionErrorModal
             connectionOpen={connectionOpen}
             connectionClose={connectionClose}
           />
         )}
+        */}
       </div>
     </>
   );
