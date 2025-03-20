@@ -124,6 +124,9 @@ const Login = () => {
                   Log In
                 </button>
               </div>
+              <div>
+                <h3 style={{ marginBottom: "-9px" }}>OR</h3>
+              </div>
 
               <div className="auth-wrapper__btns">
                 <button
