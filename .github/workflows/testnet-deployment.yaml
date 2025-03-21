@@ -1,17 +1,17 @@
-name: "[testnet] Deploy delegator"
+name: '[testnet] Deploy validator'
 
-on:
+on: 
   push:
-    branches:
+    branches: 
       - testnet
 
 jobs:
-  deploy_testnet_delegator:
-    uses: ./.github/workflows/delegator-app.yaml
+  deploy_testnet_validator:
+    uses: ./.github/workflows/validator-app.yaml
     with:
       SWR_ORGANIZATION: testnet-qubetics
       ARGOCD_BRANCH: testnet
-      HUAWEI_REGION: "ap-southeast-3"
+      HUAWEI_REGION: 'ap-southeast-3'
       ARGOCD_REPOSITORY: Qubetics/argocd-qubetics
       DEPLOYMENT_PATH: Delegator/delegator.yaml
       HUAWEI_IMAGE: testnet-delegator
