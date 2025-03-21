@@ -52,6 +52,7 @@ const Login = () => {
       } catch (error) {
         setIsLoading(false);
         console.error("Error connecting Keplr:", error);
+        toast.error("Failed to connect Keplr. Please try again.");
       }
     }
     if (walletType == "noWallet") {

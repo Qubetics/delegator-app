@@ -94,6 +94,27 @@ function Header() {
     toast.success("Address Copied");
   };
 
+  useEffect(() => {
+    window.addEventListener("keplr_keystorechange", async () => {
+      const chainId = OsmosisChainInfo.chainId;
+      if (window.keplr) {
+        try {
+          const offlineSigner = window.keplr.getOfflineSigner(chainId);
+          const accounts = await offlineSigner.getAccounts();
+          if (accounts[0].address) {
+            dispatch(logout());
+            navigate("/login");
+            dispatch(selectedAccounts({}));
+            sessionStorage.clear();
+            localStorage.clear();
+          }
+        } catch (error) {
+          console.error("Error fetching new account:", error);
+        }
+      }
+    });
+  }, []);
+
   return (
     <>
       <Drawer
