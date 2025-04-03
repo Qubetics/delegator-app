@@ -145,7 +145,7 @@ const Redelegate = () => {
         } else {
           setIsLoading(false);
           navigate("/dashboard");
-          let msg = response?.rawLog;
+          let msg = response?.log ? response?.log : response.rawLog;
           toast.error(msg);
         }
         return;
@@ -179,7 +179,9 @@ const Redelegate = () => {
           } else {
             setIsLoading(false);
             navigate("/dashboard");
-            let msg = response?.data?.rawLog;
+            let msg = response?.data?.log
+              ? response?.data?.log
+              : response?.data?.rawLog;
             toast.error(msg);
           }
         });
