@@ -1,5 +1,4 @@
 import { DirectSecp256k1HdWallet } from "@cosmjss/proto-signing";
-import { stringToPath } from "@cosmjss/crypto";
 import { SigningStargateClient } from "@cosmjss/stargate";
 import { DENOM, NODE_NAME, PREFIX } from "../components/Common/Constant";
 import { HD_PATHS } from "../utils/helper";

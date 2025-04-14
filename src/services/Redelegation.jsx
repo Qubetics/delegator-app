@@ -7,7 +7,6 @@ const { SigningStargateClient, GasPrice } = require("@cosmjss/stargate");
 const {
   MsgBeginRedelegate,
 } = require("cosmjs-types/cosmos/staking/v1beta1/tx");
-const { stringToPath } = require("@cosmjss/crypto");
 
 export async function redelegate(
   mnemonic,

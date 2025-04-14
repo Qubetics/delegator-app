@@ -1,5 +1,6 @@
 import Big from "big.js";
 import { noExponential } from "./commonFunctions";
+const { stringToPath } = require("@cosmjss/crypto");
 
 export function NumFixed(x) {
   if (Math.abs(x) < 1.0) {
