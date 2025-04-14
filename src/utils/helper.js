@@ -53,3 +53,5 @@ export function toPrecisionMultiply(num) {
   const respectedRes = result.mul(1).toFixed();
   return respectedRes;
 }
+
+export const HD_PATHS = [stringToPath("m/44'/60'/0'/0/0")];

@@ -1,6 +1,6 @@
 import { DENOM, FEE, NODE_NAME, PREFIX } from "../components/Common/Constant";
 import { noExponential } from "../utils/commonFunctions";
-import { toPrecisionMultiply } from "../utils/helper";
+import { HD_PATHS, toPrecisionMultiply } from "../utils/helper";
 
 const { DirectSecp256k1HdWallet } = require("@cosmjss/proto-signing");
 const { SigningStargateClient, GasPrice } = require("@cosmjss/stargate");
@@ -15,7 +15,7 @@ export default async function unBondFunds(
 ) {
   let nodeUrl = NODE_NAME || "";
   const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-    hdPaths: [stringToPath("m/44'/60'/0'/0/0")],
+    hdPaths: HD_PATHS,
     prefix: PREFIX,
   });
   const [{ address: delegatorAddress }] = await wallet.getAccounts();

@@ -71,7 +71,6 @@ const Login = () => {
             toast.error("Invalid Mnemonics");
             return;
           }
-          let response = await fetchValoperAddress(mnemonics);
           dispatch(getEvmAddress(evmAddress));
           dispatch(getWalletType("noWallet"));
           dispatch(logInSuccess(res));
