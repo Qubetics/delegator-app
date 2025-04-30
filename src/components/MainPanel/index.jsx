@@ -25,7 +25,6 @@ const MainPanel = ({ children }) => {
       !pathname?.includes("/funds/bond") &&
       !pathname?.includes("/funds/unbond") &&
       !pathname?.includes("/funds/redelegate") &&
-      !pathname?.includes("/login") &&
       !pathname?.includes("/validators/delegate"));
 
   useEffect(() => {
