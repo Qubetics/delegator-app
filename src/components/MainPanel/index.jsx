@@ -24,6 +24,7 @@ const MainPanel = ({ children }) => {
     (!pathname?.includes("/account") &&
       !pathname?.includes("/funds/bond") &&
       !pathname?.includes("/funds/unbond") &&
+      !pathname?.includes("/login") &&
       !pathname?.includes("/funds/redelegate") &&
       !pathname?.includes("/validators/delegate"));
 
