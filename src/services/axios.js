@@ -1,9 +1,9 @@
-import axios from 'axios';
-import { toast } from '../components/Toast';
+import axios from "axios";
+import { toast } from "../components/Toast";
 // import { setLoader } from '../Redux/actions/loader';
 // import { storeInstance } from '../App';
-// import { handleTokenExpiry } from './UserServices';
-import { API_HOST } from '../config';
+// import { handleTokenExpiry } from './UserServices..';
+import { API_HOST } from "../config";
 
 axios.defaults.baseURL = API_HOST;
 axios.defaults.withCredentials = true;
@@ -11,14 +11,14 @@ axios.defaults.withCredentials = true;
 axios.interceptors.request.use(
   (config) => {
     // config.headers['X-CSRF-Token'] = localStorage.getItem('csrfToken');
-    config.headers['Content-Type'] = 'application/json';
+    config.headers["Content-Type"] = "application/json";
 
     return config;
   },
   (error) => {
     // storeInstance.dispatch(setLoader(false));
     return error;
-  },
+  }
 );
 // Add a response interceptor
 axios.interceptors.response.use(
@@ -34,12 +34,14 @@ axios.interceptors.response.use(
     handleError(error);
 
     return error;
-  },
+  }
 );
 
 function formatUrl(url, params) {
   params =
-    params && Object.keys(params).length > 0 ? `?${new URLSearchParams(params).toString()}` : '';
+    params && Object.keys(params).length > 0
+      ? `?${new URLSearchParams(params).toString()}`
+      : "";
   return `${url}${params}`;
 }
 
