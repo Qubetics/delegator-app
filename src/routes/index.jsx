@@ -56,7 +56,7 @@ const RoutePath = () => {
           <Route
             path="/login"
             element={
-              isLoggedIn ? <Navigate to="/dashboard" replace /> : <BlocksPage />
+              isLoggedIn ? <Navigate to="/dashboard" replace /> : <Login />
             }
           />
 
