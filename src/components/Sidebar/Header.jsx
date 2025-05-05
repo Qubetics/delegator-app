@@ -120,39 +120,6 @@ function Header() {
     });
   }, []);
 
-  const connectWallet = async (event, walletType) => {
-    event.preventDefault();
-    // if (walletType == "keplr") {
-    if (!window.keplr) {
-      toast.error("Install Keplr Wallet extension");
-      return;
-    }
-    setIsLoading(true);
-    const chainId = OsmosisChainInfo?.chainId;
-
-    try {
-      await window.keplr.disable(chainId);
-
-      await window.keplr.enable(chainId);
-
-      const offlineSigner = window.keplr.getOfflineSigner(chainId);
-      const accounts = await offlineSigner.getAccounts();
-      let evmAddress = await showEvmAddress(accounts[0].address);
-      if (accounts[0].address) {
-        dispatch(getWalletType("keplr"));
-        dispatch(getEvmAddress(evmAddress));
-
-        dispatch(logInSuccess(accounts[0].address));
-        return toast.success("Logged In Successfully");
-      }
-    } catch (error) {
-      setIsLoading(false);
-      console.error("Error connecting Keplr:", error);
-      toast.error("Failed to connect Keplr. Please try again.");
-    }
-    // }
-  };
-
   return (
     <>
       <Drawer
@@ -193,14 +160,6 @@ function Header() {
                     >
                       Validators
                     </Link>
-
-                    {!isLoggedIn && (
-                      <div className="headerButtons">
-                        <button variant="contained" className="headermetaBtn">
-                          <div onClick={connectWallet}>Login With Keplr</div>
-                        </button>
-                      </div>
-                    )}
                   </li>
                 </ul>
               </div>
@@ -280,13 +239,6 @@ function Header() {
                   >
                     Validators
                   </Link>
-                  {!isLoggedIn && (
-                    <Button className="btns headermetaBtn">
-                      <div onClick={connectWallet} style={{ zIndex: "99999" }}>
-                        Login With Keplr{" "}
-                      </div>
-                    </Button>
-                  )}
                 </li>
               </ul>
             </div>
