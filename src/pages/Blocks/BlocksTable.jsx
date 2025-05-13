@@ -149,13 +149,17 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                         ? getAddress(evmAddresses[data?.miner], 8, 8)
                         : "-"}
                     </span>
-                    <text
+                    <span
                       onClick={() => copiedAddress(evmAddresses[data?.miner])}
                       className="copy-btn"
-                      style={{ marginLeft: "16px", cursor: "pointer" }}
+                      style={{
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
                     >
                       <CopyIcon sx={{ fontSize: "17px" }} />
-                    </text>
+                    </span>
                   </div>
                 </Typography>
               </TableCell>
