@@ -136,7 +136,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "space-between",
-                      maxWidth: "180px",
+                      maxWidth: "200px",
                       width: "100%",
                     }}
                   >
@@ -156,6 +156,7 @@ const BlocksTable = ({ blockData, blockStatus }) => {
                         cursor: "pointer",
                         display: "flex",
                         alignItems: "center",
+                        marginLeft: "10px",
                       }}
                     >
                       <CopyIcon sx={{ fontSize: "17px" }} />

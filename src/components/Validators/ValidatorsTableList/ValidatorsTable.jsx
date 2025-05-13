@@ -278,11 +278,23 @@ const ValidatorsTable = ({
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">
-                          {data?.name
-                            ? data?.name == "unknown"
-                              ? "-"
-                              : capitalizeFirstLetter(data?.name)
-                            : "-"}
+                          {data?.name ? (
+                            data?.name == "unknown" ? (
+                              "-"
+                            ) : (
+                              <span
+                                onClick={() =>
+                                  getdata(evmAddresses[data?.validatorAddress])
+                                }
+                                style={{ cursor: "pointer" }}
+                                className="txTruncate"
+                              >
+                                {capitalizeFirstLetter(data?.name)}
+                              </span>
+                            )
+                          ) : (
+                            "-"
+                          )}
                         </Typography>
                       </TableCell>
 
