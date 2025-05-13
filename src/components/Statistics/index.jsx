@@ -254,14 +254,17 @@ const Statistics = () => {
                 </IconButton>
               </Tooltip>
             </Typography>
-            <Typography>
+            <Typography
+              sx={{ cursor: "pointer" }}
+              title={stats?.totalSupply ? stats?.totalSupply.toString() : "0"}
+            >
               {!loading ? (
                 <Skeleton variant="circle" width={50} height={20} />
               ) : (
                 <>
-                  {stats?.circulation_supply
-                    ? formatMillionNumber(stats?.circulation_supply)
-                    : 0}{" "}
+                  {stats?.totalSupply
+                    ? formatMillionNumber(stats?.totalSupply)
+                    : 0}
                 </>
               )}
             </Typography>
