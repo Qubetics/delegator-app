@@ -9,8 +9,6 @@ import Sidebar from "../Sidebar";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddress } from "../../utils/helper";
-import { Typography } from "antd";
-import CopyAddress from "../Common/CopyAddress";
 import {
   getEvmAddress,
   getWalletType,

@@ -510,6 +510,13 @@ input:-webkit-autofill:active {
 
 .grayText {
   color: #a0a0a0 !important;
+  a{
+    color: #a0a0a0 !important;
+    text-decoration: none;
+    &:hover{
+      color: #fff !important;
+    }
+  }
 }
 
 .statusText {

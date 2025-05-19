@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../Common/Loader";
 import { Pagination } from "./styles";
 import { CURRENCY, PAGE_LIMIT, VALIDATOR_STATUS } from "../../Common/Constant";
 import FlexBox from "../../Common/FlexBox";
@@ -25,13 +24,10 @@ import {
 } from "../../../utils/commonFunctions";
 import { getAddress, toFixed } from "../../../utils/helper";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
-import CopyAddress from "../../Common/CopyAddress";
 import Skeleton from "./Skeleton";
 import NotFound from "../../Common/NotFound";
-import CopyIcon from "../../../assets/Icons/CopyIcon";
-import { toast } from "../../toast/Toast";
 import { showEvmAddress } from "../../../services/showEvmAddress";
-import TooltipEle from "../../Common/TooltipEle";
+import { Copy } from "../../Common/Copy";
 
 const tableHeader = [
   "#No",
@@ -214,11 +210,6 @@ const ValidatorsTable = ({
     navigate(`/validators/${address}`);
   };
 
-  const copiedAddress = (address) => {
-    navigator.clipboard.writeText(address);
-    toast.success("Address Copied");
-  };
-
   return (
     <>
       <div className="table-wrap">
@@ -322,22 +313,7 @@ const ValidatorsTable = ({
                                 8
                               )}
                             </span>
-                            <span
-                              onClick={() =>
-                                copiedAddress(
-                                  evmAddresses[data?.validatorAddress]
-                                )
-                              }
-                              className="copy-btn"
-                              style={{
-                                marginLeft: "8px",
-                                display: "flex",
-                                alignItems: "center",
-                                cursor: "pointer",
-                              }}
-                            >
-                              <CopyIcon sx={{ fontSize: "17px" }} />
-                            </span>
+                            <Copy text={evmAddresses[data?.validatorAddress]} />
                           </Typography>
                         ) : (
                           "-"

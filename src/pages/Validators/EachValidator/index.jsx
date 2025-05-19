@@ -1,7 +1,6 @@
 /*eslint-disable*/
-import { Button, Paper, Skeleton, Typography } from "@mui/material";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import DetailsBox from "../../../components/Common/DetailsBox";
+import { Button, Skeleton, Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 import { ValidatorDetailItem } from "./styles";
 import { useEffect, useState } from "react";
 import moment from "moment";
@@ -17,12 +16,9 @@ import {
   noExponential,
 } from "../../../utils/commonFunctions";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
-import Loader from "../../../components/Common/Loader";
 import CommonModal from "../../../components/CommonModal";
-import Sherlock from "../../../components/Sherlock/Sherlock";
 import { Wrapper } from "../../../components/Sherlock/Styles";
-import { ArrowIcon, CopyIcon } from "../../../assets/Icons/SvgIcon";
-import CopyAddress from "../../../components/Common/CopyAddress";
+import { ArrowIcon } from "../../../assets/Icons/SvgIcon";
 
 const ValidatorDetails = () => {
   const params = useParams();

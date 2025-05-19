@@ -14,8 +14,6 @@ import NotFound from "../../components/Common/NotFound";
 import { getAddress } from "../../utils/helper";
 import { isTimeAgoByCreatedDate } from "../../utils/commonFunctions";
 import { CopyIcon } from "../../assets/Icons/SvgIcon";
-import { brder_comm } from "./styles";
-import CopyAddress from "../../components/Common/CopyAddress";
 import { toast } from "../../components/toast/Toast";
 import { useNavigate } from "react-router-dom";
 import { showEvmAddress } from "../../services/showEvmAddress";

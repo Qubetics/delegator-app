@@ -15,12 +15,10 @@ import { getAddress, toFixed, toPrecision } from "../../../utils/helper";
 import { noExponential } from "../../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
-import CopyAddress from "../../Common/CopyAddress";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
-import CopyIcon from "../../../assets/Icons/CopyIcon";
-import { toast } from "../../toast/Toast";
 import { showEvmAddress } from "../../../services/showEvmAddress";
 import { useEffect, useState } from "react";
+import { Copy } from "../../Common/Copy";
 
 const stopMenuOptions = [
   {
@@ -64,11 +62,6 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
       fetchEvmAddresses();
     }
   }, [dashboardData]);
-
-  const copiedAddress = (data) => {
-    navigator.clipboard.writeText(data);
-    toast.success("Address Copied");
-  };
 
   return (
     <TableContainer component={Paper} sx={{ borderRadius: "0 !important" }}>
@@ -159,15 +152,7 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                     ) : (
                       "-"
                     )}
-                    <text
-                      onClick={() =>
-                        copiedAddress(evmAddresses[item?.validatorAddress])
-                      }
-                      className="copy-btn"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <CopyIcon sx={{ fontSize: "17px" }} />
-                    </text>
+                    <Copy text={evmAddresses[item?.validatorAddress]}/>
                   </Typography>
                 </TableCell>
 
