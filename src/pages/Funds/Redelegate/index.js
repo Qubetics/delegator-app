@@ -3,10 +3,10 @@ import {
   Button,
   Typography,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
+import "./style.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormWrapper from "../../../components/Common/FormWrapper";
@@ -14,7 +14,6 @@ import TextField from "../../../components/Common/TextField";
 import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../../components/BackButton/BackButton";
-import "./style.css";
 import getAllValidators from "../../../services/api/getAllValidators";
 import { bondMoreValidations } from "../../../utils/validations";
 import { redelegate } from "../../../services/Redelegation";
@@ -22,21 +21,14 @@ import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
-import {
-  NODE_NAME,
-  typesOfTransaction,
-} from "../../../components/Common/Constant";
-import { Spin } from "antd";
+import { NODE_NAME } from "../../../components/Common/Constant";
 import { keplrRedelegate } from "../../../keplrEvents/keplrRedelegate";
-import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
-import { keplrUnbond } from "../../../keplrEvents/keplrUnbond";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
   const drawer = useSelector((state) => state?.drawer);
   const { selectedAccounts } = drawer;
   const { userAddress, walletType } = auth;
-
   const [redelegationAddress, setRedligationAddress] = useState("");
   const [valoperAddress, setValoperAddress] = useState("");
   const [validatorList, setVaidatorList] = useState([]);
@@ -63,13 +55,13 @@ const Redelegate = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await getAllValidators(1, 10, -1);
-        let validators = response?.data?.validators;
+        const response = await getAllValidators(1, 10, 1, "active");
+        let validators = response?.data?.activeValidators;
         if (selectedAccounts?.accounts && validators) {
           const filteredAddresses = validators?.filter(
             (item) => item?.validatorAddress !== selectedAccounts?.accounts
           );
-          setVaidatorList(filteredAddresses);
+          setVaidatorList([...filteredAddresses]);
         }
       } catch (err) {
         return err;
@@ -85,6 +77,7 @@ const Redelegate = () => {
       setIsDisable(false);
     }
   }, [errMsg, redelegationAddress, mnemonics, valoperAddress]);
+
   const handleReDelegation = async () => {
     if (walletType == "keplr" && !window?.keplr) {
       toast.error("Install Keplr Wallet extension");
@@ -230,6 +223,13 @@ const Redelegate = () => {
                       ?.split(")")[0];
                     setRedligationAddress(finalAddress);
                     setValoperAddress(e?.target?.dataset?.value);
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300,
+                      },
+                    },
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                 >

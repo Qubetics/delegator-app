@@ -2,8 +2,6 @@ import { CopyIcon } from "../../../assets/Icons/SvgIcon";
 import { toast } from "../../toast/Toast";
 
 export function Copy({ text }) {
-  console.log("Text : ", text);
-
   function onCopy() {
     navigator.clipboard.writeText(text);
     toast.success("Copied");
