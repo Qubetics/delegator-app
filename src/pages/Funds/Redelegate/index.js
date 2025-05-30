@@ -55,7 +55,9 @@ const Redelegate = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await getAllValidators(1, 10, 1, "active");
+        //fetch all active validator without pagination
+        const response = await getAllValidators(null, null, -1);
+        //activeValidators contains all active validators
         let validators = response?.data?.activeValidators;
         if (selectedAccounts?.accounts && validators) {
           const filteredAddresses = validators?.filter(
