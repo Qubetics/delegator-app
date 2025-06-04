@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Toolbar,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -21,6 +22,7 @@ import {
   capitalizeFirstLetter,
   formatMillionNumber,
   noExponential,
+  truncateText,
 } from "../../../utils/commonFunctions";
 import { getAddress, toFixed } from "../../../utils/helper";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
@@ -268,6 +270,12 @@ const ValidatorsTable = ({
                         )}
                       </TableCell>
                       <TableCell>
+                          <Tooltip
+                          title={
+                            capitalizeFirstLetter(data?.name)
+                          }
+                          arrow
+                        >
                         <Typography variant="body2">
                           {data?.name ? (
                             data?.name == "unknown" ? (
@@ -280,13 +288,15 @@ const ValidatorsTable = ({
                                 style={{ cursor: "pointer" }}
                                 className="txTruncate"
                               >
-                                {capitalizeFirstLetter(data?.name)}
+                                {truncateText( capitalizeFirstLetter(data?.name))}
                               </span>
                             )
                           ) : (
                             "-"
                           )}
                         </Typography>
+                        
+                        </Tooltip>
                       </TableCell>
 
                       <TableCell>

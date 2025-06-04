@@ -7,12 +7,13 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import NotFound from "../../Common/NotFound";
 import { Link } from "react-router-dom";
 import { getAddress, toFixed, toPrecision } from "../../../utils/helper";
-import { noExponential } from "../../../utils/commonFunctions";
+import { formatMillionNumber, noExponential } from "../../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
@@ -157,24 +158,36 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                 </TableCell>
 
                 <TableCell>
+                   <Tooltip
+                     title={
+                          ((item?.balanceAmount))}
+                    arrow
+                   >
                   <Typography
                     variant="body2"
                     title={toPrecision(item?.balanceAmount)}
                   >
                     {item?.balanceAmount
-                      ? toPrecision(item?.balanceAmount)
+                      ? formatMillionNumber(toPrecision(item?.balanceAmount))
                       : "0"}
                   </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
+                    <Tooltip
+                     title={
+                          ( noExponential((item?.totalRewards)))}
+                    arrow
+                   >
                   <Typography
                     variant="body2"
                     title={noExponential(item?.totalRewards)}
                   >
                     {item?.totalRewards
-                      ? noExponential(toFixed(item?.totalRewards, 4))
+                      ? formatMillionNumber( noExponential(toFixed(item?.totalRewards, 4)))
                       : "0"}
                   </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
                   {stopMenuOptions?.map((option) => {

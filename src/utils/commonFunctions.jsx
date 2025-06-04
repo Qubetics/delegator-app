@@ -43,7 +43,7 @@ export const formatMillionNumber = (num) => {
       formattedNumber = (num / 1e3).toFixed(2) + " K";
       break;
     default:
-      formattedNumber = num;
+      formattedNumber = Number(num).toFixed(4);
       break;
   }
 
@@ -69,3 +69,9 @@ export const isTimeAgoByCreatedDate = (date) => {
   if (diffMonth > 0) timeLeft = `${current_month - parsed_month}month ago`;
   return timeLeft;
 };
+
+
+export function truncateText(text, maxLength = 15) {
+  if (typeof text !== 'string') return '';
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+}
