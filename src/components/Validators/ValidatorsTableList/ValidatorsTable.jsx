@@ -105,6 +105,13 @@ const ValidatorsTable = ({
           pageParams?.page,
           PAGE_LIMIT
         );
+
+        if(response?.error){
+          setValidatorListData([]);
+          setTotalCount(0);
+          setValidatorStatus("Error");
+          return;
+        }
         let count = response?.data?.count || 1;
         setTotalCount(count);
         setValidatorListData(response?.data?.validators);
@@ -415,9 +422,7 @@ const ValidatorsTable = ({
                     </TableRow>
                   ))}
             </TableBody>
-            {(validatorStatus === "Success" &&
-              validatorListData?.length === 0) ||
-            validatorListData === undefined ? (
+            {validatorStatus === "Error" ? (
               <TableBody>
                 <TableRow>
                   <TableCell
