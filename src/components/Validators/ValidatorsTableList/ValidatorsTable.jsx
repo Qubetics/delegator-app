@@ -443,7 +443,7 @@ const ValidatorsTable = ({
       {validatorListData?.length > 0 && totalPages > 1 && (
         <FlexBox
           sx={{
-            justifyContent: "center",
+            justifyContent: "end",
             paddingTop: "20px",
           }}
         >
