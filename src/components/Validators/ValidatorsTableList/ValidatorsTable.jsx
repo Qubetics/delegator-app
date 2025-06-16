@@ -108,9 +108,11 @@ const ValidatorsTable = ({
         let count = response?.data?.count || 1;
         setTotalCount(count);
         setValidatorListData(response?.data?.validators);
-        setStatus();
       }
     } catch (err) {
+      setValidatorListData([]);
+      setTotalCount(0);
+      setValidatorStatus("Error");
       return err;
     }
   };
