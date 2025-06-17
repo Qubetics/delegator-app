@@ -1,22 +1,19 @@
 /*eslint-disable */
 import { Typography } from "@mui/material";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import Loader from "../../components/Common/Loader";
 import TextField from "../../components/Common/TextField";
+import { toast } from "../../components/toast/Toast";
+import { OsmosisChainInfo } from "../../constants";
 import {
   getEvmAddress,
   getWalletType,
   logInSuccess,
 } from "../../redux/Reducer/auth";
-import LoginIcon from "../../assets/Icons/LoginIcon";
-import fetchValoperAddress from "../../services/fetchValoperAddress";
-import { useState } from "react";
-import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
-import Loader from "../../components/Common/Loader";
-import { userEvmAddress } from "../../services/userEvmAddress";
-import ConnectionErrorModal from "../../components/ConnectionErrorModal";
-import { OsmosisChainInfo } from "../../constants";
 import { showEvmAddress } from "../../services/showEvmAddress";
+import { userEvmAddress } from "../../services/userEvmAddress";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -103,7 +100,7 @@ const Login = () => {
           <div className="auth-wrapper__inner">
             <Typography variant="h3">Log In</Typography>
             <form>
-              {/* <TextField
+              <TextField
                 label="Mnemonics"
                 value={mnemonics}
                 placeholder="Paste or enter your Mnemonics."
@@ -111,24 +108,24 @@ const Login = () => {
                 type="password"
                 className="input-style"
                 id="mnemonics"
-              /> */}
-              {/* <div className="auth-wrapper__btns">
+              />
+              <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
                   // onClick={submitHandler}
                   onClick={(event) => submitHandler(event, "noWallet")}
-                > */}
+                >
                   {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
-                  {/* Log In
-                </button> */}
-              {/* </div> */}
+                  Log In
+                </button>
+              </div>
               {/* <div>
                 <h3 style={{ marginBottom: "-9px" }}>OR</h3>
               </div> */}
 
-              <div className="auth-wrapper__btns">
+              {/* <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
                   // onClick={openConnection}
@@ -137,9 +134,9 @@ const Login = () => {
                 >
                   Connect With Keplr
                 </button>
-              </div>
+              </div>} */}
             </form>
-          </div>
+          </div> 
         </>
         {isLoading && <Loader />}
         {/*
