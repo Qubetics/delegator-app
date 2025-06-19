@@ -423,7 +423,7 @@ const ValidatorsTable = ({
                     </TableRow>
                   ))}
             </TableBody>
-            {validatorStatus === "Error" || validatorListData?.length === 0 ? (
+            {validatorStatus === "Error" ? (
               <TableBody>
                 <TableRow>
                   <TableCell
