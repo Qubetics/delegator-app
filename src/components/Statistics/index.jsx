@@ -263,7 +263,9 @@ const Statistics = () => {
               ) : (
                 <>
                   {stats?.totalSupply
-                    ? formatMillionNumber(stats?.totalSupply)
+                    ? formatMillionNumber(
+                        stats?.totalSupply / 10 ** Number(DECIMAL_VALUE)
+                      )
                     : 0}
                 </>
               )}
