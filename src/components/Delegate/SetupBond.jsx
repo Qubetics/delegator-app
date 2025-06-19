@@ -1,18 +1,16 @@
 /*eslint-disable*/
-import { Typography, Box, Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { noExponential } from "../../utils/commonFunctions";
+import { NumFixed, countDecimal, removeZero } from "../../utils/helper";
+import { bondMoreValidations } from "../../utils/validations";
 import BackButton from "../BackButton/BackButton";
 import { FEE, MINIMUM_BOND_AMOUNT } from "../Common/Constant";
-import DetailValidator from "../Common/DetailValidator";
 import FormWrapper from "../Common/FormWrapper";
 import TextField from "../Common/TextField";
 import { SetupWrapper } from "./styles";
-import { NumFixed, countDecimal, removeZero } from "../../utils/helper";
-import { bondMoreValidations } from "../../utils/validations";
-import { noExponential } from "../../utils/commonFunctions";
-import DetailsBox from "../Common/DetailsBox";
 
 const SetupBond = ({
   setStakeAmount,

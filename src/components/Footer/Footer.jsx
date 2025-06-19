@@ -1,26 +1,21 @@
-import React from "react";
-import { Grid, Typography, Link, Container } from "@mui/material";
+import { Grid, Link, Typography } from "@mui/material";
 import {
-  FooterSection,
-  FooterItemInner,
-  FooterItem,
-  SocialLinks,
-  Copyright,
-  SocialLinksInner,
-} from "./style";
-import logo from "../../assets/Images/logo.svg";
-import {
-  FacebookIcon,
-  InstaIcon,
   DiscordIcon,
+  InstaIcon,
   SocialIcon,
   TelegramIcon,
   TwitterIcon,
 } from "../../assets/Icons/SvgIcon";
+import logo from "../../assets/Images/logo.svg";
+import { BASE_URL_EXPLORER_LINKS_TESTNET } from "../Common/Constant";
 import {
-  BASE_URL_EXPLORER,
-  BASE_URL_EXPLORER_LINKS_TESTNET,
-} from "../Common/Constant";
+  Copyright,
+  FooterItem,
+  FooterItemInner,
+  FooterSection,
+  SocialLinks,
+  SocialLinksInner,
+} from "./style";
 const Footer = () => {
   return (
     <FooterItem>
@@ -111,6 +106,7 @@ const Footer = () => {
                 href="http://validator-testnet.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ pointerEvents: "none", color: "gray" }}
               >
                 Qubetics Validator App
               </a>
@@ -118,6 +114,7 @@ const Footer = () => {
                 href="http://delegator-testnet.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ pointerEvents: "none", color: "gray" }}
               >
                 Qubetics Delegator App
               </a>
@@ -125,6 +122,7 @@ const Footer = () => {
                 href="https://testnet-qubecode-ide.qubetics.work/"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ pointerEvents: "none", color: "gray" }}
               >
                 Qubetics IDE
               </a>
@@ -132,13 +130,24 @@ const Footer = () => {
                 href="https://qubeqode-basic-testnet.qubetics.work/work-space"
                 target="_blank"
                 rel="noopener noreferrer"
+                style={{ pointerEvents: "none", color: "gray" }}
               >
                 QubeQode
               </a>
-              <Link to="/" underline="none">
+
+              <Link
+                style={{ pointerEvents: "none", color: "gray" }}
+                to="/"
+                underline="none"
+              >
                 Qubetics DEX
               </Link>
-              <Link to="/" underline="none">
+
+              <Link
+                style={{ pointerEvents: "none", color: "gray" }}
+                to="/"
+                underline="none"
+              >
                 Qubetics App
               </Link>
             </FooterSection>

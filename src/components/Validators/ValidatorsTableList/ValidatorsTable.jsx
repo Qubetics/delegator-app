@@ -106,7 +106,7 @@ const ValidatorsTable = ({
           PAGE_LIMIT
         );
 
-        if(response?.error){
+        if (response?.error) {
           setValidatorListData([]);
           setTotalCount(0);
           setValidatorStatus("Error");
@@ -279,32 +279,33 @@ const ValidatorsTable = ({
                         )}
                       </TableCell>
                       <TableCell>
-                          <Tooltip
-                          title={
-                            capitalizeFirstLetter(data?.name)
-                          }
+                        <Tooltip
+                          title={capitalizeFirstLetter(data?.name)}
                           arrow
                         >
-                        <Typography variant="body2">
-                          {data?.name ? (
-                            data?.name == "unknown" ? (
-                              "-"
+                          <Typography variant="body2">
+                            {data?.name ? (
+                              data?.name == "unknown" ? (
+                                "-"
+                              ) : (
+                                <span
+                                  onClick={() =>
+                                    getdata(
+                                      evmAddresses[data?.validatorAddress]
+                                    )
+                                  }
+                                  style={{ cursor: "pointer" }}
+                                  className="txTruncate"
+                                >
+                                  {truncateText(
+                                    capitalizeFirstLetter(data?.name)
+                                  )}
+                                </span>
+                              )
                             ) : (
-                              <span
-                                onClick={() =>
-                                  getdata(evmAddresses[data?.validatorAddress])
-                                }
-                                style={{ cursor: "pointer" }}
-                                className="txTruncate"
-                              >
-                                {truncateText( capitalizeFirstLetter(data?.name))}
-                              </span>
-                            )
-                          ) : (
-                            "-"
-                          )}
-                        </Typography>
-                        
+                              "-"
+                            )}
+                          </Typography>
                         </Tooltip>
                       </TableCell>
 
@@ -422,7 +423,7 @@ const ValidatorsTable = ({
                     </TableRow>
                   ))}
             </TableBody>
-            {validatorStatus === "Error" ? (
+            {validatorStatus === "Error" || validatorListData?.length === 0 ? (
               <TableBody>
                 <TableRow>
                   <TableCell
