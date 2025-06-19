@@ -122,16 +122,18 @@ const Footer = () => {
                 Qubetics Delegator App
               </a>
               <a
-                href="https://testnet-qubecode-ide.qubetics.work/"
+                href="https://ide.qubetics.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                // style={{ pointerEvents: "none", color: "gray" }}
               >
                 Qubetics IDE
               </a>
               <a
-                href="https://qubeqode-basic-testnet.qubetics.work/work-space"
+                href="https://qubeqode.qubetics.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                // style={{ pointerEvents: "none", color: "gray" }}
               >
                 QubeQode
               </a>
@@ -221,6 +223,15 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <DiscordIcon />
+            </a>
+            <a href="https://www.youtube.com/@Qubetics" target="_blank">
+              <YoutubeIcon />
+            </a>
+            <a
+              href="https://coinmarketcap.com/currencies/qubetics/"
+              target="_blank"
+            >
+              <CmcIcon />
             </a>
           </SocialLinksInner>
         </SocialLinks>
