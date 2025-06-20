@@ -111,8 +111,10 @@ const Statistics = () => {
               <>
                 <h4>
                   $
-                  {stats?.marketCap
-                    ? formatMillionNumber(Number(stats?.marketCap))
+                  {stats?.circulation_supply
+                    ? formatMillionNumber(
+                        Number(stats?.circulation_supply) * Number(price)
+                      )
                     : 0}
                 </h4>
               </>
