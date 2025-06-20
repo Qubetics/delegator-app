@@ -100,7 +100,7 @@ const Login = () => {
           <div className="auth-wrapper__inner">
             <Typography variant="h3">Log In</Typography>
             <form>
-              <TextField
+              {/* <TextField
                 label="Mnemonics"
                 value={mnemonics}
                 placeholder="Paste or enter your Mnemonics."
@@ -114,18 +114,18 @@ const Login = () => {
                   className="headermetaBtn"
                   // onClick={submitHandler}
                   onClick={(event) => submitHandler(event, "noWallet")}
-                >
-                  {/* <span className="btn-icon">
+                > */}
+              {/* <span className="btn-icon">
                     <LoginIcon />
                   </span> */}
-                  Log In
+              {/* Log In
                 </button>
-              </div>
+              </div> */}
               {/* <div>
                 <h3 style={{ marginBottom: "-9px" }}>OR</h3>
               </div> */}
 
-              {/* <div className="auth-wrapper__btns">
+              <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
                   // onClick={openConnection}
@@ -134,9 +134,9 @@ const Login = () => {
                 >
                   Connect With Keplr
                 </button>
-              </div>} */}
+              </div>
             </form>
-          </div> 
+          </div>
         </>
         {isLoading && <Loader />}
         {/*
