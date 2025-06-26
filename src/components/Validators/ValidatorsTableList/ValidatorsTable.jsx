@@ -7,17 +7,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Toolbar,
   Tooltip,
-  Typography,
+  Typography
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "./styles";
-import { CURRENCY, PAGE_LIMIT, VALIDATOR_STATUS } from "../../Common/Constant";
-import FlexBox from "../../Common/FlexBox";
 import { usePagination } from "../../../hooks/UsePagination";
 import getAllValidators from "../../../services/api/getAllValidators";
+import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
+import { showEvmAddress } from "../../../services/showEvmAddress";
 import {
   capitalizeFirstLetter,
   formatMillionNumber,
@@ -25,11 +23,12 @@ import {
   truncateText,
 } from "../../../utils/commonFunctions";
 import { getAddress, toFixed } from "../../../utils/helper";
-import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
-import Skeleton from "./Skeleton";
-import NotFound from "../../Common/NotFound";
-import { showEvmAddress } from "../../../services/showEvmAddress";
+import { CURRENCY, PAGE_LIMIT, VALIDATOR_STATUS } from "../../Common/Constant";
 import { Copy } from "../../Common/Copy";
+import FlexBox from "../../Common/FlexBox";
+import NotFound from "../../Common/NotFound";
+import Skeleton from "./Skeleton";
+import { Pagination } from "./styles";
 
 const tableHeader = [
   "#No",
@@ -143,19 +142,19 @@ const ValidatorsTable = ({
             PAGE_LIMIT,
             tabId
           );
-          return (
-            response?.data?.count > 0
-              ? (setValidatorListData(response?.data?.validators),
-                setTotalCount(response?.data?.count),
-                setValidatorsCount({
-                  active: response?.data?.activeCount,
-                  inactive: response?.data?.inactiveCount,
-                  deactivating: response?.data?.deactivatingCount,
-                  allValidators: response?.data?.count,
-                }))
-              : (setValidatorListData([]), setTotalCount(0)),
-            setValidatorStatus("Success")
-          );
+          return response?.data?.count > 0
+            ? (setValidatorListData(response?.data?.validators),
+              setTotalCount(response?.data?.count),
+              setValidatorsCount({
+                active: response?.data?.activeCount,
+                inactive: response?.data?.inactiveCount,
+                deactivating: response?.data?.deactivatingCount,
+                allValidators: response?.data?.count,
+              }),
+              setValidatorStatus("Success"))
+            : (setValidatorListData([]),
+              setTotalCount(0),
+              setValidatorStatus("Error") );
         }
         case 1: {
           const response = await getAllValidators(
@@ -164,13 +163,13 @@ const ValidatorsTable = ({
             tabId,
             VALIDATOR_STATUS.ACTIVE
           );
-          return (
-            response?.data?.activeCount > 0
-              ? (setValidatorListData(response?.data?.validators),
-                setTotalCount(response?.data?.activeCount))
-              : (setValidatorListData([]), setTotalCount(0)),
-            setValidatorStatus("Success")
-          );
+          return response?.data?.activeCount > 0
+            ? (setValidatorListData(response?.data?.validators),
+              setTotalCount(response?.data?.activeCount),
+              setValidatorStatus("Success"))
+            : (setValidatorListData([]),
+              setTotalCount(0),
+              setValidatorStatus("Error"));
         }
         case 2: {
           const response = await getAllValidators(
@@ -179,13 +178,13 @@ const ValidatorsTable = ({
             tabId,
             VALIDATOR_STATUS.INACTIVE
           );
-          return (
-            response?.data?.inactiveCount > 0
-              ? (setValidatorListData(response?.data?.validators),
-                setTotalCount(response?.data?.inactiveCount))
-              : (setValidatorListData([]), setTotalCount(0)),
-            setValidatorStatus("Success")
-          );
+          return response?.data?.inactiveCount > 0
+            ? (setValidatorListData(response?.data?.validators),
+              setTotalCount(response?.data?.inactiveCount),
+              setValidatorStatus("Success"))
+            : (setValidatorListData([]),
+              setTotalCount(0),
+              setValidatorStatus("Error"));
         }
         case 3: {
           const response = await getAllValidators(
@@ -194,13 +193,13 @@ const ValidatorsTable = ({
             tabId,
             VALIDATOR_STATUS.DEACTIVATING
           );
-          return (
-            response?.data?.deactivatingCount > 0
-              ? (setValidatorListData(response?.data?.validators),
-                setTotalCount(response?.data?.deactivatingCount))
-              : (setValidatorListData([]), setTotalCount(0)),
-            setValidatorStatus("Success")
-          );
+          return response?.data?.deactivatingCount > 0
+            ? (setValidatorListData(response?.data?.validators),
+              setTotalCount(response?.data?.deactivatingCount),
+              setValidatorStatus("Success"))
+            : (setValidatorListData([]),
+              setTotalCount(0),
+              setValidatorStatus("Error"));
         }
       }
     } catch (err) {

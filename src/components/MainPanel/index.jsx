@@ -1,16 +1,14 @@
 /*eslint-disable*/
 import { useMediaQuery } from "@mui/material";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import Sidebar from "../Sidebar";
-import Statistics from "../Statistics";
-import Footer from "../Footer/Footer.jsx";
-import theme from "../../theme";
 import { toggleSidebar } from "../../redux/Reducer/drawer";
-import { Container, Wrapper } from "./styles";
-import MenuIcon from "../../assets/Icons/MenuIcon";
+import theme from "../../theme";
+import Footer from "../Footer/Footer.jsx";
 import Header from "../Sidebar/Header";
+import Statistics from "../Statistics";
+import { Container, Wrapper } from "./styles";
 
 const MainPanel = ({ children }) => {
   const { isLoggedIn } = useSelector((state) => state?.auth);
