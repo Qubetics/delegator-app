@@ -1,65 +1,116 @@
-# Qubetics Delegator Application
+# 📘 DELEGATOR Application
+This project is a **Delegator Application** built for interacting with Cosmos SDK-based blockchains.  
+It empowers users to **delegate their tokens** to validators and actively participate in the staking economy — earning rewards while contributing to network security.
 
-## What is Delegator Application
+The application provides:
 
-```
-A delegator application in blockchain refers to a system, tool, or mechanism used by delegators to interact with a blockchain network in a Delegated Proof of Stake (DPoS) or similar consensus mechanism.
-```
+- 🔐 Secure wallet integration (Keplr)
+- 🔎 Validator list with performance metrics
+- 🪙 Delegation, re-delegation, and un-delegation flows
+- 📈 Real-time updates on staking rewards
+- 🧾 Delegation history and transaction tracking
 
-## Setting Up Environment Variables
+Built for performance and ease of use, this app helps delegators manage their staking positions in a transparent and user-friendly way.
 
-```
-This project requires environment variables to be configured for proper functionality. An example file (env.example) is provided to help you set up your environment.
-```
 
-## Install dependencies
+##
 
-```
-npm install
-```
-
-## How to run your Application
+## 📂 Folder Structure
 
 ```
-npm run start
+your-project/
+├── public/
+│   └── index.html
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── App.js
+│   └── index.js
+├── .gitignore
+├── package.json
+└── README.md
+```
+---
+
+## 🛠️ Getting Started
+
+Follow these steps to clone and run the application locally.
+
+### 📥 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
 ```
 
+### 📂 2. Move into the Project Directory
 
+```bash
+cd your-repo-name
+```
+```Checkout to testnet branch
+git checkout testnet
+```
+### 📦 3. Install Dependencies
 
+```bash
+npm install 
+# use --f flag if you find error while installing the packages.
+# or
+yarn install
+```
 
+### ▶️ 4. Start the Development Server
 
-## How to build your Application
+```bash
+npm start
+# or
+yarn start
+```
+
+Your app will now be running at:
 
 ```
-npm run build
+http://localhost:3000
 ```
 
+---
+
+## 📋 Requirements
+
+- Node.js (version 16 or above recommended)
+- npm or yarn
+
+---
+
+## 🧪 Available Scripts
+
+In the project directory, you can run:
+
+| Command           | Description                            |
+|-------------------|----------------------------------------|
+| `npm start`       | Runs the app in development mode       |
+| `npm run build`   | Builds the app for production          |
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+## ENV Example
+REACT_APP_NAME= APP_NAME
+REACT_APP_CURRENCY=CURRENCY_NAME
+REACT_APP_SOCKET_HOST="NODE_SOCKET_URL"
+REACT_APP_BASE_URL_EXPLORER_API_LINKS = "YOUR_SITE_API_URL"
+REACT_APP_EXPLORER_NAVIGATION_LINK="YOUR_SITE_URL"
+REACT_APP_DECIMAL_VALUE=TOKEN_DECIMAL
+REACT_APP_BASE_URL_NOMINATOR="YOUR_NATIVE_API_URL"
+REACT_APP_FEE_DEDUCTION=MIN_FEE_DEDUCTION
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     
