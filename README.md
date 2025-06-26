@@ -48,14 +48,17 @@ git clone https://github.com/your-username/your-repo-name.git
 ```bash
 cd your-repo-name
 ```
-```Checkout to testnet branch
-git checkout testnet
+```Checkout to prod branch
+git checkout prod
+```
+
+```Create a new branch from prod
+git checkout -b Branch_name
 ```
 ### 📦 3. Install Dependencies
 
 ```bash
 npm install 
-# use --f flag if you find error while installing the packages.
 # or
 yarn install
 ```
@@ -108,9 +111,3 @@ REACT_APP_EXPLORER_NAVIGATION_LINK="YOUR_SITE_URL"
 REACT_APP_DECIMAL_VALUE=TOKEN_DECIMAL
 REACT_APP_BASE_URL_NOMINATOR="YOUR_NATIVE_API_URL"
 REACT_APP_FEE_DEDUCTION=MIN_FEE_DEDUCTION
-
-
-
-
-
-
