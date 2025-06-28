@@ -14,6 +14,7 @@ export const FooterItem = styled(Box)(({ theme }) => ({
   background:
     "linear-gradient(180deg, rgba(13, 13, 13, 0) -43.17%, #0D0D0D 100%)",
   padding: "0 20px",
+  marginTop: "111px",
   [theme.breakpoints.down("sm")]: {
     padding: "0 10px",
   },
@@ -47,10 +48,8 @@ export const FooterSection = styled(Box)(({ theme }) => ({
     textDecoration: "none",
     transition: "margin-left 0.3s ease-in-out",
     ":hover": {
-      marginLeft: "10px"
-
+      marginLeft: "10px",
     },
-
   },
   "& p": {
     fontSize: "16px",
