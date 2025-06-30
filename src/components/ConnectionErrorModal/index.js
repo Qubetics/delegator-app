@@ -20,7 +20,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
 
   const connectWallet = async (event, walletType) => {
     event.preventDefault();
-    if (walletType == "qubetics") {
+    if (walletType === "qubetics") {
       if (!window?.qubetics) {
         toast.error("Install Qubetics Wallet Extenion");
       }
@@ -57,7 +57,8 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
         toast.error(err?.message);
       }
     }
-    if (walletType == "keplr") {
+
+    if (walletType === "keplr") {
       if (!window.keplr) {
         toast.error("Install Keplr Wallet extension");
         return;
@@ -82,6 +83,36 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
         }
       } catch (error) {
         console.error("Error connecting Keplr:", error);
+      }
+    }
+
+    if (walletType === "cosmostation") {
+      try {
+        if (!window.cosmostation) {
+          toast.error("Please install the Cosmostation extension!");
+          return;
+        }
+        const chainId = OsmosisChainInfo?.chainId;
+        await cosmostation.providers.keplr.experimentalSuggestChain(
+          OsmosisChainInfo
+        );
+        const cosmoKeplr = window.cosmostation?.providers?.keplr;
+
+        await cosmostation.providers.keplr.enable(chainId);
+
+        const signer = await cosmoKeplr.getOfflineSigner(chainId);
+
+        const accounts = await signer.getAccounts();
+        if (accounts[0].address) {
+          let evmAddress = await showEvmAddress(accounts[0].address);
+          dispatch(getWalletType("cosmostation"));
+          dispatch(getEvmAddress(evmAddress));
+
+          dispatch(logInSuccess(accounts[0].address));
+          return toast.success("Logged In Successfully");
+        }
+      } catch (err) {
+        console.error("Connection failed", err);
       }
     }
   };
@@ -113,6 +144,14 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 onClick={(event) => connectWallet(event, "qubetics")}
               >
                 Qubetics Wallet
+              </Button>
+            </div>
+            <div className="connectionAttempt_btn_inner">
+              <Button
+                className="headermetaBtn"
+                onClick={(event) => connectWallet(event, "cosmostation")}
+              >
+                Cosmostation Wallet
               </Button>
             </div>
           </div>

@@ -7,8 +7,6 @@ import {
   getWalletType,
   logInSuccess,
 } from "../../redux/Reducer/auth";
-import LoginIcon from "../../assets/Icons/LoginIcon";
-import fetchValoperAddress from "../../services/fetchValoperAddress";
 import { useState } from "react";
 import { toast } from "../../components/toast/Toast";
 import { getUserAddress } from "../../services/GetAddress";
@@ -26,35 +24,36 @@ const Login = () => {
 
   const submitHandler = async (event, walletType) => {
     event.preventDefault();
-    if (walletType == "keplr") {
-      if (!window.keplr) {
-        toast.error("Install Keplr Wallet extension");
-        return;
-      }
-      setIsLoading(true);
-      const chainId = OsmosisChainInfo?.chainId;
+    // if (walletType === "keplr") {
+    //   if (!window.keplr) {
+    //     toast.error("Install Keplr Wallet extension");
+    //     return;
+    //   }
+    //   setIsLoading(true);
+    //   const chainId = OsmosisChainInfo?.chainId;
 
-      try {
-        await window.keplr.disable(chainId);
+    //   try {
+    //     await window.keplr.disable(chainId);
 
-        await window.keplr.enable(chainId);
+    //     await window.keplr.enable(chainId);
 
-        const offlineSigner = window.keplr.getOfflineSigner(chainId);
-        const accounts = await offlineSigner.getAccounts();
-        let evmAddress = await showEvmAddress(accounts[0].address);
-        if (accounts[0].address) {
-          dispatch(getWalletType("keplr"));
-          dispatch(getEvmAddress(evmAddress));
+    //     const offlineSigner = window.keplr.getOfflineSigner(chainId);
+    //     const accounts = await offlineSigner.getAccounts();
+    //     let evmAddress = await showEvmAddress(accounts[0].address);
+    //     if (accounts[0].address) {
+    //       dispatch(getWalletType("keplr"));
+    //       dispatch(getEvmAddress(evmAddress));
 
-          dispatch(logInSuccess(accounts[0].address));
-          return toast.success("Logged In Successfully");
-        }
-      } catch (error) {
-        setIsLoading(false);
-        console.error("Error connecting Keplr:", error);
-        toast.error("Failed to connect Keplr. Please try again.");
-      }
-    }
+    //       dispatch(logInSuccess(accounts[0].address));
+    //       return toast.success("Logged In Successfully");
+    //     }
+    //   } catch (error) {
+    //     setIsLoading(false);
+    //     console.error("Error connecting Keplr:", error);
+    //     toast.error("Failed to connect Keplr. Please try again.");
+    //   }
+    // }
+
     if (walletType == "noWallet") {
       try {
         if (!mnemonics) {
@@ -82,14 +81,13 @@ const Login = () => {
         toast.error(err?.message);
       }
     }
+    if (walletType === "multiple") {
+      setConnectionOpen(true)
+    }
   };
 
   const changeHandler = (e) => {
     setMnemonics(e.target.value);
-  };
-
-  const openConnection = () => {
-    setConnectionOpen(true);
   };
 
   const connectionClose = () => {
@@ -115,7 +113,6 @@ const Login = () => {
               {/* <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
-                  // onClick={submitHandler}
                   onClick={(event) => submitHandler(event, "noWallet")}
                 > */}
                   {/* <span className="btn-icon">
@@ -128,7 +125,7 @@ const Login = () => {
                 <h3 style={{ marginBottom: "-9px" }}>OR</h3>
               </div> */}
 
-              <div className="auth-wrapper__btns">
+              {/* <div className="auth-wrapper__btns">
                 <button
                   className="headermetaBtn"
                   // onClick={openConnection}
@@ -137,19 +134,33 @@ const Login = () => {
                 >
                   Connect With Keplr
                 </button>
+              </div> */}
+
+              <div>
+                <h3 style={{ marginBottom: "-9px" }}>OR</h3>
+              </div>
+
+              <div className="auth-wrapper__btns">
+                <button
+                  className="headermetaBtn"
+                  onClick={(event) => submitHandler(event, "multiple")}
+                  type="button"
+                >
+                  Connect With Wallet
+                </button>
               </div>
             </form>
           </div>
         </>
         {isLoading && <Loader />}
-        {/*
+        
         {connectionOpen && (
           <ConnectionErrorModal
             connectionOpen={connectionOpen}
             connectionClose={connectionClose}
           />
         )}
-        */}
+       
       </div>
     </>
   );

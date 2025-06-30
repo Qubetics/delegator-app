@@ -8,10 +8,6 @@ import { Wrapper } from "./styles";
 import { OsmosisChainInfo } from "../../constants";
 import { useState } from "react";
 
-import { simulateMsgs } from "../../util/simulateMsgs";
-import { sendMsgs } from "../../util/sendMsgs";
-import { MsgDelegate } from "../../proto-types-gen/src/cosmos/staking/v1beta1/tx";
-
 const BlocksPage = () => {
   const data = { pageNo: 1, limit: 10 };
   const { blockData, blockStatus } = blockList(data);

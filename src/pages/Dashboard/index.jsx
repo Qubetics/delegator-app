@@ -5,7 +5,7 @@ import DashboardValidatorCard from "../../components/Dashboard/ValidatorCard";
 import DelegatorInfos from "../../components/Dashboard/BlockchainInfos";
 import ActionTable from "../../components/Dashboard/ValidatorCard/ActionTable";
 import { Container } from "./styles";
-import { Wrapper, heading_dashboard } from "../Blocks/styles";
+import { Wrapper } from "../Blocks/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { getWalletBalance, isTxOccur } from "../../redux/Reducer/auth";
 import { getUserBalance } from "../../services/getUserBalance";
@@ -35,9 +35,11 @@ const Dashboard = () => {
       return err;
     }
   };
+
   const onValidate = useCallback(() => {
     navigate("/validators");
   }, []);
+
   return (
     <Wrapper className="">
       <Container>

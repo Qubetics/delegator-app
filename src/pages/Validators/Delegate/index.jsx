@@ -6,10 +6,8 @@ import {
   FEE,
   MINIMUM_BOND_AMOUNT,
   NODE_NAME,
-  typesOfTransaction,
 } from "../../../components/Common/Constant";
 import delagteAndBondMore from "../../../services/Delegate&BondMore";
-import getTransactionLogs from "../../../services/api/getTxLogs";
 import { useNavigate } from "react-router-dom";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
@@ -17,6 +15,7 @@ import { toast } from "../../../components/toast/Toast";
 import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
 import { getUserAddress } from "../../../services/GetAddress";
+import { cosmosStationBondMore } from "../../../cosmostationEvents/bondMore";
 
 const Delegate = () => {
   const [stakeAmount, setStakeAmount] = useState("");
@@ -79,7 +78,12 @@ const Delegate = () => {
       }
 
       if (walletType == "qubetics" && !window?.qubetics) {
-        toast.error("Install qubetics Wallet extension");
+        toast.error("Install Qubetics Wallet extension");
+        return;
+      }
+
+      if (walletType === "cosmostation" && !window?.cosmostation) {
+        toast.error("Install Cosmostation Wallet extension");
         return;
       }
 
@@ -134,6 +138,16 @@ const Delegate = () => {
               }
             }
           }
+        );
+      }
+      
+      if (walletType === "cosmostation") {
+        await cosmosStationBondMore(
+          userAddress,
+          valoperAddress,
+          stakeAmount,
+          setIsLoading,
+          navigate,
         );
       }
     } catch (err) {
