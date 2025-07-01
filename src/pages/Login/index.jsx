@@ -99,7 +99,7 @@ const Login = () => {
       <div className="auth-wrapper">
         <>
           <div className="auth-wrapper__inner">
-            <Typography variant="h3">Log In</Typography>
+            <Typography variant="h3">Delegator Aplication</Typography>
             <form>
               {/* <TextField
                 label="Mnemonics"
@@ -136,9 +136,9 @@ const Login = () => {
                 </button>
               </div> */}
 
-              <div>
-                <h3 style={{ marginBottom: "-9px" }}>OR</h3>
-              </div>
+              {/* <div>
+                <h4>Log In</h4>
+              </div> */}
 
               <div className="auth-wrapper__btns">
                 <button
@@ -146,7 +146,7 @@ const Login = () => {
                   onClick={(event) => submitHandler(event, "multiple")}
                   type="button"
                 >
-                  Connect With Wallet
+                  Connect Wallet
                 </button>
               </div>
             </form>

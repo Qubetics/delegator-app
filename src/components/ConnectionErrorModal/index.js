@@ -12,6 +12,9 @@ import { toast } from "../toast/Toast";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Loader from "../loader/Loader";
+import LogoSmall from "../../assets/Images/LogoSmall.svg";
+import Keplr from "../../assets/Images/keplr.svg";
+import cosmostation from "../../assets/Images/cosmostation.svg";
 import { NODE_NAME } from "../Common/Constant";
 
 const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
@@ -131,28 +134,33 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
 
           <div className="connectionAttempt_btn">
             <div className="connectionAttempt_btn_inner">
-              <Button
-                className="headermetaBtn"
+              <img src={Keplr} alt="logo" />
+
+              <button
+                className=""
                 onClick={(event) => connectWallet(event, "keplr")}
               >
                 Keplr Connect
-              </Button>
+              </button>
             </div>
             <div className="connectionAttempt_btn_inner">
-              <Button
-                className="headermetaBtn"
+              <img src={LogoSmall} alt="logo" />
+              <button
+                className=""
                 onClick={(event) => connectWallet(event, "qubetics")}
               >
                 Qubetics Wallet
-              </Button>
+              </button>
             </div>
             <div className="connectionAttempt_btn_inner">
-              <Button
-                className="headermetaBtn"
+              <img src={cosmostation} alt="logo" />
+
+              <button
+                className=""
                 onClick={(event) => connectWallet(event, "cosmostation")}
               >
                 Cosmostation Wallet
-              </Button>
+              </button>
             </div>
           </div>
         </DialogContent>
