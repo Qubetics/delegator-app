@@ -9,6 +9,8 @@
     "@cosmjss/proto-signing": "^0.0.4",
     "@cosmjss/stargate": "^0.0.4",
     "@cosmjss/tendermint-rpc": "^0.0.4",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@keplr-wallet/common": "^0.12.96",
     "@keplr-wallet/cosmos": "^0.12.96",
