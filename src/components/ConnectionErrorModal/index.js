@@ -96,12 +96,12 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
           return;
         }
         const chainId = OsmosisChainInfo?.chainId;
-        await cosmostation.providers.keplr.experimentalSuggestChain(
+        await window?.cosmostation.providers.keplr.experimentalSuggestChain(
           OsmosisChainInfo
         );
         const cosmoKeplr = window.cosmostation?.providers?.keplr;
 
-        await cosmostation.providers.keplr.enable(chainId);
+        await window?.cosmostation?.providers?.keplr.enable(chainId);
 
         const signer = await cosmoKeplr.getOfflineSigner(chainId);
 
@@ -143,7 +143,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 Keplr Connect
               </button>
             </div>
-            <div className="connectionAttempt_btn_inner">
+            {/* <div className="connectionAttempt_btn_inner">
               <img src={LogoSmall} alt="logo" />
               <button
                 className=""
@@ -151,7 +151,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
               >
                 Qubetics Wallet
               </button>
-            </div>
+            </div> */}
             <div className="connectionAttempt_btn_inner">
               <img src={cosmostation} alt="logo" />
 
