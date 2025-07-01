@@ -24,6 +24,7 @@ const Login = () => {
 
   const submitHandler = async (event, walletType) => {
     event.preventDefault();
+    console.log("isLoading : ", isLoading)
     // if (walletType === "keplr") {
     //   if (!window.keplr) {
     //     toast.error("Install Keplr Wallet extension");
