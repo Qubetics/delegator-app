@@ -13,7 +13,7 @@ export const ERA_TIME = process.env.REACT_APP_ERA_TIME;
 export const CREATE_WALLET = process.env.REACT_APP_CREATE_WALLET;
 export const APP_NAME = process.env.REACT_APP_NAME;
 export const CURRENCY = process.env.REACT_APP_CURRENCY;
-export const MINIMUM_BOND_AMOUNT = 5000;
+export const MINIMUM_BOND_AMOUNT = 1000;
 export const MINIMUM_BOND_MORE_AMOUNT = 1;
 export const FEE = process.env.REACT_APP_FEE_DEDUCTION || 0.00001;
 
