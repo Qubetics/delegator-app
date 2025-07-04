@@ -380,6 +380,12 @@ export const Container = styled(BaseContainer)(({ theme }) => ({
         paddingTop: "50px",
       },
 
+      h4: {
+        textAlign: "center",
+        fontSize: "16px",
+        fontWeight: "600",
+      },
+
       h3: {
         marginBottom: "35px",
         textAlign: "center",

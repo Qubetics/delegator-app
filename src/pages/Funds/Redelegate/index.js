@@ -23,6 +23,7 @@ import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
 import { NODE_NAME } from "../../../components/Common/Constant";
 import { keplrRedelegate } from "../../../keplrEvents/keplrRedelegate";
+import { cosmostationRedelegate } from "../../../cosmostationEvents/redelegate";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
@@ -91,6 +92,11 @@ const Redelegate = () => {
       return;
     }
 
+    if (walletType === "cosmostation" && !window?.cosmostation) {
+      toast.error("Install cosmostation Wallet extension");
+      return;
+    }
+
     if (walletType == "noWallet") {
       if (!mnemonics || mnemonics?.length < 0 || mnemonics == "") {
         toast.error("Enter Mnemonics");
@@ -148,6 +154,16 @@ const Redelegate = () => {
 
       if (window?.keplr && walletType == "keplr") {
         await keplrRedelegate(
+          userAddress,
+          selectedAccount,
+          valoperAddress,
+          stakeAmount,
+          setIsLoading,
+          navigate
+        );
+      }
+      if (walletType === "cosmostation") {
+        await cosmostationRedelegate(
           userAddress,
           selectedAccount,
           valoperAddress,
