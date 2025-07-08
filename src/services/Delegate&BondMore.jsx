@@ -1,11 +1,10 @@
 import { DENOM, FEE, NODE_NAME, PREFIX } from "../components/Common/Constant";
 import { noExponential } from "../utils/commonFunctions";
-import { toPrecisionMultiply } from "../utils/helper";
+import { HD_PATHS, toPrecisionMultiply } from "../utils/helper";
 
 const { DirectSecp256k1HdWallet } = require("@cosmjss/proto-signing");
 const { SigningStargateClient, GasPrice } = require("@cosmjss/stargate");
 const { MsgDelegate } = require("cosmjs-types/cosmos/staking/v1beta1/tx");
-const { stringToPath } = require("@cosmjss/crypto");
 
 export default async function delagteAndBondMore(
   mnemonic,
@@ -15,7 +14,7 @@ export default async function delagteAndBondMore(
 ) {
   let nodeUrl = NODE_NAME;
   const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-    hdPaths: [stringToPath("m/44'/60'/0'/0/0")],
+    hdPaths: HD_PATHS,
     prefix: PREFIX,
   });
   const [{ address: senderAddress }] = await wallet.getAccounts();

@@ -12,6 +12,9 @@ import { toast } from "../toast/Toast";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Loader from "../loader/Loader";
+import LogoSmall from "../../assets/Images/LogoSmall.svg";
+import Keplr from "../../assets/Images/keplr.svg";
+import cosmostation from "../../assets/Images/cosmostation.svg";
 import { NODE_NAME } from "../Common/Constant";
 
 const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
@@ -20,7 +23,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
 
   const connectWallet = async (event, walletType) => {
     event.preventDefault();
-    if (walletType == "qubetics") {
+    if (walletType === "qubetics") {
       if (!window?.qubetics) {
         toast.error("Install Qubetics Wallet Extenion");
       }
@@ -57,7 +60,8 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
         toast.error(err?.message);
       }
     }
-    if (walletType == "keplr") {
+
+    if (walletType === "keplr") {
       if (!window.keplr) {
         toast.error("Install Keplr Wallet extension");
         return;
@@ -84,6 +88,36 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
         console.error("Error connecting Keplr:", error);
       }
     }
+
+    if (walletType === "cosmostation") {
+      try {
+        if (!window.cosmostation) {
+          toast.error("Please install the Cosmostation extension!");
+          return;
+        }
+        const chainId = OsmosisChainInfo?.chainId;
+        await window?.cosmostation.providers.keplr.experimentalSuggestChain(
+          OsmosisChainInfo
+        );
+        const cosmoKeplr = window.cosmostation?.providers?.keplr;
+
+        await window?.cosmostation?.providers?.keplr.enable(chainId);
+
+        const signer = await cosmoKeplr.getOfflineSigner(chainId);
+
+        const accounts = await signer.getAccounts();
+        if (accounts[0].address) {
+          let evmAddress = await showEvmAddress(accounts[0].address);
+          dispatch(getWalletType("cosmostation"));
+          dispatch(getEvmAddress(evmAddress));
+
+          dispatch(logInSuccess(accounts[0].address));
+          return toast.success("Logged In Successfully");
+        }
+      } catch (err) {
+        console.error("Connection failed", err);
+      }
+    }
   };
 
   return (
@@ -100,20 +134,33 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
 
           <div className="connectionAttempt_btn">
             <div className="connectionAttempt_btn_inner">
-              <Button
-                className="headermetaBtn"
+              <img src={Keplr} alt="logo" />
+
+              <button
+                className=""
                 onClick={(event) => connectWallet(event, "keplr")}
               >
                 Keplr Connect
-              </Button>
+              </button>
             </div>
-            <div className="connectionAttempt_btn_inner">
-              <Button
-                className="headermetaBtn"
+            {/* <div className="connectionAttempt_btn_inner">
+              <img src={LogoSmall} alt="logo" />
+              <button
+                className=""
                 onClick={(event) => connectWallet(event, "qubetics")}
               >
                 Qubetics Wallet
-              </Button>
+              </button>
+            </div> */}
+            <div className="connectionAttempt_btn_inner">
+              <img src={cosmostation} alt="logo" />
+
+              <button
+                className=""
+                onClick={(event) => connectWallet(event, "cosmostation")}
+              >
+                Cosmostation Wallet
+              </button>
             </div>
           </div>
         </DialogContent>

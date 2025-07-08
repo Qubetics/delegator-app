@@ -209,6 +209,10 @@ const Statistics = () => {
                     The annual percentage yield in {CURRENCY} is calculated by
                     dividing the estimated yearly reward by the current{" "}
                     {CURRENCY} ({APP_NAME}'s native token) holding.
+                    <br />
+                    <br />
+                    <strong>NOTE:</strong> This is Testnet. APR would be
+                    available once the mainnet is launched.
                   </Typography>
                 }
               >
@@ -221,7 +225,7 @@ const Statistics = () => {
               {!loading ? (
                 <Skeleton variant="circle" width={50} height={20} />
               ) : (
-                <>{stats?.apy ? toFixed(stats?.apy, 3) : 0}%</>
+                <>{stats?.apr ? toFixed(stats?.apr, 3) : 0}%</>
               )}
             </Typography>
           </Box>
@@ -250,14 +254,17 @@ const Statistics = () => {
                 </IconButton>
               </Tooltip>
             </Typography>
-            <Typography>
+            <Typography
+              sx={{ cursor: "pointer" }}
+              title={stats?.totalSupply ? stats?.totalSupply.toString() : "0"}
+            >
               {!loading ? (
                 <Skeleton variant="circle" width={50} height={20} />
               ) : (
                 <>
-                  {stats?.circulation_supply
-                    ? formatMillionNumber(stats?.circulation_supply)
-                    : 0}{" "}
+                  {stats?.totalSupply
+                    ? formatMillionNumber(stats?.totalSupply)
+                    : 0}
                 </>
               )}
             </Typography>

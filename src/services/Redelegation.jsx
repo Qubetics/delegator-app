@@ -1,13 +1,12 @@
 import { DENOM, NODE_NAME, PREFIX } from "../components/Common/Constant";
 import { noExponential } from "../utils/commonFunctions";
-import { toPrecisionMultiply } from "../utils/helper";
+import { HD_PATHS, toPrecisionMultiply } from "../utils/helper";
 
 const { DirectSecp256k1HdWallet } = require("@cosmjss/proto-signing");
 const { SigningStargateClient, GasPrice } = require("@cosmjss/stargate");
 const {
   MsgBeginRedelegate,
 } = require("cosmjs-types/cosmos/staking/v1beta1/tx");
-const { stringToPath } = require("@cosmjss/crypto");
 
 export async function redelegate(
   mnemonic,
@@ -17,7 +16,7 @@ export async function redelegate(
 ) {
   try {
     const wallet = await DirectSecp256k1HdWallet.fromMnemonic(mnemonic, {
-      hdPaths: [stringToPath("m/44'/60'/0'/0/0")],
+      hdPaths: HD_PATHS,
       prefix: PREFIX,
     });
     const [{ address: delegatingPerson }] = await wallet.getAccounts();

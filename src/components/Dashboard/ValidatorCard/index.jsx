@@ -1,23 +1,16 @@
 /*eslint-disable*/
-import { Button } from "@mui/material";
 import ValidatorTable from "./ValidatorTable";
 import { Container } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
-import Loader from "../../Common/Loader";
-import { useNavigate } from "react-router-dom";
-import NotFound from "../../Common/NotFound";
+import { useEffect, useState } from "react";
 import { checkIfDelegatorExist } from "../../../redux/Reducer/auth";
 import getDelegatorByAddress from "../../../services/api/getDelegatorByAddress";
-import SkeletonRow from "../../SkeletonRow/SkeletonRow";
 
 const DashboardValidatorCard = () => {
   const { userAddress, isDelegated } = useSelector((state) => state.auth);
   const [dashboardData, setDashboardData] = useState("");
   const [dashboardStatus, setDashboardStatus] = useState("Idle");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userAddresss = useSelector((state) => state);
 
   useEffect(() => {
     const fetchData = async () => {

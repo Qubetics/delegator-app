@@ -6,28 +6,18 @@ import FormWrapper from "../../../components/Common/FormWrapper";
 import TextField from "../../../components/Common/TextField";
 import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
-import {
-  CURRENCY,
-  NODE_NAME,
-  typesOfTransaction,
-} from "../../../components/Common/Constant";
+import { CURRENCY, NODE_NAME } from "../../../components/Common/Constant";
 import BackButton from "../../../components/BackButton/BackButton";
-import {
-  countDecimal,
-  removeZero,
-  toFixed,
-  toPrecisionMultiply,
-} from "../../../utils/helper";
+import { countDecimal, removeZero } from "../../../utils/helper";
 import unBondFunds from "../../../services/unBondFunds";
 import { isTxOccur } from "../../../redux/Reducer/auth";
-import getTransactionLogs from "../../../services/api/getTxLogs";
 import Loader from "../../../components/Common/Loader";
 import { bondMoreValidations } from "../../../utils/validations";
 import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
-import { Spin } from "antd";
 import { keplrUnbond } from "../../../keplrEvents/keplrUnbond";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
+import { cosmostationUnbond } from "../../../cosmostationEvents/unbond";
 
 const UnBond = () => {
   const auth = useSelector((state) => state?.auth);
@@ -67,6 +57,11 @@ const UnBond = () => {
         return;
       }
 
+      if (walletType === "cosmostation" && !window?.cosmostation) {
+        toast.error("Install cosmostation Wallet extension");
+        return;
+      }
+
       if (walletType == "qubetics" && !window?.qubetics) {
         toast.error("Install qubetics Wallet extension");
         return;
@@ -83,6 +78,16 @@ const UnBond = () => {
 
       if (window?.keplr && walletType == "keplr") {
         await keplrUnbond(
+          userAddress,
+          unBoundAmt,
+          valoperAddress,
+          setIsLoading,
+          navigate
+        );
+      }
+
+      if (walletType === "cosmostation") {
+        await cosmostationUnbond(
           userAddress,
           unBoundAmt,
           valoperAddress,

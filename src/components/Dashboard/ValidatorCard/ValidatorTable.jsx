@@ -7,20 +7,19 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import NotFound from "../../Common/NotFound";
 import { Link } from "react-router-dom";
 import { getAddress, toFixed, toPrecision } from "../../../utils/helper";
-import { noExponential } from "../../../utils/commonFunctions";
+import { formatMillionNumber, noExponential } from "../../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
-import CopyAddress from "../../Common/CopyAddress";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
-import CopyIcon from "../../../assets/Icons/CopyIcon";
-import { toast } from "../../toast/Toast";
 import { showEvmAddress } from "../../../services/showEvmAddress";
 import { useEffect, useState } from "react";
+import { Copy } from "../../Common/Copy";
 
 const stopMenuOptions = [
   {
@@ -64,11 +63,6 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
       fetchEvmAddresses();
     }
   }, [dashboardData]);
-
-  const copiedAddress = (data) => {
-    navigator.clipboard.writeText(data);
-    toast.success("Address Copied");
-  };
 
   return (
     <TableContainer component={Paper} sx={{ borderRadius: "0 !important" }}>
@@ -159,37 +153,41 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                     ) : (
                       "-"
                     )}
-                    <text
-                      onClick={() =>
-                        copiedAddress(evmAddresses[item?.validatorAddress])
-                      }
-                      className="copy-btn"
-                      style={{ cursor: "pointer" }}
-                    >
-                      <CopyIcon sx={{ fontSize: "17px" }} />
-                    </text>
+                    <Copy text={evmAddresses[item?.validatorAddress]}/>
                   </Typography>
                 </TableCell>
 
                 <TableCell>
+                   <Tooltip
+                     title={
+                          ((item?.balanceAmount))}
+                    arrow
+                   >
                   <Typography
                     variant="body2"
                     title={toPrecision(item?.balanceAmount)}
                   >
                     {item?.balanceAmount
-                      ? toPrecision(item?.balanceAmount)
+                      ? formatMillionNumber(toPrecision(item?.balanceAmount))
                       : "0"}
                   </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
+                    <Tooltip
+                     title={
+                          ( noExponential((item?.totalRewards)))}
+                    arrow
+                   >
                   <Typography
                     variant="body2"
                     title={noExponential(item?.totalRewards)}
                   >
                     {item?.totalRewards
-                      ? noExponential(toFixed(item?.totalRewards, 4))
+                      ? formatMillionNumber( noExponential(toFixed(item?.totalRewards, 4)))
                       : "0"}
                   </Typography>
+                  </Tooltip>
                 </TableCell>
                 <TableCell>
                   {stopMenuOptions?.map((option) => {

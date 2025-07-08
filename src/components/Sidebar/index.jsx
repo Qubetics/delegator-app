@@ -22,7 +22,7 @@ import { getAddress, toFixed } from "../../utils/helper";
 import { CURRENCY } from "../Common/Constant";
 import { getUserBalance } from "../../services/getUserBalance";
 import { noExponential } from "../../utils/commonFunctions";
-import CopyAddress from "../Common/CopyAddress";
+// import CopyAddress from "../Common/CopyAddress";
 
 const Sidebar = ({ isMobileSidebarOpen, setIsMobileSidebarOpen }) => {
   const classes = useStyles();
@@ -130,7 +130,7 @@ const Sidebar = ({ isMobileSidebarOpen, setIsMobileSidebarOpen }) => {
           <WalletDetails>
             <p className="addressCopy">
               <span> {getAddress(userAddress, 9, 9)}</span>
-              <CopyAddress address={userAddress} />
+              {/* <CopyAddress address={userAddress} /> */}
             </p>
             <Typography className="wallet-balance">
               Available Balance:{" "}

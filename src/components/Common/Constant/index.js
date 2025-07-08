@@ -40,3 +40,5 @@ export const msg = {
     totalSupply: "Total coins issued by the system",
   },
 };
+
+export const EXPLORER_CURRENCY_NAME = "Tics"

@@ -157,7 +157,7 @@ export const ToggleWrap = styled(Paper)(({ theme }) => ({
 
 export const Pagination = styled(MuiPagination)(({ theme }) => ({
   marginLeft: "auto",
-  width: "100%",
+  // width: "10%",
   ".MuiPagination-ul": {
     background: "transparent",
   },

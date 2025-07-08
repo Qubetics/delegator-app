@@ -3,10 +3,10 @@ import {
   Button,
   Typography,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
 } from "@mui/material";
+import "./style.css";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FormWrapper from "../../../components/Common/FormWrapper";
@@ -14,7 +14,6 @@ import TextField from "../../../components/Common/TextField";
 import DetailsBox from "../../../components/Common/DetailsBox";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../../../components/BackButton/BackButton";
-import "./style.css";
 import getAllValidators from "../../../services/api/getAllValidators";
 import { bondMoreValidations } from "../../../utils/validations";
 import { redelegate } from "../../../services/Redelegation";
@@ -22,21 +21,15 @@ import { getUserAddress } from "../../../services/GetAddress";
 import { toast } from "../../../components/toast/Toast";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
-import {
-  NODE_NAME,
-  typesOfTransaction,
-} from "../../../components/Common/Constant";
-import { Spin } from "antd";
+import { NODE_NAME } from "../../../components/Common/Constant";
 import { keplrRedelegate } from "../../../keplrEvents/keplrRedelegate";
-import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
-import { keplrUnbond } from "../../../keplrEvents/keplrUnbond";
+import { cosmostationRedelegate } from "../../../cosmostationEvents/redelegate";
 
 const Redelegate = () => {
   const auth = useSelector((state) => state?.auth);
   const drawer = useSelector((state) => state?.drawer);
   const { selectedAccounts } = drawer;
   const { userAddress, walletType } = auth;
-
   const [redelegationAddress, setRedligationAddress] = useState("");
   const [valoperAddress, setValoperAddress] = useState("");
   const [validatorList, setVaidatorList] = useState([]);
@@ -63,13 +56,15 @@ const Redelegate = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await getAllValidators(1, 10, -1);
-        let validators = response?.data?.validators;
+        //fetch all active validator without pagination
+        const response = await getAllValidators(null, null, -1);
+        //activeValidators contains all active validators
+        let validators = response?.data?.activeValidators;
         if (selectedAccounts?.accounts && validators) {
           const filteredAddresses = validators?.filter(
             (item) => item?.validatorAddress !== selectedAccounts?.accounts
           );
-          setVaidatorList(filteredAddresses);
+          setVaidatorList([...filteredAddresses]);
         }
       } catch (err) {
         return err;
@@ -85,6 +80,7 @@ const Redelegate = () => {
       setIsDisable(false);
     }
   }, [errMsg, redelegationAddress, mnemonics, valoperAddress]);
+
   const handleReDelegation = async () => {
     if (walletType == "keplr" && !window?.keplr) {
       toast.error("Install Keplr Wallet extension");
@@ -93,6 +89,11 @@ const Redelegate = () => {
 
     if (walletType == "qubetics" && !window?.qubetics) {
       toast.error("Install qubetics Wallet extension");
+      return;
+    }
+
+    if (walletType === "cosmostation" && !window?.cosmostation) {
+      toast.error("Install cosmostation Wallet extension");
       return;
     }
 
@@ -145,7 +146,7 @@ const Redelegate = () => {
         } else {
           setIsLoading(false);
           navigate("/dashboard");
-          let msg = response?.rawLog;
+          let msg = response?.log ? response?.log : response.rawLog;
           toast.error(msg);
         }
         return;
@@ -153,6 +154,16 @@ const Redelegate = () => {
 
       if (window?.keplr && walletType == "keplr") {
         await keplrRedelegate(
+          userAddress,
+          selectedAccount,
+          valoperAddress,
+          stakeAmount,
+          setIsLoading,
+          navigate
+        );
+      }
+      if (walletType === "cosmostation") {
+        await cosmostationRedelegate(
           userAddress,
           selectedAccount,
           valoperAddress,
@@ -179,7 +190,9 @@ const Redelegate = () => {
           } else {
             setIsLoading(false);
             navigate("/dashboard");
-            let msg = response?.data?.rawLog;
+            let msg = response?.data?.log
+              ? response?.data?.log
+              : response?.data?.rawLog;
             toast.error(msg);
           }
         });
@@ -228,6 +241,13 @@ const Redelegate = () => {
                       ?.split(")")[0];
                     setRedligationAddress(finalAddress);
                     setValoperAddress(e?.target?.dataset?.value);
+                  }}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: 300,
+                      },
+                    },
                   }}
                   inputProps={{ "aria-label": "Without label" }}
                 >

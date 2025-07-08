@@ -9,9 +9,12 @@ import Sidebar from "../Sidebar";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import { useDispatch, useSelector } from "react-redux";
 import { getAddress } from "../../utils/helper";
-import { Typography } from "antd";
-import CopyAddress from "../Common/CopyAddress";
-import { getEvmAddress, logInSuccess, logout } from "../../redux/Reducer/auth";
+import {
+  getEvmAddress,
+  getWalletType,
+  logInSuccess,
+  logout,
+} from "../../redux/Reducer/auth";
 import { selectedAccounts } from "../../redux/Reducer/drawer";
 import Swal from "sweetalert2";
 import "./index.scss";
@@ -94,6 +97,27 @@ function Header() {
     toast.success("Address Copied");
   };
 
+  useEffect(() => {
+    window.addEventListener("keplr_keystorechange", async () => {
+      const chainId = OsmosisChainInfo.chainId;
+      if (window.keplr) {
+        try {
+          const offlineSigner = window.keplr.getOfflineSigner(chainId);
+          const accounts = await offlineSigner.getAccounts();
+          if (accounts[0].address) {
+            dispatch(logout());
+            navigate("/login");
+            dispatch(selectedAccounts({}));
+            sessionStorage.clear();
+            localStorage.clear();
+          }
+        } catch (error) {
+          console.error("Error fetching new account:", error);
+        }
+      }
+    });
+  }, []);
+
   return (
     <>
       <Drawer
@@ -134,15 +158,6 @@ function Header() {
                     >
                       Validators
                     </Link>
-                    {/*
-                    {!isLoggedIn && (
-                      <div className="headerButtons">
-                        <button variant="contained" className="headermetaBtn">
-                          <div onClick={connectWallet}>Connect Wallet</div>
-                        </button>
-                      </div>
-                    )}
-                    */}
                   </li>
                 </ul>
               </div>
@@ -222,15 +237,6 @@ function Header() {
                   >
                     Validators
                   </Link>
-                  {/*
-                  {!isLoggedIn && (
-                    <Button className="btns headermetaBtn">
-                      <div onClick={connectWallet} style={{ zIndex: "99999" }}>
-                        Connect Wallet
-                      </div>
-                    </Button>
-                  )}
-                  */}
                 </li>
               </ul>
             </div>

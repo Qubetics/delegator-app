@@ -6,6 +6,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { ActionStatus } from "./styles";
@@ -21,11 +22,10 @@ import NotFound from "../../Common/NotFound";
 import { usePagination } from "../../../hooks/UsePagination";
 import { useSelector } from "react-redux";
 import getTxByAddress from "../../../services/api/getTxByAddress";
-import { toFixed } from "../../../utils/helper";
-import { noExponential } from "../../../utils/commonFunctions";
+import { formatMillionNumber, noExponential } from "../../../utils/commonFunctions";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
-import CopyIcon from "../../../assets/Icons/CopyIcon";
 import { toast } from "../../toast/Toast";
+import { Link } from "react-router-dom";
 const tableHeader = ["Transaction Hash", "Type", "Amount", "Status"];
 const ActionTable = ({ setWalletActivitesLength, showAll }) => {
   const { pageParams, handlePageChange, totalPages, setTotalCount } =
@@ -111,7 +111,9 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
             // onClick={() => transactionHash(data?.txhash)}
             // className="text-hover"
             >
-              <span className="recentHover"> {data?.txhash || "-"}</span>
+              <Link to={"/tx/" + data?.txhash}>
+                <span className="recentHover"> {data?.txhash || "-"}</span>
+              </Link>
               {/*
               <span
                 onClick={(e) => {
@@ -130,9 +132,16 @@ const ActionTable = ({ setWalletActivitesLength, showAll }) => {
           <Typography variant="body2">{data?.type || "-"}</Typography>
         </TableCell>
         <TableCell className="grayText">
+           <Tooltip
+                                    title=
+                                       {data?.value ? formatMillionNumber(noExponential(data?.value)) : 0}
+            
+                                    arrow
+                                  >
           <Typography variant="body2">
-            {data?.value ? noExponential(data?.value) : 0} {CURRENCY}
+            {data?.value ? formatMillionNumber(noExponential(data?.value)) : 0} {CURRENCY}
           </Typography>
+          </Tooltip>
         </TableCell>
         <TableCell sx={{ pr: 10 }} className="statusText">
           <ActionStatus

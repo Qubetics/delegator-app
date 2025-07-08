@@ -9,7 +9,6 @@ import {
 } from "../proto-types-gen/src/cosmos/tx/v1beta1/tx";
 import { SignMode } from "../proto-types-gen/src/cosmos/tx/signing/v1beta1/signing";
 import { PubKey } from "../proto-types-gen/src/cosmos/crypto/secp256k1/keys";
-
 import { fetchAccountInfo } from "./sendMsgs";
 import { api } from "./api";
 import { GasSimulateResponse } from "../types/simulate";

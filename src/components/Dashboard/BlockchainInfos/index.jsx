@@ -13,17 +13,17 @@ import { Skeleton } from "@mui/material";
 const DelegatorInfos = () => {
   const { userAddress } = useSelector((state) => state.auth);
   const [widgets, setWidgets] = useState({});
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
     try {
       if (userAddress) {
         const response = await getDelegatorWidgets(userAddress);
         setWidgets(response?.data);
-        setLoading(false)
+        setLoading(false);
       }
     } catch (err) {
-      setLoading(true)
+      setLoading(true);
       return err;
     }
   };
@@ -36,7 +36,11 @@ const DelegatorInfos = () => {
       <Card
         icon={<ValidatorsNewIcon />}
         title="Total Rewards:"
-        value={widgets?.totalRewards ? noExponential(toFixed(Number(widgets?.totalRewards), 3)) : 0}
+        value={
+          widgets?.totalRewards
+            ? noExponential(toFixed(Number(widgets?.totalRewards), 3))
+            : 0
+        }
         loading={loading}
         style={{
           maxWidth: 360,
@@ -46,7 +50,11 @@ const DelegatorInfos = () => {
       <Card
         icon={<StakingIcon />}
         title="Total Stake Amount:"
-        value={widgets?.totalStake ? noExponential(toFixed(widgets?.totalStake, 3)) : 0}
+        value={
+          widgets?.totalStake
+            ? noExponential(toFixed(widgets?.totalStake, 3))
+            : 0
+        }
         loading={loading}
         style={{
           maxWidth: 360,

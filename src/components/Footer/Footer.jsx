@@ -16,6 +16,8 @@ import {
   SocialIcon,
   TelegramIcon,
   TwitterIcon,
+  YoutubeIcon,
+  CmcIcon,
 } from "../../assets/Icons/SvgIcon";
 import {
   BASE_URL_EXPLORER,
@@ -63,6 +65,7 @@ const Footer = () => {
               >
                 Validators
               </a>
+              {/*
               <a
                 href={`${BASE_URL_EXPLORER_LINKS_TESTNET}/dashboard`}
                 target="_blank"
@@ -70,6 +73,7 @@ const Footer = () => {
               >
                 Analytics
               </a>
+              */}
               <a
                 href={`${BASE_URL_EXPLORER_LINKS_TESTNET}/nodes`}
                 target="_blank"
@@ -120,16 +124,18 @@ const Footer = () => {
                 Qubetics Delegator App
               </a>
               <a
-                href="  https://qubetics-ide.qubetics.work/"
+                href="https://ide.qubetics.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                // style={{ pointerEvents: "none", color: "gray" }}
               >
                 Qubetics IDE
               </a>
               <a
-                href="https://testnet-qubeqode-basic.qubetics.work/work-space"
+                href="https://qubeqode.qubetics.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                // style={{ pointerEvents: "none", color: "gray" }}
               >
                 QubeQode
               </a>
@@ -219,6 +225,15 @@ const Footer = () => {
               rel="noopener noreferrer"
             >
               <DiscordIcon />
+            </a>
+            <a href="https://www.youtube.com/@Qubetics" target="_blank">
+              <YoutubeIcon />
+            </a>
+            <a
+              href="https://coinmarketcap.com/currencies/qubetics/"
+              target="_blank"
+            >
+              <CmcIcon />
             </a>
           </SocialLinksInner>
         </SocialLinks>

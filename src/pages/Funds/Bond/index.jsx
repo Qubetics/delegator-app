@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import {
   MINIMUM_BOND_MORE_AMOUNT,
   NODE_NAME,
-  typesOfTransaction,
 } from "../../../components/Common/Constant";
 import BackButton from "../../../components/BackButton/BackButton";
 import {
@@ -21,14 +20,13 @@ import {
 import { bondMoreValidations } from "../../../utils/validations";
 import { noExponential } from "../../../utils/commonFunctions";
 import { getUserAddress } from "../../../services/GetAddress";
-import getTransactionLogs from "../../../services/api/getTxLogs";
 import { isTxOccur } from "../../../redux/Reducer/auth";
 import Loader from "../../../components/Common/Loader";
 import delagteAndBondMore from "../../../services/Delegate&BondMore";
 import { toast } from "../../../components/toast/Toast";
-import { Spin } from "antd";
 import { keplrBondMore } from "../../../keplrEvents/KeplrBondMore";
 import { checkTransaction } from "../../../components/CheckTransaction/checkTransaction";
+import { cosmosStationBondMore } from "../../../cosmostationEvents/bondMore";
 
 const Bond = () => {
   const drawer = useSelector((state) => state?.drawer);
@@ -117,6 +115,7 @@ const Bond = () => {
       const walletExtensions = {
         keplr: window?.keplr,
         qubetics: window?.qubetics,
+        cosmostation: window.cosmostation,
       };
 
       if (walletType in walletExtensions && !walletExtensions[walletType]) {
@@ -156,6 +155,15 @@ const Bond = () => {
           userAddress,
           stakeAmount,
           valoperAddress,
+          setIsLoading,
+          navigate
+        );
+      }
+      if (walletType === "cosmostation") {
+        await cosmosStationBondMore(
+          userAddress,
+          valoperAddress,
+          stakeAmount,
           setIsLoading,
           navigate
         );

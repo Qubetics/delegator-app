@@ -14,6 +14,7 @@ import Redelegate from "../pages/Funds/Redelegate/index.js";
 import PrivateRouter from "./PrivateRouter";
 import { selectedAccounts } from "../redux/Reducer/drawer";
 import { logout } from "../redux/Reducer/auth";
+import TxDetails from "../pages/TxDetails/index";
 
 const Login = lazy(() => import("../pages/Login"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
@@ -67,6 +68,14 @@ const RoutePath = () => {
             element={
               <PrivateRouter>
                 <ValidatorDetails />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="/tx/:txId"
+            element={
+              <PrivateRouter>
+                <TxDetails />
               </PrivateRouter>
             }
           />

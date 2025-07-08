@@ -1,5 +1,6 @@
 import Big from "big.js";
 import { noExponential } from "./commonFunctions";
+const { stringToPath } = require("@cosmjss/crypto");
 
 export function NumFixed(x) {
   if (Math.abs(x) < 1.0) {
@@ -53,3 +54,5 @@ export function toPrecisionMultiply(num) {
   const respectedRes = result.mul(1).toFixed();
   return respectedRes;
 }
+
+export const HD_PATHS = [stringToPath("m/44'/60'/0'/0/0")];

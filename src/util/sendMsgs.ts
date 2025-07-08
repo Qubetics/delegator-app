@@ -13,10 +13,10 @@ import { Any } from "../proto-types-gen/src/google/protobuf/any";
 import Long from "long";
 import { Buffer } from "buffer";
 import { TendermintTxTracer } from "@keplr-wallet/cosmos";
-import axios from "axios";
+
 window.Buffer = Buffer;
 export const sendMsgs = async (
-  keplr: Keplr,
+  wallet: Keplr,
   chainInfo: ChainInfo,
   sender: string,
   proto: Any[],
@@ -24,7 +24,7 @@ export const sendMsgs = async (
   memo: string = ""
 ) => {
   const account = await fetchAccountInfo(chainInfo, sender);
-  const { pubKey } = await keplr.getKey(chainInfo.chainId);
+  const { pubKey } = await wallet.getKey(chainInfo.chainId);
 
   if (account) {
     const signDoc = {
@@ -66,7 +66,7 @@ export const sendMsgs = async (
       accountNumber: Long.fromString(account.base_account.account_number),
     };
 
-    const signed = await keplr.signDirect(chainInfo.chainId, sender, signDoc);
+    const signed = await wallet.signDirect(chainInfo.chainId, sender, signDoc);
 
     const signedTx = {
       tx: TxRaw.encode({
@@ -77,10 +77,10 @@ export const sendMsgs = async (
       signDoc: signed.signed,
     };
 
-    const txHash = await broadcastTxSync(keplr, chainInfo.chainId, signedTx.tx);
+    const txHash = await broadcastTxSync(wallet, chainInfo.chainId, signedTx.tx);
     const txTracer = new TendermintTxTracer(chainInfo.rpc, "/websocket");
     txTracer.traceTx(txHash).then((tx) => {
-      console.log("Transaction commit successfully");
+      console.log("Transaction commit successfully: ", tx);
     });
 
     return txHash;
@@ -104,9 +104,9 @@ export const fetchAccountInfo = async (
 };
 
 export const broadcastTxSync = async (
-  keplr: Keplr,
+  wallet: Keplr,
   chainId: string,
   tx: Uint8Array
 ): Promise<Uint8Array> => {
-  return keplr.sendTx(chainId, tx, "sync" as BroadcastMode);
+  return wallet.sendTx(chainId, tx, "sync" as BroadcastMode);
 };

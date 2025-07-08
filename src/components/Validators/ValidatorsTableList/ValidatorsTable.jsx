@@ -7,11 +7,12 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../../Common/Loader";
 import { Pagination } from "./styles";
 import { CURRENCY, PAGE_LIMIT, VALIDATOR_STATUS } from "../../Common/Constant";
 import FlexBox from "../../Common/FlexBox";
@@ -19,16 +20,16 @@ import { usePagination } from "../../../hooks/UsePagination";
 import getAllValidators from "../../../services/api/getAllValidators";
 import {
   capitalizeFirstLetter,
+  formatMillionNumber,
   noExponential,
+  truncateText,
 } from "../../../utils/commonFunctions";
 import { getAddress, toFixed } from "../../../utils/helper";
 import getValidatorByAddress from "../../../services/api/getValidatorByAddress";
-import CopyAddress from "../../Common/CopyAddress";
 import Skeleton from "./Skeleton";
 import NotFound from "../../Common/NotFound";
-import CopyIcon from "../../../assets/Icons/CopyIcon";
-import { toast } from "../../toast/Toast";
 import { showEvmAddress } from "../../../services/showEvmAddress";
+import { Copy } from "../../Common/Copy";
 
 const tableHeader = [
   "#No",
@@ -104,12 +105,21 @@ const ValidatorsTable = ({
           pageParams?.page,
           PAGE_LIMIT
         );
+
+        if(response?.error){
+          setValidatorListData([]);
+          setTotalCount(0);
+          setValidatorStatus("Error");
+          return;
+        }
         let count = response?.data?.count || 1;
         setTotalCount(count);
         setValidatorListData(response?.data?.validators);
-        setStatus();
       }
     } catch (err) {
+      setValidatorListData([]);
+      setTotalCount(0);
+      setValidatorStatus("Error");
       return err;
     }
   };
@@ -211,11 +221,6 @@ const ValidatorsTable = ({
     navigate(`/validators/${address}`);
   };
 
-  const copiedAddress = (address) => {
-    navigator.clipboard.writeText(address);
-    toast.success("Address Copied");
-  };
-
   return (
     <>
       <div className="table-wrap">
@@ -274,18 +279,46 @@ const ValidatorsTable = ({
                         )}
                       </TableCell>
                       <TableCell>
+                          <Tooltip
+                          title={
+                            capitalizeFirstLetter(data?.name)
+                          }
+                          arrow
+                        >
                         <Typography variant="body2">
-                          {data?.name
-                            ? data?.name == "unknown"
-                              ? "-"
-                              : capitalizeFirstLetter(data?.name)
-                            : "-"}
+                          {data?.name ? (
+                            data?.name == "unknown" ? (
+                              "-"
+                            ) : (
+                              <span
+                                onClick={() =>
+                                  getdata(evmAddresses[data?.validatorAddress])
+                                }
+                                style={{ cursor: "pointer" }}
+                                className="txTruncate"
+                              >
+                                {truncateText( capitalizeFirstLetter(data?.name))}
+                              </span>
+                            )
+                          ) : (
+                            "-"
+                          )}
                         </Typography>
+                        
+                        </Tooltip>
                       </TableCell>
 
                       <TableCell>
                         {data?.validatorAddress ? (
-                          <Typography variant="body2" className="text-hover">
+                          <Typography
+                            variant="body2"
+                            className="text-hover"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                            }}
+                          >
                             <span
                               onClick={() =>
                                 getdata(evmAddresses[data?.validatorAddress])
@@ -293,23 +326,13 @@ const ValidatorsTable = ({
                               style={{ cursor: "pointer" }}
                               className="txTruncate"
                             >
-                              {" "}
                               {getAddress(
                                 evmAddresses[data?.validatorAddress],
                                 8,
                                 8
                               )}
                             </span>
-                            <text
-                              onClick={() =>
-                                copiedAddress(
-                                  evmAddresses[data?.validatorAddress]
-                                )
-                              }
-                              className="copy-btn"
-                            >
-                              <CopyIcon sx={{ fontSize: "17px" }} />
-                            </text>
+                            <Copy text={evmAddresses[data?.validatorAddress]} />
                           </Typography>
                         ) : (
                           "-"
@@ -337,24 +360,50 @@ const ValidatorsTable = ({
                         </TableCell>
                       )}
                       <TableCell>
-                        <Typography variant="body2">
-                          {data?.totalStake
-                            ? noExponential(
-                                toFixed(Number(data?.totalStake) / 10 ** 18, 4)
-                              )
-                            : "0"}{" "}
-                          {CURRENCY}
-                        </Typography>
+                        <Tooltip
+                          title={
+                            data?.selfStake
+                              ? noExponential(
+                                  Number(data?.totalStake) / 10 ** 18
+                                )
+                              : "0"
+                          }
+                          arrow
+                        >
+                          <Typography variant="body2">
+                            {data?.totalStake
+                              ? formatMillionNumber(
+                                  noExponential(
+                                    Number(data?.totalStake) / 10 ** 18
+                                  )
+                                )
+                              : "0"}{" "}
+                            {CURRENCY}
+                          </Typography>
+                        </Tooltip>
                       </TableCell>
                       <TableCell>
-                        <Typography variant="body2">
-                          {data?.selfStake
-                            ? noExponential(
-                                toFixed(Number(data?.selfStake) / 10 ** 18, 4)
-                              )
-                            : "0"}{" "}
-                          {CURRENCY}
-                        </Typography>
+                        <Tooltip
+                          title={
+                            data?.selfStake
+                              ? noExponential(
+                                  Number(data?.selfStake) / 10 ** 18
+                                )
+                              : "0"
+                          }
+                          arrow
+                        >
+                          <Typography variant="body2">
+                            {data?.selfStake
+                              ? formatMillionNumber(
+                                  noExponential(
+                                    Number(data?.selfStake) / 10 ** 18
+                                  )
+                                )
+                              : "0"}{" "}
+                            {CURRENCY}
+                          </Typography>
+                        </Tooltip>
                       </TableCell>
                       <TableCell>
                         <Typography variant="body2">
@@ -373,9 +422,7 @@ const ValidatorsTable = ({
                     </TableRow>
                   ))}
             </TableBody>
-            {(validatorStatus === "Success" &&
-              validatorListData?.length === 0) ||
-            validatorListData === undefined ? (
+            {validatorStatus === "Error" ? (
               <TableBody>
                 <TableRow>
                   <TableCell
@@ -396,7 +443,7 @@ const ValidatorsTable = ({
       {validatorListData?.length > 0 && totalPages > 1 && (
         <FlexBox
           sx={{
-            justifyContent: "center",
+            justifyContent: "end",
             paddingTop: "20px",
           }}
         >

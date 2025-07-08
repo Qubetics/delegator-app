@@ -3,7 +3,7 @@ import { Button, Dialog, styled, Box } from "@mui/material";
 
 export const StyledDialog = styled(Dialog)(({ theme }) => ({
   zIndex: 20000,
-  background: "rgba(8, 19, 44, 0.6)",
+  background: "rgba(0, 0, 0, 0.6)",
   backdropFilter: "blur(2px)",
   textAlign: "center",
   "& .MuiPaper-root": {
