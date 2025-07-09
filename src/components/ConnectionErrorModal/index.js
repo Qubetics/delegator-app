@@ -42,20 +42,16 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
               } else {
-                
                 if (response) {
-
                   console.log(
                     "address passing to showEvmAddress: ",
-                    response?.data?.address
+                    response?.data?.evmAddress
                   );
 
-                  let evmAddress = await showEvmAddress(
-                    response?.data?.address
-                  );
+                  let evmAddress = response?.data?.evmAddress;
 
                   dispatch(getWalletType("qubetics"));
-                  dispatch(logInSuccess(response?.data?.address));
+                  dispatch(logInSuccess(response?.data?.valoperAddress));
                   dispatch(getEvmAddress(evmAddress));
                   return toast.success("Logged In Successfully");
                 }
