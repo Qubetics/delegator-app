@@ -36,18 +36,14 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
             "nativeConnect",
             data,
             async (error, response) => {
+              console.log("response : ", response);
               if (response?.type == "error") {
-                console.log("response : ", response);
-                
                 setIsLoading(false);
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
               } else {
                 if (response) {
-                  console.log(
-                    "user EvmAddress: ",
-                    response?.data?.evmAddress
-                  );
+                  console.log("user EvmAddress: ", response?.data?.evmAddress);
 
                   let evmAddress = response?.data?.evmAddress;
 
