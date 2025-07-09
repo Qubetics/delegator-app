@@ -37,6 +37,8 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
             data,
             async (error, response) => {
               if (response?.type == "error") {
+                console.log("response : ", response);
+                
                 setIsLoading(false);
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
@@ -50,7 +52,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                   let evmAddress = response?.data?.evmAddress;
 
                   dispatch(getWalletType("qubetics"));
-                  dispatch(logInSuccess(response?.data?.valoperAddress));
+                  dispatch(logInSuccess(response?.data?.address));
                   dispatch(getEvmAddress(evmAddress));
                   return toast.success("Logged In Successfully");
                 }
