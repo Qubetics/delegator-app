@@ -3,7 +3,9 @@ import { fromBech32, toHex, fromHex, toBech32 } from "@cosmjss/encoding";
 export const showEvmAddress = (address) => {  
   if (address) {
     return new Promise((resolve, reject) => {
-      try {
+      try {     
+        console.log("fromBech32(address).data : ", toHex(fromBech32(address).data));
+           
         const evmAddress = toHex(fromBech32(address).data);
         resolve("0x" + evmAddress);
       } catch (err) {

@@ -1,6 +1,6 @@
 /*eslint-disable*/
-import { Button } from "@mui/material";
-import { CancelIconWrapper, DialogContent, StyledDialog } from "./styles";
+// import { Button } from "@mui/material";
+import { DialogContent, StyledDialog } from "./styles";
 import { OsmosisChainInfo } from "../../constants";
 import { showEvmAddress } from "../../services/showEvmAddress";
 import {
@@ -36,12 +36,20 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
             "nativeConnect",
             data,
             async (error, response) => {
+              console.log("response:  ", response);
               if (response?.type == "error") {
                 setIsLoading(false);
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
               } else {
+                
                 if (response) {
+
+                  console.log(
+                    "address passing to showEvmAddress: ",
+                    response?.data?.address
+                  );
+
                   let evmAddress = await showEvmAddress(
                     response?.data?.address
                   );
