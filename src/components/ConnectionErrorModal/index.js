@@ -36,15 +36,16 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
             "nativeConnect",
             data,
             async (error, response) => {
+              console.log("response : ", response);
               if (response?.type == "error") {
                 setIsLoading(false);
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
               } else {
                 if (response) {
-                  let evmAddress = await showEvmAddress(
-                    response?.data?.address
-                  );
+                  console.log("user EvmAddress: ", response?.data?.evmAddress);
+
+                  let evmAddress = response?.data?.evmAddress;
 
                   dispatch(getWalletType("qubetics"));
                   dispatch(logInSuccess(response?.data?.address));
@@ -143,6 +144,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 Keplr Connect
               </button>
             </div>
+            {/* Enable Qubetics wallet when needed By uncomment this code*/}
             {/* <div className="connectionAttempt_btn_inner">
               <img src={LogoSmall} alt="logo" />
               <button
