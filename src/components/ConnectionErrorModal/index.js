@@ -144,8 +144,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 Keplr Connect
               </button>
             </div>
-            {/* Enable Qubetics wallet when needed By uncomment this code*/}
-            {/* <div className="connectionAttempt_btn_inner">
+            <div className="connectionAttempt_btn_inner">
               <img src={LogoSmall} alt="logo" />
               <button
                 className=""
@@ -153,7 +152,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
               >
                 Qubetics Wallet
               </button>
-            </div> */}
+            </div>
             <div className="connectionAttempt_btn_inner">
               <img src={cosmostation} alt="logo" />
 
