@@ -1,6 +1,6 @@
 /*eslint-disable*/
-import { Button } from "@mui/material";
-import { CancelIconWrapper, DialogContent, StyledDialog } from "./styles";
+// import { Button } from "@mui/material";
+import { DialogContent, StyledDialog } from "./styles";
 import { OsmosisChainInfo } from "../../constants";
 import { showEvmAddress } from "../../services/showEvmAddress";
 import {
@@ -36,19 +36,22 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
             "nativeConnect",
             data,
             async (error, response) => {
-              console.log("response : ", response);
+              console.log("response:  ", response);
               if (response?.type == "error") {
                 setIsLoading(false);
                 toast.error(response?.data?.message || "Something went wrong");
                 return;
               } else {
                 if (response) {
-                  console.log("user EvmAddress: ", response?.data?.evmAddress);
+                  console.log(
+                    "address passing to showEvmAddress: ",
+                    response?.data?.evmAddress
+                  );
 
                   let evmAddress = response?.data?.evmAddress;
 
                   dispatch(getWalletType("qubetics"));
-                  dispatch(logInSuccess(response?.data?.address));
+                  dispatch(logInSuccess(response?.data?.valoperAddress));
                   dispatch(getEvmAddress(evmAddress));
                   return toast.success("Logged In Successfully");
                 }
@@ -144,8 +147,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                 Keplr Connect
               </button>
             </div>
-            {/* Enable Qubetics wallet when needed By uncomment this code*/}
-            {/* <div className="connectionAttempt_btn_inner">
+            <div className="connectionAttempt_btn_inner">
               <img src={LogoSmall} alt="logo" />
               <button
                 className=""
@@ -153,7 +155,7 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
               >
                 Qubetics Wallet
               </button>
-            </div> */}
+            </div>
             <div className="connectionAttempt_btn_inner">
               <img src={cosmostation} alt="logo" />
 
