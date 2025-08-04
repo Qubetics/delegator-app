@@ -65,6 +65,20 @@ const Dashboard = () => {
       <DashboardValidatorCard />
 
       <DelegatorInfos />
+      <div
+        style={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "start",
+          alignItems: "center",
+        }}
+      >
+        <h4>Note:</h4>
+        <span>
+          Blockchain data may take time to update. Please refresh the page to
+          fetch the latest information.
+        </span>
+      </div>
       <Container>
         <section className="validator-status mb-0">
           <div
