@@ -49,9 +49,9 @@ const ConnectionErrorModal = ({ connectionOpen, connectionClose }) => {
                   );
 
                   let evmAddress = response?.data?.evmAddress;
-
+                  console.log(response, "resp");
                   dispatch(getWalletType("qubetics"));
-                  dispatch(logInSuccess(response?.data?.valoperAddress));
+                  dispatch(logInSuccess(response?.data?.address));
                   dispatch(getEvmAddress(evmAddress));
                   return toast.success("Logged In Successfully");
                 }

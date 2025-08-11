@@ -16,6 +16,7 @@ export async function getUserBalance(address) {
     denom,
     tendermint,
   });
+
   const remainingBalance = noExponential(Number(balance?.amount) / 10 ** 18);
   return remainingBalance;
 }
