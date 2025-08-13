@@ -99,7 +99,7 @@ const Login = () => {
       <div className="auth-wrapper">
         <>
           <div className="auth-wrapper__inner">
-            <Typography variant="h3">Delegator Aplication</Typography>
+            <Typography variant="h3">Delegator Application</Typography>
             <form>
               {/* <TextField
                 label="Mnemonics"
