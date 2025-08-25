@@ -284,8 +284,10 @@ const Redelegate = () => {
                 onChange={handleChange}
                 helperText={
                   <>
-                    <strong>Note:</strong> Your account status may take some
+                    <strong>Note 1:</strong> Your account status may take some
                     time to update and reflect on the dashboard.
+                    <strong>Note 2:</strong> Your total reward balance will be
+                    staked while redelegating.
                   </>
                 }
                 autoComplete="off"
@@ -293,10 +295,16 @@ const Redelegate = () => {
             </div>
           )}
           {walletType !== "noWallet" && (
-            <div className="redelect" style={{ marginTop: "30px" }}>
-              <strong>Note:</strong> Your account status may take some time to
-              update and reflect on the dashboard.
-            </div>
+            <>
+              <div className="redelect" style={{ marginTop: "30px" }}>
+                <strong>Note 1:</strong> Your account status may take some time
+                to update and reflect on the dashboard.
+              </div>
+              <div className="redelect" style={{ marginTop: "30px" }}>
+                <strong>Note 2:</strong> Your total reward balance will be
+                staked while redelegating.
+              </div>
+            </>
           )}
           <Button
             onClick={handleReDelegation}

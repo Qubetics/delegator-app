@@ -153,8 +153,8 @@ const Statistics = () => {
             )}
           </Box>
         </StatItem>
-
-        <StatItem className="cardbg">
+        {/* Uncomment to show Inflation */}
+        {/* <StatItem className="cardbg">
           <div className="icon-wrap thirdbg icon-large">
             <InfliationIcon />
           </div>
@@ -190,7 +190,7 @@ const Statistics = () => {
               </>
             )}
           </Box>
-        </StatItem>
+        </StatItem> */}
 
         <StatItem className="cardbg">
           <div className="icon-wrap fourthbg">
