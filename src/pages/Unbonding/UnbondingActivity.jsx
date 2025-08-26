@@ -12,6 +12,7 @@ import {
   Button,
   LinearProgress,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { CopyIcon } from "../../assets/Icons/SvgIcon";
 import { Wrapper } from "./styles";
 
@@ -30,6 +31,7 @@ const StyledHeaderCell = styled(StyledTableCell)(() => ({
   textTransform: "uppercase",
 }));
 
+
 const CancelButton = styled(Button)(() => ({
   background: "#2a1c1c",
   border: "1px solid #a33a3a",
@@ -42,10 +44,7 @@ const CancelButton = styled(Button)(() => ({
   display: "flex",
   alignItems: "center",
   gap: "6px",
-  "&:hover": {
-    background: "#ff4d4f",
-    color: "#fff",
-  },
+  "&:hover": { background: "#ff4d4f", color: "#fff" },
   "&::before": { content: '"unset !important"', display: "none !important" },
 }));
 
@@ -85,35 +84,79 @@ const Avatar = styled("div")(() => ({
   color: "#fff",
 }));
 
-// ===== Static Data =====
+// ===== Sample Data (created date only) =====
 const unbondingData = [
   {
     validator: "QubeCore",
     address: "0xc6a6...6805",
     amount: "15.0000 TICS",
-    eta: "08/09/2025, 15:30:00",
-    countdown: "13d 0h 47m 44s",
-    progress: 35,
+    createdAt: "2025-08-25T15:30:00", // starting date
   },
   {
     validator: "ArcNode Labs",
     address: "0x73e4...42AA",
     amount: "7.0400 TICS",
-    eta: "14/09/2025, 18:00:00",
-    countdown: "19d 3h 17m 44s",
-    progress: 20,
+    createdAt: "2025-08-20T18:00:00",
   },
   {
     validator: "Helix Staking",
     address: "0x5bd1...e8F9",
     amount: "42.0000 TICS",
-    eta: "16/09/2025, 11:30:00",
-    countdown: "20d 20h 47m 44s",
-    progress: 10,
+    createdAt: "2025-08-10T11:30:00",
   },
 ];
 
+const TOTAL_DURATION = 14 * 24 * 60 * 60 * 1000; // 14 days in ms
+
+// Format countdown
+const formatCountdown = (ms) => {
+  if (ms <= 0) return "Completed";
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((ms / (1000 * 60)) % 60);
+  const seconds = Math.floor((ms / 1000) % 60);
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};
+
 const UnbondingActivity = () => {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    const updateCountdowns = () => {
+      const now = Date.now();
+
+      const updated = unbondingData.map((row) => {
+        const start = new Date(row.createdAt).getTime();
+        const end = start + TOTAL_DURATION;
+
+        const remaining = end - now;
+        const elapsed = now - start;
+
+        const progress =
+          elapsed <= 0
+            ? 0
+            : elapsed >= TOTAL_DURATION
+            ? 100
+            : (elapsed / TOTAL_DURATION) * 100;
+
+        return {
+          ...row,
+          eta: new Date(end).toLocaleString(),
+          countdown: formatCountdown(remaining),
+          progress,
+          disableCancel: remaining <= 0,
+        };
+      });
+
+      setRows(updated);
+    };
+
+    updateCountdowns();
+
+    const timer = setInterval(updateCountdowns, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const copyToClipboard = (address) => {
     navigator.clipboard.writeText(address);
     alert("Address Copied!");
@@ -137,8 +180,8 @@ const UnbondingActivity = () => {
 
       <Wrapper>
         <div className="common-table">
-          <TableContainer component={Paper} className="">
-            <Table aria-label="unbonding table" className="common-table">
+          <TableContainer component={Paper}>
+            <Table aria-label="unbonding table">
               <TableHead>
                 <TableRow>
                   <StyledHeaderCell>VALIDATOR NAME</StyledHeaderCell>
@@ -150,7 +193,7 @@ const UnbondingActivity = () => {
               </TableHead>
 
               <TableBody>
-                {unbondingData.map((row, index) => (
+                {rows.map((row, index) => (
                   <TableRow key={index}>
                     {/* Validator Name */}
                     <StyledTableCell>
@@ -200,7 +243,11 @@ const UnbondingActivity = () => {
 
                     {/* Action */}
                     <StyledTableCell>
-                      <CancelButton>Cancel Unbond</CancelButton>
+                      {row.disableCancel ? ("Unbond Completed" ) : (
+                        <CancelButton disabled={row.disableCancel}>
+                        Cancel Unbond
+                      </CancelButton> ) }
+                      
                     </StyledTableCell>
                   </TableRow>
                 ))}
@@ -214,8 +261,8 @@ const UnbondingActivity = () => {
         variant="caption"
         sx={{ color: "#777", fontSize: "13px", mt: 2, display: "block" }}
       >
-        Note: Unbonding periods vary by network. ETA shows your local time.
-        Progress bar visualizes elapsed time from unbond start to completion.
+        Note: Unbonding period is fixed to 14 days from creation. Cancel button
+        is only active before unbonding completes.
       </Typography>
     </div>
   );

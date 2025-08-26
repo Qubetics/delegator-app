@@ -73,7 +73,7 @@ const Dashboard = () => {
           alignItems: "center",
         }}
       >
-        <h4>Note:</h4>
+        <h4>Note:&nbsp; </h4>
         <span>
           Blockchain data may take time to update. Please refresh the page to
           fetch the latest information.

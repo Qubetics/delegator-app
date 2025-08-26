@@ -38,21 +38,20 @@ const DelegatorInfos = () => {
         title="Total Rewards:"
         value={
           widgets?.totalRewards
-            ? noExponential(toFixed(Number(widgets?.totalRewards), 3))
+            ? noExponential(toFixed(widgets?.totalRewards/10**18, 3))
             : 0
         }
         loading={loading}
         style={{
           maxWidth: 360,
         }}
-        tooltipContent="Approx. value of rewards earned by the delegator"
-      />
-      <Card
+        tooltipContent='Your total rewards from active delegations so far. This amount updates in real time as your stake earns rewards. When you do the "bond more" or "redelegate" action, these rewards are transferred to your available balance and added to the rewards claimed section.'
+      />      <Card
         icon={<StakingIcon />}
         title="Total Stake Amount:"
         value={
           widgets?.totalStake
-            ? noExponential(toFixed(widgets?.totalStake, 3))
+            ? noExponential(toFixed((widgets?.totalStake/10**18), 3))
             : 0
         }
         loading={loading}

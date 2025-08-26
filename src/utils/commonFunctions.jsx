@@ -21,6 +21,7 @@ export const noExponential = (num) => {
   return Number(num).noExponents();
 };
 
+
 export function capitalizeFirstLetter(string) {
   return string?.charAt(0)?.toUpperCase() + string?.slice(1);
 }
@@ -44,6 +45,30 @@ export const formatMillionNumber = (num) => {
       break;
     default:
       formattedNumber = Number(num).toFixed(4);
+      break;
+  }
+
+  return formattedNumber;
+};
+export const formatMillionNumberOnTolTip = (num) => {
+  if (!num || num === null || num === undefined) return 0;
+  let formattedNumber;
+
+  switch (true) {
+    case num >= 1e12:
+      formattedNumber = (num / 1e12)+ " T";
+      break;
+    case num >= 1e9:
+      formattedNumber = (num / 1e9) + " B";
+      break;
+    case num >= 1e6:
+      formattedNumber = (num / 1e6) + " M";
+      break;
+    case num >= 1e3:
+      formattedNumber = (num / 1e3) + " K";
+      break;
+    default:
+      formattedNumber = Number(num);
       break;
   }
 
