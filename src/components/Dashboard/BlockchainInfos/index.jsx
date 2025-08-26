@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import StakingIcon from "../../../assets/Icons/StakingIcon";
 import ValidatorsNewIcon from "../../../assets/Icons/ValidatorsNewIcon";
 import getDelegatorWidgets from "../../../services/api/getDelegatorWidgets";
-import { noExponential } from "../../../utils/commonFunctions";
+import { formatMillionNumber, formatMillionNumberOnTolTip, noExponential } from "../../../utils/commonFunctions";
 import { toFixed } from "../../../utils/helper";
 import { Skeleton } from "@mui/material";
 
@@ -38,9 +38,10 @@ const DelegatorInfos = () => {
         title="Total Rewards:"
         value={
           widgets?.totalRewards
-            ? noExponential(toFixed(widgets?.totalRewards/10**18, 3))
+            ? formatMillionNumber((widgets?.totalRewards/10**18))
             : 0
         }
+        fullToolTipValue={widgets?.totalRewards ? formatMillionNumberOnTolTip((widgets?.totalRewards/10**18)):0}
         loading={loading}
         style={{
           maxWidth: 360,
@@ -51,10 +52,11 @@ const DelegatorInfos = () => {
         title="Total Stake Amount:"
         value={
           widgets?.totalStake
-            ? noExponential(toFixed((widgets?.totalStake/10**18), 3))
+            ? formatMillionNumber((widgets?.totalStake/10**18))
             : 0
         }
         loading={loading}
+        fullToolTipValue={widgets?.totalStake ? formatMillionNumberOnTolTip((widgets?.totalStake/10**18)):0}
         style={{
           maxWidth: 360,
         }}
