@@ -17,6 +17,7 @@ import { logout } from "../redux/Reducer/auth";
 import TxDetails from "../pages/TxDetails/index";
 
 const Login = lazy(() => import("../pages/Login"));
+const Unbonding = lazy(() => import("../pages/Unbonding"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
 const BlocksPage = lazy(() => import("../pages/Blocks"));
 const Validators = lazy(() => import("../pages/Validators"));
@@ -63,6 +64,7 @@ const RoutePath = () => {
 
           <Route path="/blocks" element={<BlocksPage />} />
           <Route path="/validators" element={<Validators />} />
+          <Route path="/unbonding" element={<Unbonding />} />
           <Route
             path="/validators/:address"
             element={
