@@ -200,6 +200,10 @@ const Bond = () => {
       console.error(err);
     }
   };
+   const notes = [
+    "Your account status may take some time to update and reflect on the dashboard.",
+    "Your reward earned balance will be transferred to available balance while doing this action.",
+  ];
   return (
     <>
       <DetailsBox address={selectedAccounts?.accounts} />
@@ -257,10 +261,14 @@ const Bond = () => {
             </div>
           )}
           {walletType !== "noWallet" && (
-            <div className="common-wrapper__amount redelect">
-              <strong>Note :</strong> Your account status may take some time to
-              update and reflect on the dashboard.
-            </div>
+            <div className="redelect">
+                <strong>Note :</strong>
+                {notes.map((note, index) => (
+                  <p key={index}>
+                    <strong>{index + 1}.</strong> {note}
+                  </p>
+                ))}
+              </div>
           )}
           <Button
             variant="outlined"

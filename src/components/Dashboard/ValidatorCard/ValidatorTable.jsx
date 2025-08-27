@@ -13,7 +13,11 @@ import {
 import NotFound from "../../Common/NotFound";
 import { Link } from "react-router-dom";
 import { getAddress, toFixed, toPrecision } from "../../../utils/helper";
-import { formatMillionNumber, noExponential } from "../../../utils/commonFunctions";
+import {
+  formatMillionNumber,
+  formatMillionNumberOnTolTip,
+  noExponential,
+} from "../../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { selectedAccounts } from "../../../redux/Reducer/drawer";
 import SkeletonRow from "../../SkeletonRow/SkeletonRow";
@@ -63,7 +67,6 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
       fetchEvmAddresses();
     }
   }, [dashboardData]);
-
   return (
     <TableContainer component={Paper} sx={{ borderRadius: "0 !important" }}>
       {dashboardStatus === "Idle" || dashboardStatus === "Fetching" ? (
@@ -153,40 +156,36 @@ const ValidatorTable = ({ dashboardData, dashboardStatus }) => {
                     ) : (
                       "-"
                     )}
-                    <Copy text={evmAddresses[item?.validatorAddress]}/>
+                    <Copy text={evmAddresses[item?.validatorAddress]} />
                   </Typography>
                 </TableCell>
 
                 <TableCell>
-                   <Tooltip
-                     title={
-                          ((item?.balanceAmount))}
-                    arrow
-                   >
-                  <Typography
-                    variant="body2"
-                    title={toPrecision(item?.balanceAmount)}
-                  >
-                    {item?.balanceAmount
-                      ? formatMillionNumber(toPrecision(item?.balanceAmount))
-                      : "0"}
-                  </Typography>
+                  <Tooltip title={formatMillionNumberOnTolTip((item?.balanceAmount/10**18))} arrow>
+                    <Typography
+                      variant="body2"
+                      title={toPrecision(item?.balanceAmount)}
+                    >
+                      {item?.balanceAmount
+                        ? formatMillionNumber(toPrecision(item?.balanceAmount))
+                        : "0"}
+                    </Typography>
                   </Tooltip>
                 </TableCell>
                 <TableCell>
-                    <Tooltip
-                     title={
-                          ( noExponential((item?.totalRewards)))}
+                  <Tooltip
+                    title={formatMillionNumberOnTolTip((item?.delegatorRewards/10**18))}
                     arrow
-                   >
-                  <Typography
-                    variant="body2"
-                    title={noExponential(item?.totalRewards)}
                   >
-                    {item?.totalRewards
-                      ? formatMillionNumber( noExponential(toFixed(item?.totalRewards, 4)))
-                      : "0"}
-                  </Typography>
+                    <Typography
+                      variant="body2"
+                      title={noExponential((item?.delegatorRewards/10**18))}
+                    >
+                      {item?.delegatorRewards
+                        ? formatMillionNumber((item?.delegatorRewards/10**18))
+                          
+                        : "0"}
+                    </Typography>
                   </Tooltip>
                 </TableCell>
                 <TableCell>

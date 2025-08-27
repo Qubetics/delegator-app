@@ -1,40 +1,40 @@
-import BlocksIcon from '../assets/Icons/BlocksIcon';
-import LoginIcon from '../assets/Icons/LoginIcon';
-import ValidatorIcon from '../assets/Icons/ValidatorIcon';
-import DashboardIcon from '../assets/Icons/DashboardIcon';
+import BlocksIcon from "../assets/Icons/BlocksIcon";
+import LoginIcon from "../assets/Icons/LoginIcon";
+import ValidatorIcon from "../assets/Icons/ValidatorIcon";
+import DashboardIcon from "../assets/Icons/DashboardIcon";
 
 export const notLoggedInRoutes = [
   {
-    path: '/login',
+    path: "/login",
     Icon: LoginIcon,
-    label: 'Log In',
+    label: "Log In",
   },
   {
-    path: '/blocks',
+    path: "/blocks",
     Icon: BlocksIcon,
-    label: 'Blocks',
+    label: "Blocks",
   },
   {
-    path: '/validators',
+    path: "/validators",
     Icon: ValidatorIcon,
-    label: 'Validators',
+    label: "Validators",
   },
 ];
 
 export const loggedInRoutes = [
   {
-    path: '/dashboard',
+    path: "/dashboard",
     Icon: DashboardIcon,
-    label: 'Dashboard',
+    label: "Dashboard",
   },
   {
-    path: '/blocks',
+    path: "/blocks",
     Icon: BlocksIcon,
-    label: 'Blocks',
+    label: "Blocks",
   },
   {
-    path: '/validators',
+    path: "/validators",
     Icon: ValidatorIcon,
-    label: 'Validators',
+    label: "Validators",
   },
 ];
