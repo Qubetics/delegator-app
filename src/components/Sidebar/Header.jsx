@@ -158,14 +158,14 @@ function Header() {
                     >
                       Validators
                     </Link>
-                     {/* <Link
+                     <Link
                       to="/unbonding"
                       className={`link ${
                         pathname === "/unbonding" ? "active" : ""
                       }`}
                     >
                       Unbonding
-                    </Link> */}
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -245,14 +245,14 @@ function Header() {
                   >
                     Validators
                   </Link>
-                   {/* <Link
+                   <Link
                       to="/unbonding"
                       className={`link ${
                         pathname === "/unbonding" ? "active" : ""
                       }`}
                     >
                       Unbonding
-                    </Link> */}
+                    </Link>
                 </li>
               </ul>
             </div>

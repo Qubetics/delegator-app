@@ -6,7 +6,7 @@ export const BASE_URL_EXPLORER =
 export const BASE_URL_EXPLORER_LINKS_TESTNET =
   process.env.REACT_APP_EXPLORER_NAVIGATION_LINK;
 export const DECIMAL_VALUE = process.env.REACT_APP_DECIMAL_VALUE;
-
+export const SWAGGER_URL=process.env.REACT_APP_SWAGGER_API;
 export const PAGE_LIMIT = 10;
 
 export const ERA_TIME = process.env.REACT_APP_ERA_TIME;
