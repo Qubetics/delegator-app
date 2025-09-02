@@ -188,21 +188,19 @@ const UnbondingActivity = () => {
           },
           (err, res) => {
             setIsLoading(false);
-
-            if (err || res?.type === "error") {
+            if (err != null || res?.type === "error") {
               const errorMessage = err?.message || err?.toString() || "";
-              if (
-                errorMessage.includes(
-                  "validator for this address is currently jailed"
-                )
-              ) {
+
+              if (errorMessage.includes( "validator for this address is currently jailed")) {
                 toast.error("Validator for this address is currently jailed");
+              } else if (res?.data?.message) {
+                toast.error(res.data.message);
+              } else if (errorMessage) {
+                toast.error(errorMessage);
               } else {
-                toast.error(errorMessage || "Cancel unbonding failed");
+                toast.error("Transaction failed");
               }
-              return toast.error(
-                res?.data?.message || err?.message || "Transaction failed"
-              );
+               return;
             }
             dispatch(isTxOccur(true));
 
