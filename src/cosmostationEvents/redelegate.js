@@ -42,13 +42,13 @@ export const cosmostationRedelegate = async (
         OsmosisChainInfo,
         key.bech32Address,
         [protoMsgs],
-        [{ denom: "tics", amount: "100000000" }] //Dummy payload just to get estimate fee
+        [{ denom: "tics", amount: "100000000" }] 
       );
 
       let res = "";
 
       if (gasUsed) {
-        const gasLimit = Math.floor(gasUsed * 1.3); //Buffer
+        const gasLimit = Math.floor(gasUsed * 1.3); 
         const feeAmount = Math.ceil(gasLimit * gasPrice).toString();
 
         res = await sendMsgs(
