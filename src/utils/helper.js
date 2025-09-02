@@ -56,3 +56,34 @@ export function toPrecisionMultiply(num) {
 }
 
 export const HD_PATHS = [stringToPath("m/44'/60'/0'/0/0")];
+
+
+export const formatUnbondingTime = (timeString) => {
+  const seconds = parseInt(timeString?.replace("s", ""), 10);
+  if (isNaN(seconds)) return "-";
+
+  const days = Math.floor(seconds / (3600 * 24));
+  const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+
+  if (days > 0) {
+    return hours > 0
+      ? `${days} days ${hours} hours`
+      : `${days} days`;
+  }
+  if (hours > 0) {
+    return minutes > 0
+      ? `${hours} hours ${minutes} minutes`
+      : `${hours} hours`;
+  }
+  return `${minutes} minutes`;
+};
+
+ export const formatCountdown = (ms) => {
+  if (ms <= 0) return "Completed";
+  const days = Math.floor(ms / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((ms / (1000 * 60)) % 60);
+  const seconds = Math.floor((ms / 1000) % 60);
+  return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};

@@ -5,7 +5,12 @@ export const checkTransaction = async (userAddress, navigate) => {
   try {
     const txLogs = await getTransactionLogs(userAddress);
     if (txLogs?.result?.tx_result?.data === null) {
-      toast.error("Transaction failed");
+      const errorMessage =txLogs?.result?.tx_result?.log||"";
+       if(errorMessage.includes("validator for this address is currently jailed")){
+          toast.error("Validator for this address is currently jailed.")
+       } else{
+         toast.error("Transaction failed");
+       }
       navigate("/dashboard");
       return false;
     } else {
