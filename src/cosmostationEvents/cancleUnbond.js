@@ -70,7 +70,16 @@ userAddress,
       }
     } catch (error) {
       setIsLoading(false);
-      toast.error(error?.message ?? "Something went wrong!");
+     // toast.error(error?.message ?? "Something went wrong!");
+
+        const errorMessage = error?.message || error?.toString() || "";
+
+  if (errorMessage.includes("validator for this address is currently jailed")) {
+    toast.error("Validator for this address is currently jailed");
+  } else {
+    toast.error(errorMessage || "Cancel unbonding failed");
+  }
+
       if (error instanceof Error) {
         console.log("Error while bondMore using cosmostation: ", error?.message);
       } else {

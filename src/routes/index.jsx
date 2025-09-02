@@ -64,7 +64,14 @@ const RoutePath = () => {
 
           <Route path="/blocks" element={<BlocksPage />} />
           <Route path="/validators" element={<Validators />} />
-          <Route path="/unbonding" element={<Unbonding />} />
+          <Route
+            path="/unbonding"
+            element={
+              <PrivateRouter>
+                <Unbonding />
+              </PrivateRouter>
+            }
+          />
           <Route
             path="/validators/:address"
             element={

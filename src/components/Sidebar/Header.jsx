@@ -245,14 +245,15 @@ function Header() {
                   >
                     Validators
                   </Link>
-                   <Link
+                  {isLoggedIn&&(    <Link
                       to="/unbonding"
                       className={`link ${
                         pathname === "/unbonding" ? "active" : ""
                       }`}
                     >
                       Unbonding
-                    </Link>
+                    </Link>)}
+               
                 </li>
               </ul>
             </div>
