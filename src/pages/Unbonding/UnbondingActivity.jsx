@@ -20,7 +20,14 @@ import {
   getAddress,
 } from "../../utils/helper";
 import { CopyIcon } from "../../assets/Icons/SvgIcon";
-import { Avatar, CancelButton, CopyButton, StyledHeaderCell, StyledTableCell, Wrapper } from "./styles";
+import {
+  Avatar,
+  CancelButton,
+  CopyButton,
+  StyledHeaderCell,
+  StyledTableCell,
+  Wrapper,
+} from "./styles";
 import { toast } from "../../components/toast/Toast";
 import { useNavigate } from "react-router-dom";
 import { keplerCancelUnbond } from "../../keplrEvents/keplrCancleUnbond";
@@ -102,7 +109,7 @@ const UnbondingActivity = () => {
 
   const copyToClipboard = (address) => {
     if (!address) return;
-     navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(address);
     toast.success("Address Copied!");
   };
 
@@ -180,10 +187,19 @@ const UnbondingActivity = () => {
             nodeUrl,
           },
           (err, res) => {
-            console.log("res:", res);
             setIsLoading(false);
 
             if (err || res?.type === "error") {
+              const errorMessage = err?.message || err?.toString() || "";
+              if (
+                errorMessage.includes(
+                  "validator for this address is currently jailed"
+                )
+              ) {
+                toast.error("Validator for this address is currently jailed");
+              } else {
+                toast.error(errorMessage || "Cancel unbonding failed");
+              }
               return toast.error(
                 res?.data?.message || err?.message || "Transaction failed"
               );

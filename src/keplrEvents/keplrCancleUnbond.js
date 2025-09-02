@@ -79,8 +79,16 @@ export const keplerCancelUnbond = async (
       throw new Error("Transaction failed. Please try again.");
     }
   } catch (err) {
-    console.error(err);
-    toast.error(err.message || "Cancel unbonding failed");
+  console.error(err);
+
+  const errorMessage = err?.message || err?.toString() || "";
+
+  if (errorMessage.includes("validator for this address is currently jailed")) {
+    toast.error("Validator for this address is currently jailed");
+  } else {
+    toast.error(errorMessage || "Cancel unbonding failed");
+  }
+
     setIsLoading(false);
   }
 };
