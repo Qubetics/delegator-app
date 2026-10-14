@@ -2,6 +2,7 @@
   "name": "qubetics-delegator-app",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@cosmjs/proto-signing": "^0.33.1",
