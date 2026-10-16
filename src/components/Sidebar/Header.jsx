@@ -4,7 +4,6 @@ import DownIcon from "../../assets/Icons/DownIcon";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Descktop, Drawersidebar, Mobilereasponsive } from "./styles";
 import { Menu, MenuItem, Button, Drawer } from "@mui/material";
-import useStyles from "./styles";
 import Sidebar from "../Sidebar";
 import MenuIcon from "../../assets/Icons/MenuIcon";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,115 +1,17 @@
-# 📘 DELEGATOR Application
-This project is a **Delegator Application** built for interacting with Cosmos SDK-based blockchains.  
-It empowers users to **delegate their tokens** to validators and actively participate in the staking economy — earning rewards while contributing to network security.
+# Qubetics Delegator App
 
-The application provides:
+Frontend for delegating, redelegating, and managing staking positions on Qubetics.
 
-- 🔐 Secure wallet integration (Keplr)
-- 🔎 Validator list with performance metrics
-- 🪙 Delegation, re-delegation, and un-delegation flows
-- 📈 Real-time updates on staking rewards
-- 🧾 Delegation history and transaction tracking
+## Branches
 
-Built for performance and ease of use, this app helps delegators manage their staking positions in a transparent and user-friendly way.
+- `prod` is for mainnet.
+- `testnet` is for testnet.
 
+## Local setup
 
-##
+1. Install dependencies with `npm install --force` (the repository currently has no committed lock file).
+2. Copy `.env.example` to `.env` and replace each placeholder with the correct network configuration. These `REACT_APP_*` values are included in the browser bundle; do not put secrets in them.
+3. Run `npm start` for development or `npm run build` for a production build.
+4. Run `npm test -- --watchAll=false` for tests. The repository currently has no test files.
 
-## 📂 Folder Structure
-
-```
-your-project/
-├── public/
-│   └── index.html
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   ├── App.js
-│   └── index.js
-├── .gitignore
-├── package.json
-└── README.md
-```
----
-
-## 🛠️ Getting Started
-
-Follow these steps to clone and run the application locally.
-
-### 📥 1. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/your-repo-name.git
-```
-
-### 📂 2. Move into the Project Directory
-
-```bash
-cd your-repo-name
-```
-```Checkout to prod branch
-git checkout prod
-```
-
-```Create a new branch from prod
-git checkout -b Branch_name
-```
-### 📦 3. Install Dependencies
-
-```bash
-npm install 
-# or
-yarn install
-```
-
-### ▶️ 4. Start the Development Server
-
-```bash
-npm start
-# or
-yarn start
-```
-
-Your app will now be running at:
-
-```
-http://localhost:3000
-```
-
----
-
-## 📋 Requirements
-
-- Node.js (version 16 or above recommended)
-- npm or yarn
-
----
-
-## 🧪 Available Scripts
-
-In the project directory, you can run:
-
-| Command           | Description                            |
-|-------------------|----------------------------------------|
-| `npm start`       | Runs the app in development mode       |
-| `npm run build`   | Builds the app for production          |
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
-
-The MIT License applies to this project's original code. Third-party dependencies and bundled third-party code or assets retain their respective licenses and notices.
-
----
-## ENV Example
-REACT_APP_NAME= APP_NAME
-REACT_APP_CURRENCY=CURRENCY_NAME
-REACT_APP_SOCKET_HOST="NODE_SOCKET_URL"
-REACT_APP_BASE_URL_EXPLORER_API_LINKS = "YOUR_SITE_API_URL"
-REACT_APP_EXPLORER_NAVIGATION_LINK="YOUR_SITE_URL"
-REACT_APP_DECIMAL_VALUE=TOKEN_DECIMAL
-REACT_APP_BASE_URL_NOMINATOR="YOUR_NATIVE_API_URL"
-REACT_APP_FEE_DEDUCTION=MIN_FEE_DEDUCTION
+The Dockerfile currently builds with Node 16 and runs `npm i --force`; Node 16 is end-of-life, so upgrade it only after checking dependency compatibility.
